@@ -1,3 +1,4 @@
+import Menu from './nav/Menu';
 import Hero from './Hero';
 import WhatIsVip from './WhatIsVip';
 import FeelSafe from './FeelSafe';
@@ -6,4 +7,4 @@ import Faq from './Faq';
 import ContactUs from './ContactUs';
 import Footer from './Footer';
 
-export { Hero, WhatIsVip, FeelSafe, AVipPhone, Faq, ContactUs, Footer };
+export { Menu, Hero, WhatIsVip, FeelSafe, AVipPhone, Faq, ContactUs, Footer };
