@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Faq = () => {
-	return <div>Faq</div>;
+	return (
+		<>
+			<div></div>
+		</>
+	);
 };
 
 export default Faq;

@@ -1,19 +1,22 @@
 import React from 'react';
 import Navbar from './Navbar';
+import './Menu.css';
+
+import { vipLogo } from '../../assets';
 
 const Header = () => {
 	return (
-		<header>
-			<div className='nav-area flex justify-between'>
-				<div>
-					<a href='/' className='logo'>
-						Logo
+		<>
+			<header>
+				<div className='nav-area flex justify-between'>
+					<a href='/'>
+						<img className='VipLogo' href={vipLogo} alt='Vip Safety First Logo'></img>
 					</a>
-				</div>
 
-				<Navbar />
-			</div>
-		</header>
+					<Navbar />
+				</div>
+			</header>
+		</>
 	);
 };
 

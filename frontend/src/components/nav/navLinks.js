@@ -5,54 +5,18 @@ export const navLinks = [
 	},
 	{
 		id: 'products',
-		title: 'PRODUCTS',
-		submenu: [
-			{
-				id: 'callForwarding',
-				title: 'Call Forwarding',
-			},
-			{
-				id: 'virtualPhone',
-				title: 'Virtual Phone Number',
-			},
-			{
-				id: 'cloudPhone',
-				title: 'Cloud Phone Services',
-			},
-		],
+		title: 'PRODUCT',
 	},
 	{
 		id: 'tailored-solutions',
-		title: 'TAILORED SOLUTIONS',
-		submenu: [
-			{
-				id: 'callForwarding',
-				title: 'Call Forwarding',
-			},
-			{
-				id: 'vipSafety',
-				title: 'VIP Safety First',
-			},
-			{
-				id: 'pstnSwitch',
-				title: 'PSTN Switch-Off',
-			},
-			{
-				id: 'freeInternational',
-				title: 'Free International Calls',
-			},
-			{
-				id: 'otaVerification',
-				title: 'OTA / Verification',
-			},
-		],
+		title: 'ABOUT',
 	},
 	{
 		id: 'blog',
-		title: 'BLOG',
+		title: 'SIGN UP',
 	},
 	{
 		id: 'contact',
-		title: 'CONTACT',
+		title: 'BLOG',
 	},
 ];
