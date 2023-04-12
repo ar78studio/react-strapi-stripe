@@ -17,7 +17,9 @@ const Hero = ({ setSelectedPage }) => {
 					It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
 					least once. Our VIP service adds another layer of protection by keeping your personal number private.
 				</p>
-				<button className='place-self-start my-10 p-4 w-96 bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white'>SIGN UP TO ADD VIP PROTECTION</button>
+				<button className='place-self-start my-10 p-4 w-96 bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'>
+					SIGN UP TO ADD VIP PROTECTION
+				</button>
 			</div>
 
 			<img className='lg:w-5/6 w-4xl place-self-center lg:place-self-end' src={GirlHero} alt='' />
