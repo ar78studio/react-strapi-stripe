@@ -6,6 +6,7 @@ module.exports = {
 			colors: {
 				navColor: '#973cce',
 				navColorHover: '#d68ffe',
+				underNavBar: '#744e9e',
 				faqBackground: '#894fcb',
 				fontColor: '#fff',
 				buttonColor: '#8d26c9',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { VipLogo, BurgerMenu, CloseMenu } from '../../assets/index';
 
+import { motion } from 'framer-motion';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 
@@ -44,7 +45,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
 
 				{/* MOBILE MENU SCREEN  */}
 				{!isAboveSmallScreens && isMenuToggled && (
-					<div className='fixed left-0 bottom-0 h-full bg-white w-[300px] border-r-4 border-purple-300'>
+					<motion.div className='fixed left-0 bottom-0 h-full bg-white w-[300px] border-r-4 border-purple-300'>
 						{/* CLOSE ICON  */}
 						<div className='flex justify-end p-8'>
 							<button onClick={() => setIsMenuToggled(!isMenuToggled)}>
@@ -59,7 +60,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
 							<Link page='HELP' selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
 							<Link page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
 						</div>
-					</div>
+					</motion.div>
 				)}
 			</div>
 		</nav>
