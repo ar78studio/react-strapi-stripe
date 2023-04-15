@@ -1,0 +1,67 @@
+.app {
+    font-family: sans-serif;
+    margin-top: 1rem;
+    border: 1px solid #f20f76;
+  }
+  
+  .item {
+    padding-bottom: 10px;
+  }
+  
+  .itemBtn {
+    cursor: pointer;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: left;
+    color: #973cce;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .itemBtnBg {
+    background-color: #ffffff;
+  }
+  
+  .itemBtn:hover {
+    background-color: #f20f76;
+    color: #ffffff;
+    transition-duration: 400ms;
+  }
+
+  .itemBtn:focus {
+    background-color: #f20f76;
+    color: #ffffff;
+
+  }
+  
+  .itemBtnExpanded {
+    background-color: #fff;
+  }
+  
+  .itemContent {
+    transition: height 0.2s ease-in-out;
+    background-color: #fff;
+    color: #973cce;
+
+  }
+  
+  .itemPanel {
+    padding: 1rem;
+    
+  }
+  
+  .chevron {
+    margin-left: auto;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .itemBtnExpanded .chevron {
+    transform: rotate(180deg);
+  }
+  

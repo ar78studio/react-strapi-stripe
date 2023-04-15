@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DotGroup, Hero, WhatIsVip, FeelSafe, AVipPhone, Faq, ContactUs, Footer } from './components';
+import { motion } from 'framer-motion';
 import Navbar from './components/navbar/Navbar';
 import useMediaQuery from './hooks/useMediaQuery';
 
@@ -19,12 +20,24 @@ function App() {
 	}, []);
 
 	return (
-		<div className='bg-white'>
+		<div className='bg-white w-full m-0'>
 			<Navbar isTopOfPage={isTopOfPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
 
-			<div className='w-5/6 mx-auto md:h-full'>{isAboveMediumScreens && <DotGroup selectedPage={selectedPage} setSelectedPage={setSelectedPage} />}</div>
+			<motion.div
+				initial='hidden'
+				whileInView='visible'
+				viewport={{ once: true, amount: 0.5 }}
+				transition={{ duration: 2 }}
+				variants={{
+					hidden: { opacity: 0 },
+					visible: { opacity: 1 },
+				}}
+				className='w-5/6 mx-auto md:h-full'
+			>
+				{isAboveMediumScreens && <DotGroup selectedPage={selectedPage} setSelectedPage={setSelectedPage} />}
+			</motion.div>
 
-			<div className='bg-gradient-hero w-screen m-0'>
+			<div>
 				<Hero />
 			</div>
 

@@ -7,6 +7,7 @@ module.exports = {
 				navColor: '#973cce',
 				navColorHover: '#d68ffe',
 				underNavBar: '#744e9e',
+				aVipPhoneBg: '#bf9ce9',
 				faqBackground: '#894fcb',
 				fontColor: '#fff',
 				buttonColor: '#8d26c9',

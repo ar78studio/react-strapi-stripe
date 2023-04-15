@@ -9,6 +9,7 @@ const Hero = ({ setSelectedPage }) => {
 
 	return (
 		<>
+			{/* DARK BAR UNDER MENU  */}
 			<motion.div
 				initial='hidden'
 				whileInView='visible'
@@ -21,8 +22,10 @@ const Hero = ({ setSelectedPage }) => {
 			>
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
-			<section className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tl from-[#9453e8] to-[#c4a6e4] justify-between px-6 lg:px-10 lg:pt-10'>
-				<div className='w-full flex flex-col content-center pt-6'>
+			{/* HERO SECTION WITH GIRL LOOKING CONFUSED  */}
+			<section className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tl from-[#9453e8] to-[#c4a6e4] justify-between lg:px-10 pt-10'>
+				<div className='w-full flex flex-col content-center lg:w-1/2 lg:pt-6'>
+					{/* HEADING TITLE  */}
 					<motion.h1
 						initial='hidden'
 						whileInView='visible'
@@ -32,10 +35,11 @@ const Hero = ({ setSelectedPage }) => {
 							hidden: { opacity: 0, x: -100 },
 							visible: { opacity: 1, x: 0 },
 						}}
-						className='text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-tight lg:leading-snug mr-6'
+						className=' mx-10 text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
 						There is a new way to protect your personal world. Reduce harassment, spam, bullying and unwanted attention.
 					</motion.h1>
+					{/* PARAGRAPH UNDER HEADING  */}
 					<motion.p
 						initial='hidden'
 						whileInView='visible'
@@ -45,7 +49,7 @@ const Hero = ({ setSelectedPage }) => {
 							hidden: { opacity: 0, x: 100 },
 							visible: { opacity: 1, x: 0 },
 						}}
-						className='text-base text-white pt-6'
+						className='text-base text-center lg:text-left text-white pt-6 mx-10'
 					>
 						It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
 						least once. Our VIP service adds another layer of protection by keeping your personal number private.
@@ -59,12 +63,12 @@ const Hero = ({ setSelectedPage }) => {
 							hidden: { opacity: 0 },
 							visible: { opacity: 1 },
 						}}
-						className='place-self-center  my-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
+						className='place-self-center lg:place-self-start mx-10 my-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
 						SIGN UP TO ADD VIP PROTECTION
 					</motion.button>
 				</div>
-
+				{/* IMAGE OF GIRL IN THE HERO SECTION 		 */}
 				<motion.img
 					initial='hidden'
 					whileInView='visible'
@@ -74,7 +78,7 @@ const Hero = ({ setSelectedPage }) => {
 						hidden: { opacity: 0, x: 100 },
 						visible: { opacity: 1, x: 0 },
 					}}
-					className='lg:w-5/6 w-4xl mw-auto place-self-center md:place-self-end ml-4'
+					className='w-full px-6 lg:w-1/2 mw-auto place-self-center lg:place-self-end ml-4'
 					src={GirlHero}
 					alt='Girl Does Not Like to be Harassed'
 				/>
