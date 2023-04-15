@@ -10,7 +10,7 @@ const AVipPhone = ({ setSelectedPage }) => {
 
 	return (
 		<>
-			<section className='w-full flex flex-wrap-reverse lg:flex-nowrap bg-aVipPhoneBg justify-between lg:px-10 lg:pt-10'>
+			<main className='w-full flex flex-wrap-reverse lg:flex-nowrap bg-aVipPhoneBg justify-between lg:px-10 lg:pt-10'>
 				<motion.img
 					initial='hidden'
 					whileInView='visible'
@@ -24,7 +24,7 @@ const AVipPhone = ({ setSelectedPage }) => {
 					src={PhoneVipNumber}
 					alt='Girl Does Not Like to be Harassed'
 				/>
-				<div className='lg:pr-10 mt-10 lg:w-1/2 w-full flex flex-col content-center pt-6'>
+				<section className='lg:pr-10 mt-10 lg:w-1/2 w-full flex flex-col content-center pt-6'>
 					<motion.h1
 						initial='hidden'
 						whileInView='visible'
@@ -75,8 +75,8 @@ const AVipPhone = ({ setSelectedPage }) => {
 							SIGN UP FOR ADDED PROTECTION
 						</motion.button>
 					</motion.div>
-				</div>
-			</section>
+				</section>
+			</main>
 		</>
 	);
 };

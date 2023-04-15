@@ -51,13 +51,23 @@ const ContactUs = ({ setSelectedPage }) => {
 					>
 						(UK) +44 (0)208 099 8889
 					</motion.button> */}
-					<div className='flex flex-col justify-center mb-20'>
+					<motion.div
+						initial='hidden'
+						whileInView='visible'
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ delay: 0.2, duration: 1.2 }}
+						variants={{
+							hidden: { opacity: 0, x: -100 },
+							visible: { opacity: 1, x: 0 },
+						}}
+						className='w-full flex flex-col justify-items-center mb-20'
+					>
 						<span className='ml-10 text-white'>(UK) +44 (0)208 099 8889</span>
 						<span className='ml-10 text-white'>(ES) +34 966 265 065</span>
 						<span className='ml-10 text-white'>(US) +1 323 784 3863</span>
 						<span className='ml-10 text-white'>(CN) +1 647 846 1284</span>
 						<span className='ml-10 text-white'>(AU) +61 283 109 785</span>
-					</div>
+					</motion.div>
 				</section>
 
 				{/* SECTION WITH THE ICONS AND TICKET BUTTONS  */}
@@ -97,8 +107,8 @@ const ContactUs = ({ setSelectedPage }) => {
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
 							</div>
-							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Sales</h1>
-							<span className='text-white'>For any sales enquiries or additional information, please open a ticket</span>
+							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Accounts</h1>
+							<span className='text-white'>For any billing issues or enquiries, please open a ticket</span>
 							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
 								Support Enquiries Here
 							</button>
@@ -119,8 +129,8 @@ const ContactUs = ({ setSelectedPage }) => {
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
 							</div>
-							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Sales</h1>
-							<span className='text-white'>For any sales enquiries or additional information, please open a ticket</span>
+							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Technical</h1>
+							<span className='text-white'>For any technical issues or support enquiries, please open a ticket</span>
 							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
 								Billing Enquiris Here
 							</button>
@@ -139,8 +149,8 @@ const ContactUs = ({ setSelectedPage }) => {
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
 							</div>
-							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Sales</h1>
-							<span className='text-white'>For any sales enquiries or additional information, please open a ticket</span>
+							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Faults</h1>
+							<span className='text-white'>System, App Bugs or Call Faults, please open a ticket</span>
 							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
 								Fault Report Here
 							</button>

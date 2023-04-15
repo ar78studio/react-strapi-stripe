@@ -9,7 +9,7 @@ const WhatIsVip = ({ setSelectedPage }) => {
 
 	return (
 		<>
-			<section className='flex flex-wrap-reverse lg:flex-nowrap bg-gradient-to-tr from-[#263266] to-[#8164af] justify-between lg:px-10 lg:pt-10'>
+			<main className='flex flex-wrap-reverse lg:flex-nowrap bg-gradient-to-tr from-[#263266] to-[#8164af] justify-between lg:px-10 lg:pt-10'>
 				{/* IMAGE OF A GIRL ON THE PHONE  */}
 				<motion.img
 					initial='hidden'
@@ -24,7 +24,7 @@ const WhatIsVip = ({ setSelectedPage }) => {
 					src={GirlVip}
 					alt='Girl Has VIP Safety First Service'
 				/>
-				<div className='w-full lg:w-1/2 flex flex-col content-center pt-10'>
+				<section className='w-full lg:w-1/2 flex flex-col content-center pt-10'>
 					<motion.h1
 						initial='hidden'
 						whileInView='visible'
@@ -79,8 +79,8 @@ const WhatIsVip = ({ setSelectedPage }) => {
 							mobile phone! Our VIP safety first service can also record calls and locations to help stem threats to your safety.
 						</motion.p>
 					</motion.div>
-				</div>
-			</section>
+				</section>
+			</main>
 		</>
 	);
 };

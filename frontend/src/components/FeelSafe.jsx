@@ -9,8 +9,8 @@ const FeelSafe = ({ setSelectedPage }) => {
 
 	return (
 		<>
-			<section className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
-				<div className='sm:w-full lg:w-3/5 flex flex-col content-center place-self-center pt-6'>
+			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
+				<section className='sm:w-full lg:w-3/5 flex flex-col content-center place-self-center pt-6'>
 					<motion.h1
 						initial='hidden'
 						whileInView='visible'
@@ -51,7 +51,7 @@ const FeelSafe = ({ setSelectedPage }) => {
 					>
 						SIGN UP TO ADD VIP PROTECTION
 					</motion.button>
-				</div>
+				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}
 				<motion.img
 					initial='hidden'
@@ -66,7 +66,7 @@ const FeelSafe = ({ setSelectedPage }) => {
 					src={GirlFeelSafe}
 					alt='Girl Feels Safe'
 				/>
-			</section>
+			</main>
 		</>
 	);
 };
