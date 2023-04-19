@@ -1,10 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
-import { GirlFeelSafe } from '../assets/index';
+import { GirlFeelSafe } from '../../assets/index';
 
-const FeelSafe = ({ setSelectedPage }) => {
+const FeelSafeWhen = () => {
 	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
 
 	return (
@@ -35,8 +34,9 @@ const FeelSafe = ({ setSelectedPage }) => {
 						}}
 						className='text-base text-center lg:text-left text-white pt-6 mx-10'
 					>
-						It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
-						least once. Our VIP service adds another layer of protection by keeping your personal number private.
+						It was this realization that sparked the idea of VIPSafetyFirst. As a brand solely aimed at women’s safety, we are proud to offer a solution that gives women the
+						ability to protect themselves in a world where their privacy and security are often at risk. Our service empowers women to take control of their personal information by
+						keeping their personal phone number private, allowing them to feel safe and secure at all times.
 					</motion.p>
 					<motion.button
 						initial='hidden'
@@ -47,9 +47,9 @@ const FeelSafe = ({ setSelectedPage }) => {
 							hidden: { opacity: 0 },
 							visible: { opacity: 1 },
 						}}
-						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-60 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
+						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						SIGN UP TO ADD VIP PROTECTION
+						SIGN UP FOR YOUR VIP NUMBER
 					</motion.button>
 				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}
@@ -71,4 +71,4 @@ const FeelSafe = ({ setSelectedPage }) => {
 	);
 };
 
-export default FeelSafe;
+export default FeelSafeWhen;

@@ -1,17 +1,17 @@
 import React from 'react';
-import useMediaQuery from '../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
-import { SimHearts } from '../assets/index';
+import { SimHearts } from '../../assets/index';
 
-import AccordionTabs from './accordion/AccordionTabs';
+import AccordionTabs from '../accordion/AccordionTabs';
 
-const Faq = ({ setSelectedPage }) => {
+const FaqInProduct = ({ setSelectedPage }) => {
 	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
 
 	return (
 		<>
-			<section className='flex justify-center flex-wrap lg:flex-nowrap bg-faqBackground lg:justify-between lg:px-10 lg:pt-10 pb-20'>
+			<section id='help' className='flex justify-center flex-wrap lg:flex-nowrap bg-faqBackground lg:justify-between lg:px-10 lg:pt-10 pb-20'>
 				<motion.div
 					initial='hidden'
 					whileInView='visible'
@@ -43,8 +43,9 @@ const Faq = ({ setSelectedPage }) => {
 						hidden: { opacity: 0, x: 100 },
 						visible: { opacity: 1, x: 0 },
 					}}
-					className='w-full text-center lg:text-left text-white pt-6 mx-10 mb-20 mt-20 '
+					className='w-full text-center lg:text-left text-white pt-6 mx-10 my-20 '
 				>
+					{/* FAQ ACCORDION TABS  */}
 					<AccordionTabs />
 				</motion.div>
 			</section>
@@ -52,4 +53,4 @@ const Faq = ({ setSelectedPage }) => {
 	);
 };
 
-export default Faq;
+export default FaqInProduct;

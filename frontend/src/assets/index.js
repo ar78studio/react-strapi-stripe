@@ -9,3 +9,6 @@ export { default as PhoneVipNumber } from '../../src/assets/phone-vip-number.png
 export { default as ChevronArrow } from '../../src/assets/chevron-down.svg';
 export { default as SimHearts } from '../../src/assets/hearts.png';
 export { default as ContactSvg } from '../../src/assets/contact.svg';
+export { default as WhiteConxhubLogo } from '../../src/assets/white-logo-conxhub.png';
+export { default as DownloadFromApple } from '../../src/assets/downloadOnAppStore.svg';
+export { default as GetItFromGooglePlay } from '../../src/assets/getItOnGooglePlay.svg';

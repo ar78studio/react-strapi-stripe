@@ -1,16 +1,16 @@
 import React from 'react';
-import useMediaQuery from '../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 
-import { ContactSvg } from '../assets';
+import { ContactSvg } from '../../assets';
 
 const ContactUs = ({ setSelectedPage }) => {
 	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
 
 	return (
 		<>
-			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#2d356b] to-[#8262ac] lg:px-10 pt-40 pb-40'>
+			<main id='contact' className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#2d356b] to-[#8262ac] lg:px-10 pt-40 pb-40'>
 				<section className='w-full lg:w-1/2 flex flex-col content-center place-self-center pt-6'>
 					<motion.h1
 						initial='hidden'
@@ -60,7 +60,7 @@ const ContactUs = ({ setSelectedPage }) => {
 							hidden: { opacity: 0, x: -100 },
 							visible: { opacity: 1, x: 0 },
 						}}
-						className='w-full flex flex-col justify-items-center mb-20'
+						className='flex container mx-auto items-center justify-center lg:items-start flex-col mb-20'
 					>
 						<span className='ml-10 text-white'>(UK) +44 (0)208 099 8889</span>
 						<span className='ml-10 text-white'>(ES) +34 966 265 065</span>
@@ -71,8 +71,8 @@ const ContactUs = ({ setSelectedPage }) => {
 				</section>
 
 				{/* SECTION WITH THE ICONS AND TICKET BUTTONS  */}
-				<section className='flex justify-center flex-wrap lg:w-1/2'>
-					<div className='flex flex-row flex-wrap mb-10'>
+				<section className='flex container mx-auto flex-wrap lg:w-1/2'>
+					<div className='flex container mx-auto flex-row flex-wrap mb-10'>
 						<motion.div
 							initial='hidden'
 							whileInView='visible'
@@ -82,7 +82,7 @@ const ContactUs = ({ setSelectedPage }) => {
 								hidden: { opacity: 0, x: -100 },
 								visible: { opacity: 1, x: 0 },
 							}}
-							className='flex flex-col w-80 text-center'
+							className='flex container mx-auto flex-col w-80 text-center'
 						>
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
@@ -102,7 +102,7 @@ const ContactUs = ({ setSelectedPage }) => {
 								hidden: { opacity: 0, x: -100 },
 								visible: { opacity: 1, x: 0 },
 							}}
-							className='flex flex-col w-80 text-center'
+							className='flex container mx-auto flex-col w-80 text-center'
 						>
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
@@ -114,7 +114,7 @@ const ContactUs = ({ setSelectedPage }) => {
 							</button>
 						</motion.div>
 					</div>
-					<div className='flex flex-row flex-wrap'>
+					<div className='flex container mx-auto flex-row flex-wrap'>
 						<motion.div
 							initial='hidden'
 							whileInView='visible'
@@ -124,7 +124,7 @@ const ContactUs = ({ setSelectedPage }) => {
 								hidden: { opacity: 0, x: -100 },
 								visible: { opacity: 1, x: 0 },
 							}}
-							className='flex flex-col w-80 text-center'
+							className='flex container mx-auto flex-col w-80 text-center'
 						>
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />
@@ -144,7 +144,7 @@ const ContactUs = ({ setSelectedPage }) => {
 								hidden: { opacity: 0, x: -100 },
 								visible: { opacity: 1, x: 0 },
 							}}
-							className='flex flex-col w-80 text-center'
+							className='flex container mx-auto flex-col w-80 text-center'
 						>
 							<div className='flex justify-center mb-4'>
 								<img className='w-[5rem]' src={ContactSvg} alt='Email your Enquiry Here' />

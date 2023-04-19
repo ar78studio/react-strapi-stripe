@@ -1,8 +1,8 @@
 import React from 'react';
-import useMediaQuery from '../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
-import { GirlVip, SingleHeart } from '../assets/index';
+import { GirlVip, SingleHeart } from '../../assets/index';
 
 const WhatIsVip = ({ setSelectedPage }) => {
 	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
@@ -17,7 +17,7 @@ const WhatIsVip = ({ setSelectedPage }) => {
 					viewport={{ once: true, amount: 0.5 }}
 					transition={{ duration: 1 }}
 					variants={{
-						hidden: { opacity: 0, x: 100 },
+						hidden: { opacity: 0, x: -100 },
 						visible: { opacity: 1, x: 0 },
 					}}
 					className='pl-20 pr-20 w-full lg:w-1/2 self-end place-self-start mr-10 mt-10'
@@ -31,7 +31,7 @@ const WhatIsVip = ({ setSelectedPage }) => {
 						viewport={{ once: true, amount: 0.5 }}
 						transition={{ delay: 0.2, duration: 1.2 }}
 						variants={{
-							hidden: { opacity: 0, x: -100 },
+							hidden: { opacity: 0, x: 100 },
 							visible: { opacity: 1, x: 0 },
 						}}
 						className=' mx-10 text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
@@ -43,9 +43,9 @@ const WhatIsVip = ({ setSelectedPage }) => {
 						initial='hidden'
 						whileInView='visible'
 						viewport={{ once: true, amount: 0.5 }}
-						transition={{ delay: 0.2, duration: 1.2 }}
+						transition={{ delay: 0.4, duration: 1.2 }}
 						variants={{
-							hidden: { opacity: 0, x: -100 },
+							hidden: { opacity: 0, x: 100 },
 							visible: { opacity: 1, x: 0 },
 						}}
 						className='place-self-center lg:place-self-start lg:ml-10 mt-4 w-[60px]'
@@ -57,7 +57,7 @@ const WhatIsVip = ({ setSelectedPage }) => {
 						initial='hidden'
 						whileInView='visible'
 						viewport={{ once: true, amount: 0.5 }}
-						transition={{ delay: 0.4, duration: 1.5 }}
+						transition={{ delay: 0.6, duration: 1.5 }}
 						variants={{
 							hidden: { opacity: 0, x: 100 },
 							visible: { opacity: 1, x: 0 },
