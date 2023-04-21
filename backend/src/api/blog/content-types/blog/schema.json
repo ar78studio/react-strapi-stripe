@@ -17,21 +17,10 @@
       "unique": true,
       "required": true
     },
-    "blogcontent": {
+    "blogContent": {
       "type": "richtext"
     },
-    "media": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "blogcoverimage": {
+    "coverImage": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -39,7 +28,7 @@
         "images"
       ]
     },
-    "datewritten": {
+    "dateWritten": {
       "type": "date"
     }
   }

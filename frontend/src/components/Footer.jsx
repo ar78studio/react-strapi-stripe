@@ -10,7 +10,7 @@ const Footer = () => {
 		<>
 			{/* DARK BAR UNDER MENU  */}
 			<div>
-				<div className='w-full bg-underNavBar p-1'></div>
+				<div className='w-full bg-buttonColor p-1'></div>
 			</div>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-b from-[#9352e8] to-[#c4a6e4] justify-center items-center md:justify-between lg:px-10 pt-8 pb-20 px-10'>
 				{/* CONXHUB WHITE LOGO AND TEXT BELLOW IT  */}

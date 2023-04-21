@@ -55,7 +55,7 @@ const Navbar = () => {
 						<Link className='text-navColor hover:text-navColorHover' to='../Help'>
 							HELP
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='../Blog'>
+						<Link className='text-navColor hover:text-navColorHover' to='../Blogs'>
 							BLOG
 						</Link>
 						{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
@@ -79,7 +79,7 @@ const Navbar = () => {
 
 				{/* MOBILE MENU SCREEN  */}
 				{!isAboveSmallScreens && isMenuToggled && (
-					<motion.div className='fixed left-0 bottom-0 h-full bg-white w-[300px] border-r-4 border-purple-300'>
+					<motion.div className='z-40 fixed left-0 bottom-0 h-full bg-white w-[300px] border-r-4 border-purple-300'>
 						{/* CLOSE ICON  */}
 						<div className='flex justify-end p-8'>
 							<button onClick={() => setIsMenuToggled(!isMenuToggled)}>
@@ -100,7 +100,7 @@ const Navbar = () => {
 							<Link className='text-navColor hover:text-navColorHover' to='../Help'>
 								HELP
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../Blog'>
+							<Link className='text-navColor hover:text-navColorHover' to='../Blogs'>
 								BLOG
 							</Link>
 							{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}

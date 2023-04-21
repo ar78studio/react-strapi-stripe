@@ -22,7 +22,8 @@ import Help from './pages/Help';
 import Faq from './help/Faq';
 import ContactUs from './help/ContactUs';
 // BLOG
-import Blog from './pages/Blog';
+import Blogs from './pages/Blogs';
+import BlogContent from './blog/BlogContent';
 // --
 import Footer from './Footer';
 
@@ -43,6 +44,7 @@ export {
 	Help,
 	Faq,
 	ContactUs,
-	Blog,
+	Blogs,
+	BlogContent,
 	Footer,
 };
