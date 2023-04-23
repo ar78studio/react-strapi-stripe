@@ -58,6 +58,7 @@ const Navbar = () => {
 						<Link className='text-navColor hover:text-navColorHover' to='../Blogs'>
 							BLOG
 						</Link>
+
 						{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
 					</motion.div>
 				) : (

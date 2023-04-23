@@ -11,6 +11,7 @@ module.exports = {
 				faqBackground: '#894fcb',
 				fontColor: '#fff',
 				buttonColor: '#8d26c9',
+				linkOnWhiteColor: '#8d26c9',
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'serif'],

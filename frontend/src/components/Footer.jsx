@@ -42,7 +42,7 @@ const Footer = () => {
 					<Link className='text-white hover:text-buttonColor' to='../Help'>
 						HELP
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../Blog'>
+					<Link className='text-white hover:text-buttonColor' to='../Blogs'>
 						BLOG
 					</Link>
 				</section>
