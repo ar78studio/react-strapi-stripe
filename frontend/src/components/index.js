@@ -1,5 +1,5 @@
 import Navbar from './Navbar';
-import DotGroup from './DotGroup';
+import Homepage from './Homepage';
 // PRODUCT
 import Product from './pages/Product';
 // --
@@ -22,15 +22,14 @@ import Help from './pages/Help';
 import Faq from './help/Faq';
 import ContactUs from './help/ContactUs';
 // BLOG
-import Blogs from './pages/Blogs';
-import Blog from './blog/Blog';
+import Blog from './pages/Blog';
 import BlogContent from './blog/BlogContent';
 // --
 import Footer from './Footer';
 
 export {
 	Navbar,
-	DotGroup,
+	Homepage,
 	Product,
 	Hero,
 	WhatIsVip,
@@ -45,7 +44,6 @@ export {
 	Help,
 	Faq,
 	ContactUs,
-	Blogs,
 	Blog,
 	BlogContent,
 	Footer,

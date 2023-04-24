@@ -16,7 +16,7 @@ const Footer = () => {
 				{/* CONXHUB WHITE LOGO AND TEXT BELLOW IT  */}
 				<section>
 					<div className='flex container mx-auto'>
-						<Link to='../Product'>
+						<Link to='/'>
 							<img className='mb-10' src={WhiteConxhubLogo} alt='conXhub Logo' />
 						</Link>
 					</div>
@@ -42,7 +42,7 @@ const Footer = () => {
 					<Link className='text-white hover:text-buttonColor' to='../Help'>
 						HELP
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../Blogs'>
+					<Link className='text-white hover:text-buttonColor' to='../Blog'>
 						BLOG
 					</Link>
 				</section>

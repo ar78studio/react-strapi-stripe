@@ -14,7 +14,7 @@ const Navbar = () => {
 		<nav className={`z-40 w-full top-0 py-2`}>
 			<div className='flex items-center justify-between mx-auto w-5/6'>
 				{/* VIP SAFETY LOGO  */}
-				<Link to='../Product'>
+				<Link to='/'>
 					<motion.img
 						initial='hidden'
 						whileInView='visible'
@@ -43,19 +43,19 @@ const Navbar = () => {
 						}}
 						className='flex justify-between gap-10 font-poppins text-lg font-semibold'
 					>
-						<Link className='text-navColor hover:text-navColorHover' to='../Product'>
+						<Link className='text-navColor hover:text-navColorHover' to='/Product'>
 							PRODUCT
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='../About'>
+						<Link className='text-navColor hover:text-navColorHover' to='/About'>
 							ABOUT
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='../SingUp'>
+						<Link className='text-navColor hover:text-navColorHover' to='/SingUp'>
 							SIGN UP
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='../Help'>
+						<Link className='text-navColor hover:text-navColorHover' to='/Help'>
 							HELP
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='../Blogs'>
+						<Link className='text-navColor hover:text-navColorHover' to='/Blog'>
 							BLOG
 						</Link>
 
@@ -101,7 +101,7 @@ const Navbar = () => {
 							<Link className='text-navColor hover:text-navColorHover' to='../Help'>
 								HELP
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../Blogs'>
+							<Link className='text-navColor hover:text-navColorHover' to='../Blog'>
 								BLOG
 							</Link>
 							{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
