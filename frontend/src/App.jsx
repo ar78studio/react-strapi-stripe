@@ -22,13 +22,13 @@ function App() {
 					<ApolloProvider client={client}>
 						<Navbar />
 						<Routes>
-							<Route path='/' element={<Homepage />} />
-							<Route exact path='/Product' element={<Product />} />
-							<Route exact path='/About' element={<About />} />
-							<Route exact path='/SignUp' element={<SignUp />} />
-							<Route exact path='/Help' element={<Help />} />
-							<Route exact path='/Blog' element={<Blog />} />
-							<Route exact path='/BlogContent/:id' element={<BlogContent />} />
+							<Route exact path='/' element={<Homepage />} />
+							<Route path='/Product' element={<Product />} />
+							<Route path='/About' element={<About />} />
+							<Route path='/SignUp' element={<SignUp />} />
+							<Route path='/Help' element={<Help />} />
+							<Route path='/Blog' element={<Blog />} />
+							<Route path='/BlogContent/:id' element={<BlogContent />} />
 						</Routes>
 						<Footer />
 					</ApolloProvider>

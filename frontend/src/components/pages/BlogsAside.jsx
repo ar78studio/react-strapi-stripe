@@ -28,7 +28,7 @@ const BLOGS = gql`
 	}
 `;
 
-const Blog = () => {
+const BlogsAside = () => {
 	// RESTFUL - Fetching data from Strapi hook from hooks folder
 	// const { loading, error, data } = useFetch('http://localhost:1337/api/blogs?populate=*');
 
@@ -44,11 +44,9 @@ const Blog = () => {
 
 	return (
 		<>
-			<section className='pt-20 w-full bg-purple-300 lg:p-[5rem] md:p-[3rem] p-[1.5rem]'>
-				<div className='w-full flex justify-center items-center mx-auto'>
-					<h2 className='text-white text-5xl pt-4 pb-20'>VIP Safety First Blog</h2>
-				</div>
-				<div className='grid lg:grid-cols-3 md:grid-cols-2 gap-8 px-4 text-gray'>
+			<section className='pt-20 w-full bg-purple-50 lg:p-[5rem] md:p-[3rem] p-[1.5rem]'>
+				<div className='w-full flex justify-center items-center mx-auto'>{/* <h2 className='text-white text-2xl pt-4 pb-20'>VIP Safety First Blog</h2> */}</div>
+				<div className='grid lg:grid-cols-1 md:grid-cols-2 gap-6 text-gray'>
 					{data.blogs.data.map((blogs) => (
 						// Blogs Card
 						<div className='transition duration-300 ease-in-out hover:-translate-y-1 drop-shadow-2xl' key={blogs.id}>
@@ -61,10 +59,10 @@ const Blog = () => {
 									/>
 								</Link>
 
-								<div className='p-8'>
-									<h4 className='text-2xl pb-10'>{blogs.attributes.title}</h4>
+								<div className='p-4'>
+									<h4 className='text-lg pb-4'>{blogs.attributes.title}</h4>
 									<p className='text-md pb-2'>{blogs.attributes.dateWritten}</p>
-									<p className='text-sm pb-2'>{blogs.attributes.blogContent.substring(0, 200)}...</p>
+									<p className='text-sm pb-2'>{blogs.attributes.blogContent.substring(0, 100)}...</p>
 
 									<Link className='underline hover:text-linkOnWhiteColor' to={`/BlogContent/${blogs.id}`}>
 										Read more...
@@ -79,4 +77,4 @@ const Blog = () => {
 	);
 };
 
-export default Blog;
+export default BlogsAside;
