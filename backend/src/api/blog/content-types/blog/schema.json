@@ -54,6 +54,12 @@
     },
     "blogContent": {
       "type": "richtext"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "article"
     }
   }
 }

@@ -52,6 +52,12 @@
       "relation": "oneToMany",
       "target": "api::blog.blog",
       "mappedBy": "author"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "author"
     }
   }
 }

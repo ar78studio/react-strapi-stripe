@@ -44,13 +44,15 @@ const BlogsAside = () => {
 
 	return (
 		<>
-			<section className='pt-20 w-full bg-purple-50 lg:p-[5rem] md:p-[3rem] p-[1.5rem]'>
-				<div className='w-full flex justify-center items-center mx-auto'>{/* <h2 className='text-white text-2xl pt-4 pb-20'>VIP Safety First Blog</h2> */}</div>
-				<div className='grid lg:grid-cols-1 md:grid-cols-2 gap-6 text-gray'>
+			<section className='pt-20 w-full bg-purple-50 lg:p-[2rem] p-8'>
+				<div className='w-full flex justify-start items-center mx-auto border-b-2 border-buttonColor mb-6'>
+					<h4 className='text-buttonColor text-xl pt-4 pb-2'>Latest Posts</h4>
+				</div>
+				<div className='grid lg:grid-cols-1 md:grid-cols-3 gap-6 text-gray'>
 					{data.blogs.data.map((blogs) => (
 						// Blogs Card
 						<div className='transition duration-300 ease-in-out hover:-translate-y-1 drop-shadow-2xl' key={blogs.id}>
-							<div className='bg-purple-200 rounded-t-xl rounded-bl-none overflow-hidden '>
+							<div className='bg-purple-200 rounded-lg overflow-hidden '>
 								<Link className='underline' to={`/BlogContent/${blogs.id}`}>
 									<img
 										className='w-full rounded-bl-none rounded-br-none rounded-t-xl object-contain rounded-lg transition duration-300 ease-in-out filter  brightness-75 hover:brightness-100'
