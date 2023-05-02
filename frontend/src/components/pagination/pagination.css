@@ -1,0 +1,19 @@
+/* containerClassName={'paginationBlogs'}
+previousLinkClassName={'previousBlogs'}
+nextLinkClassName={'nextBlogs'}
+disabledClassName={'paginationDisabledBlogs'}
+activeClassName={'paginationActiveBlogs'} */
+
+.paginationContainer {
+    display: flex;
+    color: white;
+    justify-content: center;
+}
+
+.paginationContainer a:hover {
+    color: #734d9e;
+}
+
+.paginationActiveButton a {
+    color: #734d9e;
+}

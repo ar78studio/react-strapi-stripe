@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // InMemoryCache is used by the Apollo client to cache responses from the server
 // ApolloProvider is used to wrap entire React application and to use ApolloClient to make queries
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import BlogCategories from './components/blog/BlogCategories';
 
 // Apollo client
 const client = new ApolloClient({
@@ -29,6 +30,7 @@ function App() {
 							<Route path='/Help' element={<Help />} />
 							<Route path='/Blog' element={<Blog />} />
 							<Route path='/BlogContent/:id' element={<BlogContent />} />
+							<Route path='/Category/:id' element={<BlogCategories />} />
 						</Routes>
 						<Footer />
 					</ApolloProvider>

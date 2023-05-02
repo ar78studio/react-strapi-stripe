@@ -1,5 +1,4 @@
 import React from 'react';
-// import useFetch from '../../hooks/useFetch';
 // useQuery is a hook that we can use to send a query to GraphQL server similar to useFetch hook we've used, but instead of passing an API endpoint argument like in in RestAPI approach, we pass a graphql query.
 // gql is used by Apollo to convert a query string into a form it can use
 import { useQuery, gql } from '@apollo/client';

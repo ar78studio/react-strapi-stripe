@@ -23,7 +23,7 @@ import Faq from './help/Faq';
 import ContactUs from './help/ContactUs';
 // BLOG
 import Blog from './pages/Blog';
-import BlogContent from './pages/BlogContent';
+import BlogContent from './blog/BlogContent';
 // --
 import Footer from './Footer';
 

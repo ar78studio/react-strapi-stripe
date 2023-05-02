@@ -1,5 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import BlogListByCategory from './BlogListByCategory';
 
 const GET_BLOGS = gql`
 	query {
@@ -50,7 +52,11 @@ const BlogCategories = () => {
 			<h2>Categories:</h2>
 			<ul>
 				{[...categories].map((category) => (
-					<li key={category}>{category}</li>
+					<li key={category}>
+						<Link className='hover:text-buttonColor' to={`/category/${category}`}>
+							{category}
+						</Link>
+					</li>
 				))}
 			</ul>
 		</div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { SimHearts } from '../../assets/index';
 
 import AccordionTabs from '../accordion/AccordionTabs';

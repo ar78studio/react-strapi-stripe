@@ -33,7 +33,7 @@
     "author": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::author.author",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comments"
     }
   }
