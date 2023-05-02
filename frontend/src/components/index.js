@@ -21,6 +21,10 @@ import Help from './pages/Help';
 // --
 import Faq from './help/Faq';
 import ContactUs from './help/ContactUs';
+// STRIPE CHECKOUT FORM
+import CheckoutForm from './checkout/CheckoutForm';
+import Payment from './checkout/Payment';
+import Completion from './checkout/Completion';
 // BLOG
 import Blog from './pages/Blog';
 import BlogContent from './blog/BlogContent';
@@ -44,7 +48,10 @@ export {
 	Help,
 	Faq,
 	ContactUs,
+	CheckoutForm,
 	Blog,
 	BlogContent,
 	Footer,
+	Payment,
+	Completion,
 };

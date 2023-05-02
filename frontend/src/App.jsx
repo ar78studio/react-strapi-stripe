@@ -3,11 +3,12 @@ import React from 'react';
 import { Navbar, Homepage, Product, About, SignUp, Help, Blog, BlogContent, Footer } from './components/index';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// ApolloClient is used to create new connection to graphql server.
-// InMemoryCache is used by the Apollo client to cache responses from the server
-// ApolloProvider is used to wrap entire React application and to use ApolloClient to make queries
+
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import BlogCategories from './components/blog/BlogCategories';
+
+// Stripe
+import { Payment, Completion } from './components/index';
 
 // Apollo client
 const client = new ApolloClient({
@@ -31,6 +32,9 @@ function App() {
 							<Route path='/Blog' element={<Blog />} />
 							<Route path='/BlogContent/:id' element={<BlogContent />} />
 							<Route path='/Category/:id' element={<BlogCategories />} />
+							{/* STRIPE  */}
+							<Route path='/' element={<Payment />} />
+							<Route path='/completion' element={<Completion />} />
 						</Routes>
 						<Footer />
 					</ApolloProvider>

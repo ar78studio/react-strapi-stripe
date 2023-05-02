@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 /src copy
+/src/components/test
 .env
