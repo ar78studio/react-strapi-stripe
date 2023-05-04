@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 app.get('/config', (req, res) => {
 	res.send({
-		publishableKey: process.env.STRIPE_LIVE_KEY,
+		publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
 	});
 });
 
@@ -26,7 +26,8 @@ app.post('/create-payment-intent', async (req, res) => {
 		const paymentIntent = await stripe.paymentIntents.create({
 			currency: 'EUR',
 			amount: 1999,
-			automatic_payment_methods: { enabled: true },
+			// automatic payment was removed in 2023 API
+			// automatic_payment_methods: { enabled: true },
 		});
 
 		// Send publishable key and PaymentIntent details to client

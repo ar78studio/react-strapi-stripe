@@ -36,7 +36,7 @@ const Footer = () => {
 					<Link className='text-white hover:text-buttonColor' to='../About'>
 						ABOUT
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../SingUp'>
+					<Link className='text-white hover:text-buttonColor' to='../SignUp'>
 						SIGN UP
 					</Link>
 					<Link className='text-white hover:text-buttonColor' to='../Help'>

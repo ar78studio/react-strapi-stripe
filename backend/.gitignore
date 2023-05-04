@@ -108,6 +108,8 @@ coverage
 
 
 .env
+.env.example
+.env.local
 license.txt
 exports
 *.cache

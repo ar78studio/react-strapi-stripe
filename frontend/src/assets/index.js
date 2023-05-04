@@ -12,3 +12,4 @@ export { default as ContactSvg } from '../../src/assets/contact.svg';
 export { default as WhiteConxhubLogo } from '../../src/assets/white-logo-conxhub.png';
 export { default as DownloadFromApple } from '../../src/assets/downloadOnAppStore.svg';
 export { default as GetItFromGooglePlay } from '../../src/assets/getItOnGooglePlay.svg';
+export { default as GirlWithPhone } from '../../src/assets/girl-with-phone.jpeg';

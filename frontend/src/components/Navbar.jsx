@@ -49,7 +49,7 @@ const Navbar = () => {
 						<Link className='text-navColor hover:text-navColorHover' to='/About'>
 							ABOUT
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='/SingUp'>
+						<Link className='text-navColor hover:text-navColorHover' to='/SignUp'>
 							SIGN UP
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/Help'>
@@ -95,7 +95,7 @@ const Navbar = () => {
 							<Link className='text-navColor hover:text-navColorHover' to='../About'>
 								ABOUT
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../SingUp'>
+							<Link className='text-navColor hover:text-navColorHover' to='../SignUp'>
 								SIGN UP
 							</Link>
 							<Link className='text-navColor hover:text-navColorHover' to='../Help'>

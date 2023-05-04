@@ -28,13 +28,15 @@ function App() {
 							<Route path='/Product' element={<Product />} />
 							<Route path='/About' element={<About />} />
 							<Route path='/SignUp' element={<SignUp />} />
+							{/* START STRIPE  */}
+							<Route path='/' element={<Payment />} />
+							<Route path='/completion' element={<Completion />} />
+							{/* END STRIPE  */}
+
 							<Route path='/Help' element={<Help />} />
 							<Route path='/Blog' element={<Blog />} />
 							<Route path='/BlogContent/:id' element={<BlogContent />} />
 							<Route path='/Category/:id' element={<BlogCategories />} />
-							{/* STRIPE  */}
-							<Route path='/' element={<Payment />} />
-							<Route path='/completion' element={<Completion />} />
 						</Routes>
 						<Footer />
 					</ApolloProvider>
