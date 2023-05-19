@@ -21,7 +21,6 @@ import VerifyCode from './verifycode/VerifyCode';
 // STRIPE CHECKOUT FORM
 import SubscriptionPlan from './stripe/SubscriptionPlan';
 import PaymentForm from './stripe/PaymentForm';
-import Completion from './checkout/Completion';
 
 // CONTACT US
 import Help from './pages/Help';
@@ -48,11 +47,10 @@ export {
 	FeelSafeWhen,
 	AVipNumber,
 	SignUp,
+	PaymentForm,
+	SubscriptionPlan,
 	VerifyPhone,
 	VerifyCode,
-	SubscriptionPlan,
-	PaymentForm,
-	Completion,
 	Help,
 	Faq,
 	ContactUs,

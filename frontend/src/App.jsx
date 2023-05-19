@@ -9,7 +9,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import BlogCategories from './components/blog/BlogCategories';
 
 // Stripe
-import { SubscriptionPlan, PaymentForm, Completion } from './components/index';
+import { SubscriptionPlan, PaymentForm } from './components/index';
 
 // Apollo client
 const client = new ApolloClient({
@@ -33,7 +33,6 @@ function App() {
 							{/* START STRIPE  */}
 							<Route exact path='/signup/subscribe' element={<SubscriptionPlan />} />
 							<Route exact path='/paymentform' element={<PaymentForm />} />
-							<Route exact path='/Completion' element={<Completion />} />
 							{/* STRIPE SUBSCRIPTION  */}
 							{/* <Route exact path='/checkout/Subscription' element={<Subscription />} />
 							<Route exact path='/SubscriptionForm' element={<SubscriptionForm />} />

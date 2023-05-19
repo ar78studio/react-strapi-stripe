@@ -6,8 +6,8 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const pinRegExp = /^\d{5}$/;
-const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-const nameRule = /^[A-Za-z\s]{0,30}$/;
+// const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+// const nameRule = /^[A-Za-z\s]{0,30}$/;
 // const nameRule = 'John Smith';
 const mobileNumberRule = /^\d{9}$/;
 
@@ -24,8 +24,8 @@ const resetForm = () => {
 };
 
 const validationSchema = Yup.object({
-	name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
-	email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
+	// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
+	// email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
 	phoneNumber: Yup.string().matches(mobileNumberRule, 'Wrong format. 9 digits only, no country code!').required('Phone number is required'),
 });
 
@@ -137,6 +137,7 @@ const VerifyAxios = () => {
 	return (
 		<div>
 			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>Create your VIP Experience</h1>
+			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your phone number</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
@@ -144,25 +145,25 @@ const VerifyAxios = () => {
 					<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
 							{/* NAME  */}
-							<div className='flex flex-col'>
+							{/* <div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='name'>
 									Full Name:
 								</label>
 								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='fullName' name='name' type='text' />
 								<ErrorMessage name='name' />
-							</div>
+							</div> */}
 							{/* EMAIL  */}
-							<div className='flex flex-col'>
+							{/* <div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='email'>
 									Email:
 								</label>
 								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
 								<ErrorMessage name='email' />
-							</div>
+							</div> */}
 							{/* MOBILE NUMBER  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
-									Your Mobile Number:
+									Enter Your Current Mobile Number:
 								</label>
 								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
