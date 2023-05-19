@@ -28,7 +28,7 @@ const SignUp = () => {
 			<div className='flex justify-center items-center p-20 bg-purple-100'>
 				{/* IMAGE LEFT COLUMN */}
 				<div className='w-[50%] ml-10 invisible lg:visible'>
-					<img src={GirlWithPhone} alt='Your Personal Number is Safe with Us' className='' />
+					<img src={GirlWithPhone} alt='Your Personal Number is Safe with Us' className='rounded-lg' />
 				</div>
 				{/* FORM RIGHT COLUMN  */}
 				<div className='flex flex-col justify-center items-center mx-10'>
