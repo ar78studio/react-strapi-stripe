@@ -71,7 +71,7 @@ app.post('/create-subscription', async (request, response) => {
 					price_data: {
 						currency: 'GBP',
 						product: product.id,
-						unit_amount: 8500,
+						unit_amount: 850,
 						recurring: {
 							interval: 'month',
 						},

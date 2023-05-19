@@ -40,15 +40,19 @@ const PaymentForm = () => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					name: name.name,
-					email: email.email,
+					name: name,
+					email: email,
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
 			// get clientSecret and conform the payment. If the payment is not already confirmed on the backend, it will be confirmed now.
 			if (!response.ok) return alert('Payment unsuccessful! Response not ok at paymentform.jsx line 42');
+
 			const data = await response.json();
-			const confirm = await stripe.confirmCardPayment(data.cleintSecret);
+			// ADDING THE CODE BELOW BECAUSE OF THE FOLLOWING MISTAKE: Payment failed, Missing value for stripe.confirmCardPayment intent secret: value should be a client_secret string.
+			// const clientSecret = data.clientSecret;
+
+			const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
 				return alert('Payment unsuccessful! confirm.error at paymentform.jsx line 45');
 			}
