@@ -61,9 +61,9 @@ const Blog = () => {
 	const displayBlogs = blogs.slice(pagesVisited, pagesVisited + blogsPerPage).map((blogs) => {
 		return (
 			// Blog Card
-			<div className='transition duration-300 ease-in-out hover:-translate-y-1 drop-shadow-2xl' key={blogs.id}>
+			<div className='transition duration-300 ease-in-out hover:-translate-y-1 drop-shadow-2xl' key={`blog-${blogs.id}`}>
 				<div className='bg-purple-200 rounded-t-xl rounded-bl-none overflow-hidden '>
-					<Link key={blogs.id} className='underline' to={`/BlogContent/${blogs.id}`}>
+					<Link className='underline' to={`/BlogContent/${blogs.id}`}>
 						<img
 							className='w-full rounded-bl-none rounded-br-none rounded-t-xl object-contain rounded-lg transition duration-300 ease-in-out filter  brightness-75 hover:brightness-100'
 							src={`http://localhost:1337${blogs.attributes.coverImage.data.attributes.formats}`}
@@ -71,11 +71,11 @@ const Blog = () => {
 						/>
 					</Link>
 
-					<div key={blogs.id} className='p-8 rounded-b-x'>
+					<div className='p-8 rounded-b-x'>
 						<h4 className='text-2xl pb-2'>{blogs.attributes.title}</h4>
 						<p className='text-sm pb-2'>{blogs.attributes.blogContent.substring(0, 200)}...</p>
 
-						<Link key={blogs.id} className='underline hover:text-linkOnWhiteColor' to={`/BlogContent/${blogs.id}`}>
+						<Link className='underline hover:text-linkOnWhiteColor' to={`/BlogContent/${blogs.id}`}>
 							Read more...
 						</Link>
 					</div>
