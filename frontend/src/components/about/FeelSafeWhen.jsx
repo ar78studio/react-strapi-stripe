@@ -2,6 +2,7 @@ import React from 'react';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import { GirlFeelSafe } from '../../assets/index';
+import { Link } from 'react-router-dom';
 
 const FeelSafeWhen = () => {
 	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
@@ -49,7 +50,7 @@ const FeelSafeWhen = () => {
 						}}
 						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						SIGN UP FOR YOUR VIP NUMBER
+						<Link to='../SignUp'> SIGN UP FOR YOUR VIP NUMBER</Link>
 					</motion.button>
 				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}

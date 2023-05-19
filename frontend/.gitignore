@@ -26,3 +26,4 @@ dist-ssr
 /src copy
 /src/components/test
 .env
+.env.local

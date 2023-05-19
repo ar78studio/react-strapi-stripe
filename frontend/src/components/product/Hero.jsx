@@ -3,10 +3,9 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { GirlHero } from '../../assets/index';
+import { Link } from 'react-router-dom';
 
 const Hero = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}
@@ -65,7 +64,7 @@ const Hero = ({ setSelectedPage }) => {
 						}}
 						className='place-self-center lg:place-self-start mx-10 my-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						SIGN UP TO ADD VIP PROTECTION
+						<Link to='../SignUp'>SIGN UP TO ADD VIP PROTECTION</Link>
 					</motion.button>
 				</div>
 				{/* IMAGE OF GIRL IN THE HERO SECTION 		 */}

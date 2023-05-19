@@ -4,17 +4,19 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "PORT=5173 react-scripts start",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.11.16",
+    "@mui/material": "^5.12.3",
     "@reduxjs/toolkit": "^1.9.3",
+    "@sentry/react": "^7.52.1",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.1",
     "@szhsin/react-accordion": "^1.2.0",
@@ -37,6 +39,7 @@
     "stripe": "^12.3.0",
     "yup": "^1.0.2"
   },
+  "proxy": "http://localhost:1447",
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

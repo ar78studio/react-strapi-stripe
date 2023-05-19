@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
+import { Link } from 'react-router-dom';
 
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { PhoneVipNumber } from '../../assets/index';
@@ -72,7 +73,7 @@ const AVipPhone = ({ setSelectedPage }) => {
 							}}
 							className='place-self-center lg:place-self-start mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 						>
-							SIGN UP FOR ADDED PROTECTION
+							<Link to='../SignUp'> SIGN UP FOR ADDED PROTECTION</Link>
 						</motion.button>
 					</motion.div>
 				</section>

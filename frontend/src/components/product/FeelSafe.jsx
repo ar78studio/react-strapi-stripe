@@ -3,10 +3,9 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { GirlFeelSafe } from '../../assets/index';
+import { Link } from 'react-router-dom';
 
 const FeelSafe = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
@@ -49,7 +48,7 @@ const FeelSafe = ({ setSelectedPage }) => {
 						}}
 						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						SIGN UP TO ADD VIP PROTECTION
+						<Link to='../SignUp'>SIGN UP TO ADD VIP PROTECTION</Link>
 					</motion.button>
 				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}

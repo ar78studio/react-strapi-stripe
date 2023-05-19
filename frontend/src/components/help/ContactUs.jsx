@@ -1,8 +1,6 @@
 import React from 'react';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
-
 import { ContactSvg } from '../../assets';
 
 const ContactUs = ({ setSelectedPage }) => {

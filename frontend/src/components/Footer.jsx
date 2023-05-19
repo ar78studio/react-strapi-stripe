@@ -65,7 +65,7 @@ const Footer = () => {
 							}}
 							className='place-self-center lg:place-self-start mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-[3rem] text-white transition duration-300 ease-in-out hover:scale-110'
 						>
-							GET YOUR NEW NUMBER NOW
+							<Link to='../SignUp'> GET YOUR NEW NUMBER NOW</Link>
 						</motion.button>
 					</div>
 

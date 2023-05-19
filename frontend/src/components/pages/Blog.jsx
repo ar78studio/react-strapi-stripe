@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ScrollToTop from '../ScrollToTop';
 import ReactPaginate from 'react-paginate';
+
 import '../pagination/pagination.css';
 
 const BLOGS = gql`
@@ -69,7 +71,7 @@ const Blog = () => {
 						/>
 					</Link>
 
-					<div className='p-8 rounded-b-x'>
+					<div key={blogs.id} className='p-8 rounded-b-x'>
 						<h4 className='text-2xl pb-2'>{blogs.attributes.title}</h4>
 						<p className='text-sm pb-2'>{blogs.attributes.blogContent.substring(0, 200)}...</p>
 
@@ -92,6 +94,8 @@ const Blog = () => {
 
 	return (
 		<>
+			<ScrollToTop />
+
 			{/* DARK BAR UNDER MENU - slide up with motion */}
 			<motion.div
 				initial='hidden'
@@ -105,6 +109,7 @@ const Blog = () => {
 			>
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
+
 			<section className='pt-20 pb-60 w-full bg-purple-300 lg:p-[5rem] md:p-[3rem] p-[1.5rem] '>
 				<div className='w-full flex justify-center items-center mx-auto'>
 					<h2 className='text-buttonColor text-5xl pt-4 pb-20'>VIP Safety First Blog</h2>
@@ -115,9 +120,10 @@ const Blog = () => {
 					{/* INSERT dsplayBlogs MAPPED VARIABLE HERE  */}
 					{displayBlogs}
 				</div>
+				{/* BLOG PAGINATION  */}
 				<div>
 					{/* PAGINATION  */}
-					<div id='container' className='flex justify-center pt-8'>
+					<div id='container' className='flex justify-center pt-20'>
 						<ReactPaginate
 							previousLabel={'<'}
 							nextLabel={'>'}

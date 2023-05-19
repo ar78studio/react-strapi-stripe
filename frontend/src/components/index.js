@@ -16,15 +16,18 @@ import FeelSafeWhen from './about/FeelSafeWhen';
 import AVipNumber from './about/AVipNumber';
 // SIGN UP
 import SignUp from './pages/SignUp';
+import VerifyPhone from './verifycode/VerifyPhone';
+import VerifyCode from './verifycode/VerifyCode';
+// STRIPE CHECKOUT FORM
+import SubscriptionPlan from './stripe/SubscriptionPlan';
+import PaymentForm from './stripe/PaymentForm';
+import Completion from './checkout/Completion';
+
 // CONTACT US
 import Help from './pages/Help';
 // --
 import Faq from './help/Faq';
 import ContactUs from './help/ContactUs';
-// STRIPE CHECKOUT FORM
-import CheckoutForm from './checkout/CheckoutForm';
-import Payment from './checkout/Payment';
-import Completion from './checkout/Completion';
 // BLOG
 import Blog from './pages/Blog';
 import BlogContent from './blog/BlogContent';
@@ -45,13 +48,15 @@ export {
 	FeelSafeWhen,
 	AVipNumber,
 	SignUp,
+	VerifyPhone,
+	VerifyCode,
+	SubscriptionPlan,
+	PaymentForm,
+	Completion,
 	Help,
 	Faq,
 	ContactUs,
-	CheckoutForm,
 	Blog,
 	BlogContent,
 	Footer,
-	Payment,
-	Completion,
 };
