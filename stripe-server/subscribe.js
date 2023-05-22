@@ -44,6 +44,23 @@ app.get('/config', (request, result) => {
 // 	const customerId = req.cookies['customer'];
 // 	const priceId = req.body.priceId;
 
+// CHECK IF THE USER ALREADY SUBSCRIBED
+
+app.post('/check-existing-client', async (req, res) => {
+	try {
+		const { email } = req.body;
+
+		const customer = await stripe.customers.list({ email: email });
+		const clientExists = customer.data.length > 0;
+
+		res.json({ clientExists });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Failed to check existing client' });
+	}
+});
+
+// CREATE SUBSCRIPTION
 app.post('/create-subscription', async (request, response) => {
 	try {
 		if (request.method != 'POST') return response.status(400);

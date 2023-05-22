@@ -27,10 +27,50 @@ const PaymentForm = () => {
 		email: Yup.string().matches(emailRule, 'Verify Email Format'),
 	});
 
+	// REDIRECT TO THE CONFIRMATION PAGE
 	const navigate = useNavigate();
-	// PHONE NUMBER VERIFICATION
+
+	// CHECK IF CUSTOMER ALREADY EXISTS
+	const checkExistingClient = async () => {
+		try {
+			const response = await fetch('http://localhost:1447/check-existing-client', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					email: email,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to check existing client');
+			}
+
+			const data = await response.json();
+
+			if (data.clientExists) {
+				throw new Error('Client is already subscribed');
+			}
+
+			return true;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	};
+
+	// CREATE NEW CUSTOMER SUBSCRIPTION
 	const createSubscription = async () => {
 		try {
+			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED
+			const isExistingClient = await checkExistingClient();
+
+			if (!isExistingClient) {
+				return;
+			}
+
+			// CREATE STRIPE PAYMENT METHOD
 			const paymentMethod = await stripe.createPaymentMethod({
 				type: 'card',
 				card: elements.getElement('card'),
@@ -110,6 +150,9 @@ const PaymentForm = () => {
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 						</button>
+						<div className='flex justify-center text-xl text-buttonColor'>
+							<h4 className='text-base text-buttonColor'>Powered by Stripe</h4>
+						</div>
 					</Form>
 				)}
 			</Formik>
