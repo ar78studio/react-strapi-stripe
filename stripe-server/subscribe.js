@@ -66,25 +66,26 @@ app.post('/create-subscription', async (request, response) => {
 		// Create a subscription
 		const subscription = await stripe.subscriptions.create({
 			customer: customer.id,
-			items: [
-				{
-					price_data: {
-						currency: 'GBP',
-						product: product.id,
-						unit_amount: 850,
-						recurring: {
-							interval: 'month',
-						},
-					},
-				},
-			],
-			//
-			// PRICE FROM THE PRODUCT PRICE API ID
+			// Create a product:
 			// items: [
 			// 	{
-			// 		price: 'price_1N8Oz6HfTo5S12kxznMu8sFf',
+			// 		price_data: {
+			// 			currency: 'GBP',
+			// 			product: product.id,
+			// 			unit_amount: 850,
+			// 			recurring: {
+			// 				interval: 'month',
+			// 			},
+			// 		},
 			// 	},
 			// ],
+			//
+			// USE AN EXISTING PRODUCT FROM THE PRODUCT PRICE API ID
+			items: [
+				{
+					price: 'price_1N8Oz6HfTo5S12kxznMu8sFf',
+				},
+			],
 			payment_settings: {
 				// From video
 				payment_method_types: ['card'],

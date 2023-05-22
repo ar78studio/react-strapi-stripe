@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
@@ -26,6 +27,7 @@ const PaymentForm = () => {
 		email: Yup.string().matches(emailRule, 'Verify Email Format'),
 	});
 
+	const navigate = useNavigate();
 	// PHONE NUMBER VERIFICATION
 	const createSubscription = async () => {
 		try {
@@ -57,6 +59,8 @@ const PaymentForm = () => {
 				return alert('Payment unsuccessful! confirm.error at paymentform.jsx line 45');
 			}
 			alert('Payment successful! Subscription is active');
+			// REDIRECT TO STRIPE CHECKOUT
+			navigate('/signup/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
@@ -65,7 +69,7 @@ const PaymentForm = () => {
 
 	return (
 		<>
-			<h1>Payment Form</h1>
+			<h1 className='text-4xl pb-10 text-buttonColor font-semibold'>Payment Form</h1>
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={createSubscription}>
 				{({ isSubmitting }) => (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Navbar, Homepage, Product, About, SignUp, Help, Blog, BlogContent, Footer } from './components/index';
+import { Navbar, Homepage, Product, About, SignUp, Help, Blog, BlogContent, Footer, Confirmation } from './components/index';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
@@ -31,14 +31,10 @@ function App() {
 							<Route path='/About' element={<About />} />
 							<Route path='/SignUp' element={<SignUp />} />
 							{/* START STRIPE  */}
+							{/* STRIPE SUBSCRIPTION  */}
 							<Route exact path='/signup/subscribe' element={<SubscriptionPlan />} />
 							<Route exact path='/paymentform' element={<PaymentForm />} />
-							{/* STRIPE SUBSCRIPTION  */}
-							{/* <Route exact path='/checkout/Subscription' element={<Subscription />} />
-							<Route exact path='/SubscriptionForm' element={<SubscriptionForm />} />
-							<Route exact path='/Completion' element={<Completion />} /> */}
-							{/* END STRIPE  */}
-
+							<Route exact path='/signup/confirmation' element={<Confirmation />} />
 							<Route path='/Help' element={<Help />} />
 							<Route path='/Blog' element={<Blog />} />
 							<Route path='/BlogContent/:id' element={<BlogContent />} />

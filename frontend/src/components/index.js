@@ -21,6 +21,7 @@ import VerifyCode from './verifycode/VerifyCode';
 // STRIPE CHECKOUT FORM
 import SubscriptionPlan from './stripe/SubscriptionPlan';
 import PaymentForm from './stripe/PaymentForm';
+import Confirmation from './stripe/Confirmation';
 
 // CONTACT US
 import Help from './pages/Help';
@@ -49,6 +50,7 @@ export {
 	SignUp,
 	PaymentForm,
 	SubscriptionPlan,
+	Confirmation,
 	VerifyPhone,
 	VerifyCode,
 	Help,
