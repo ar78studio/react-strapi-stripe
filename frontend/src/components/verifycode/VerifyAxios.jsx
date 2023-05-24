@@ -49,7 +49,7 @@ const VerifyAxios = () => {
 				phoneNumber: values.phoneNumber,
 			};
 
-			const dataForNewUser = {
+			const dataForUser = {
 				cusFirstName: values.firstName,
 				cusLastName: values.lastName,
 				cusEmail: values.email,
@@ -59,19 +59,19 @@ const VerifyAxios = () => {
 			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataForPincode);
 
 			// CREATE USER - ADD USER TO THE CONXHUB PORTAL
-			const responseUser = await axios.post('https://acd1.riptec.host/dev9/createUser', dataForNewUser);
+			const responseUser = await axios.post('https://acd1.riptec.host/dev9/createUser', dataForUser);
 
 			setSubmitting(false);
 
 			// Log the entire response object
 			console.log('Response:', responseCode);
 
-			if (responseCode.dataForPincode && responseUser.dataForNewUser && responseCode.dataForPincode.verifCode) {
-				setVerificationCode(responseCode.data.verifCode);
-				// console.log(`Response Data verifCode: ${response.data.verifCode}`);
+			if (responseCode.dataForPincode && responseUser.dataForUser && responseCode.dataForPincode.verifCode) {
+				setVerificationCode(responseCode.dataForPincode.verifCode);
+				console.log(`Response Data verifCode: ${responseCode.dataForPincode.verifCode}`);
 				setSubmitError(null);
-				setSentCode(responseCode.data.verifCode);
-				// console.log(setSentCode(response.data.verifCode));
+				setSentCode(responseCode.dataForPincode.verifCode);
+				console.log(setSentCode(responseCode.dataForPincode.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
 			} else {
 				console.log('verifCode is undefined');

@@ -35,6 +35,7 @@ function App() {
 							<Route exact path='/signup/subscribe' element={<SubscriptionPlan />} />
 							<Route exact path='/paymentform' element={<PaymentForm />} />
 							<Route exact path='/signup/confirmation' element={<Confirmation />} />
+							{/* END STRIPE  */}
 							<Route path='/Help' element={<Help />} />
 							<Route path='/Blog' element={<Blog />} />
 							<Route path='/BlogContent/:id' element={<BlogContent />} />

@@ -11,7 +11,7 @@ const SubscriptionPlan = () => {
 	const [subscription, setSubscription] = useState(null);
 	const [product, setProduct] = useState(null);
 	const [price, setPrice] = useState(null);
-	const [invoice, setInvoice] = useState(null);
+	// const [invoice, setInvoice] = useState(null);
 
 	useEffect(() => {
 		const fetchSubscription = async () => {
@@ -73,27 +73,27 @@ const SubscriptionPlan = () => {
 		};
 
 		// FETCH INVOICE
-		const fetchInvoice = async () => {
-			try {
-				const response = await fetch('http://localhost:1447/get-invoice', {
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
-				if (response.ok) {
-					const data = await response.json();
-					setInvoice(data.invoice);
-				} else {
-					console.log('Failed to fetch invoice');
-				}
-			} catch (error) {}
-		};
+		// const fetchInvoice = async () => {
+		// 	try {
+		// 		const response = await fetch('http://localhost:1447/get-invoice', {
+		// 			method: 'GET',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 			},
+		// 		});
+		// 		if (response.ok) {
+		// 			const data = await response.json();
+		// 			setInvoice(data.invoice);
+		// 		} else {
+		// 			console.log('Failed to fetch invoice');
+		// 		}
+		// 	} catch (error) {}
+		// };
 
 		fetchSubscription();
 		fetchProduct();
 		fetchPrice();
-		fetchInvoice();
+		// fetchInvoice();
 	}, []);
 
 	return (
@@ -172,7 +172,7 @@ const SubscriptionPlan = () => {
 					</div>
 
 					{/* GET INVOICE  */}
-					<div>
+					{/* <div>
 						{invoice ? (
 							<div>
 								<p>{invoice.object}</p>
@@ -182,7 +182,7 @@ const SubscriptionPlan = () => {
 						) : (
 							<div>Loading invoice details...</div>
 						)}
-					</div>
+					</div> */}
 				</section>
 
 				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
