@@ -120,50 +120,11 @@ app.get('/get-subscription', async (request, response) => {
 	try {
 		if (request.method != 'GET') return response.status(400);
 		const subId = 'sub_1N92nvHfTo5S12kx4ekY69aw'; // Replace with your actual plan ID
-		const subscription = await stripe.subscriptions.retrieve(subId);
+		const subscription = await stripe.subscriptions.retrieve(`${subId}`);
 		response.json({ subscription });
 	} catch (error) {
 		console.error(error);
 		response.status(500).json({ error: 'Failed to retrieve subscription details' });
-	}
-});
-
-// GET PRODUCT DETAILS
-app.get('/get-product', async (request, response) => {
-	try {
-		if (request.method !== 'GET') return response.status(400);
-		const productId = 'prod_NuDPcBmwNwDyAc';
-		const product = await stripe.products.retrieve(productId);
-		response.json({ product });
-	} catch (error) {
-		console.error(error);
-		response.status(500).json({ error: 'Failed to retrieve product details' });
-	}
-});
-
-// GET PRICE DETAILS
-app.get('/get-price', async (request, response) => {
-	try {
-		if (request.method !== 'GET') return response.status(400);
-		const priceId = 'price_1N8Oz6HfTo5S12kxznMu8sFf';
-		const price = await stripe.prices.retrieve(`${priceId}`);
-		response.json({ price });
-	} catch (error) {
-		console.error(error);
-		response.status(500).json({ error: 'Failed to retrieve price details' });
-	}
-});
-
-// GET OR CREATE AN INVOICE
-app.get('/get-invoice', async (request, response) => {
-	try {
-		if (request.method !== 'GET') return response.status(400);
-		const invoiceId = 'in_1NAgSdHfTo5S12kx8acehHUN';
-		const invoice = await stripe.invoices.retrieve(invoiceId);
-		response.json({ invoice });
-	} catch (error) {
-		console.error(error);
-		response.status(500).json({ error: 'Failed to retrieve invoice details' });
 	}
 });
 

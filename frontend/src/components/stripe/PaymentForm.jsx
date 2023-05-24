@@ -150,8 +150,14 @@ const PaymentForm = () => {
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 						</button>
+						<div>
+							<h5 className='text-xs text-center text-buttonColor px-20'>
+								By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always
+								cancel your subscription.
+							</h5>
+						</div>
 						<div className='flex justify-center text-xl text-buttonColor'>
-							<h4 className='text-base text-buttonColor'>Powered by Stripe</h4>
+							<h5 className='text-sm text-buttonColor'>Powered by Stripe</h5>
 						</div>
 					</Form>
 				)}

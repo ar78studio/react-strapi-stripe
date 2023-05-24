@@ -30,19 +30,19 @@ const Footer = () => {
 				<section className='flex gap-8 container mw-auto flex-col justify-center items-center text-xl font-semibold'>
 					{/* MENU ITEMS  */}
 
-					<Link className='text-white hover:text-buttonColor' to='../Product'>
+					<Link className='text-white hover:text-buttonColor' to='../product'>
 						PRODUCT
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../About'>
+					<Link className='text-white hover:text-buttonColor' to='../about'>
 						ABOUT
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../SignUp'>
+					<Link className='text-white hover:text-buttonColor' to='../signup'>
 						SIGN UP
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../Help'>
+					<Link className='text-white hover:text-buttonColor' to='../help'>
 						HELP
 					</Link>
-					<Link className='text-white hover:text-buttonColor' to='../Blog'>
+					<Link className='text-white hover:text-buttonColor' to='../blog'>
 						BLOG
 					</Link>
 				</section>

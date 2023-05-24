@@ -16,8 +16,6 @@ import FeelSafeWhen from './about/FeelSafeWhen';
 import AVipNumber from './about/AVipNumber';
 // SIGN UP
 import SignUp from './pages/SignUp';
-import VerifyPhone from './verifycode/VerifyPhone';
-import VerifyCode from './verifycode/VerifyCode';
 // STRIPE CHECKOUT FORM
 import SubscriptionPlan from './stripe/SubscriptionPlan';
 import PaymentForm from './stripe/PaymentForm';
@@ -51,8 +49,6 @@ export {
 	PaymentForm,
 	SubscriptionPlan,
 	Confirmation,
-	VerifyPhone,
-	VerifyCode,
 	Help,
 	Faq,
 	ContactUs,

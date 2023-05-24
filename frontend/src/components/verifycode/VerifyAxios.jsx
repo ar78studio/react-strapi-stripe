@@ -6,13 +6,13 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const pinRegExp = /^\d{5}$/;
-// const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-// const nameRule = /^[A-Za-z\s]{0,30}$/;
-// const nameRule = 'John Smith';
-const mobileNumberRule = /^\d{9}$/;
+const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const nameRule = /^[A-Za-z\s]{0,30}$/;
+const mobileNumberRule = /^\d{11}$/;
 
 const initialValues = {
-	name: '',
+	firstName: '',
+	lastName: '',
 	email: '',
 	phoneNumber: '',
 	verificationCode: '',
@@ -24,8 +24,9 @@ const resetForm = () => {
 };
 
 const validationSchema = Yup.object({
-	// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
-	// email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
+	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
+	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
+	email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
 	phoneNumber: Yup.string().matches(mobileNumberRule, 'Wrong format. 9 digits only, no country code!').required('Phone number is required'),
 });
 
@@ -43,24 +44,33 @@ const VerifyAxios = () => {
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
 		try {
-			const data = {
+			const dataForPincode = {
 				imsi: '000702735808142',
-				countryCode: '34',
 				phoneNumber: values.phoneNumber,
 			};
-			// ANTON BACKEND SERVER
-			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', data);
+
+			const dataForNewUser = {
+				cusFirstName: values.firstName,
+				cusLastName: values.lastName,
+				cusEmail: values.email,
+				phoneNumber: values.phoneNumber,
+			};
+			// SIM CODE VERIFICATION ENDPOINT
+			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataForPincode);
+
+			// CREATE USER - ADD USER TO THE CONXHUB PORTAL
+			const responseUser = await axios.post('https://acd1.riptec.host/dev9/createUser', dataForNewUser);
 
 			setSubmitting(false);
 
 			// Log the entire response object
-			console.log('Response:', response);
+			console.log('Response:', responseCode);
 
-			if (response.data && response.data.verifCode) {
-				setVerificationCode(response.data.verifCode);
+			if (responseCode.dataForPincode && responseUser.dataForNewUser && responseCode.dataForPincode.verifCode) {
+				setVerificationCode(responseCode.data.verifCode);
 				// console.log(`Response Data verifCode: ${response.data.verifCode}`);
 				setSubmitError(null);
-				setSentCode(response.data.verifCode);
+				setSentCode(responseCode.data.verifCode);
 				// console.log(setSentCode(response.data.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
 			} else {
@@ -73,15 +83,15 @@ const VerifyAxios = () => {
 			document.getElementById('verificationCodeForm').classList.remove('hidden');
 			document.getElementById('verificationCodeForm').classList.add('block');
 		} catch (error) {
-			if (error.response) {
+			if (error.responseCode) {
 				// Response not in the 200 range
 				setSubmitting(false);
 				setVerificationCode('');
 				setSubmitError(error.message);
 				setSentCode(null);
-				console.log(error.response.data);
-				console.log(error.response.status);
-				console.log(error.response.headers);
+				console.log(error.responseCode.data);
+				console.log(error.responseCode.status);
+				console.log(error.responseCode.headers);
 			} else {
 				// No Response at all or 404 or something else occured
 				console.log(`Error: ${error.message}`);
@@ -90,8 +100,6 @@ const VerifyAxios = () => {
 		// Reset Client Input form
 		resetForm({ values: '' });
 	};
-
-	// HANDLE CUSTOMER INFORMATION COLLECTION AND PASSING IT TO THE SERVER
 
 	// VERIFICATION CODE SUBMITION
 	const navigate = useNavigate();
@@ -144,22 +152,30 @@ const VerifyAxios = () => {
 				{({ isSubmitting }) => (
 					<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
-							{/* NAME  */}
-							{/* <div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='name'>
-									Full Name:
+							{/* FIRST NAME  */}
+							<div className='flex flex-col'>
+								<label className='text-buttonColor' htmlFor='firstName'>
+									First Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='fullName' name='name' type='text' />
-								<ErrorMessage name='name' />
-							</div> */}
+								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+								<ErrorMessage name='firstName' />
+							</div>
+							{/* LAST NAME  */}
+							<div className='flex flex-col'>
+								<label className='text-buttonColor' htmlFor='lastName'>
+									Last Name:
+								</label>
+								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+								<ErrorMessage name='lastName' />
+							</div>
 							{/* EMAIL  */}
-							{/* <div className='flex flex-col'>
+							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='email'>
 									Email:
 								</label>
 								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
 								<ErrorMessage name='email' />
-							</div> */}
+							</div>
 							{/* MOBILE NUMBER  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>

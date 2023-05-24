@@ -43,19 +43,19 @@ const Navbar = () => {
 						}}
 						className='flex justify-between gap-10 font-poppins text-lg font-semibold'
 					>
-						<Link className='text-navColor hover:text-navColorHover' to='/Product'>
+						<Link className='text-navColor hover:text-navColorHover' to='/product'>
 							PRODUCT
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='/About'>
+						<Link className='text-navColor hover:text-navColorHover' to='/about'>
 							ABOUT
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='/SignUp'>
+						<Link className='text-navColor hover:text-navColorHover' to='/signup'>
 							SIGN UP
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='/Help'>
+						<Link className='text-navColor hover:text-navColorHover' to='/help'>
 							HELP
 						</Link>
-						<Link className='text-navColor hover:text-navColorHover' to='/Blog'>
+						<Link className='text-navColor hover:text-navColorHover' to='/blog'>
 							BLOG
 						</Link>
 
@@ -89,19 +89,19 @@ const Navbar = () => {
 						</div>
 						{/* MENU ITEMS  */}
 						<div className='flex flex-col gap-10 ml-[33%] text-2xl'>
-							<Link className='text-navColor hover:text-navColorHover' to='../Product'>
+							<Link className='text-navColor hover:text-navColorHover' to='../product'>
 								PRODUCT
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../About'>
+							<Link className='text-navColor hover:text-navColorHover' to='../about'>
 								ABOUT
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../SignUp'>
+							<Link className='text-navColor hover:text-navColorHover' to='../signup'>
 								SIGN UP
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../Help'>
+							<Link className='text-navColor hover:text-navColorHover' to='../help'>
 								HELP
 							</Link>
-							<Link className='text-navColor hover:text-navColorHover' to='../Blog'>
+							<Link className='text-navColor hover:text-navColorHover' to='../blog'>
 								BLOG
 							</Link>
 							{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}

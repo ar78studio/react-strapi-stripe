@@ -25,13 +25,13 @@ const SignUp = () => {
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
 			{/* WRAPPER */}
-			<div className='flex justify-center items-center p-20 bg-purple-100'>
+			<div className='flex flex-wrap-reverse justify-center items-center px-10 py-20  bg-purple-100'>
 				{/* IMAGE LEFT COLUMN */}
-				<div className='w-[50%] ml-10 invisible lg:visible'>
+				<div className='lg:w-[50%] mx-6 my-10'>
 					<img src={GirlWithPhone} alt='Your Personal Number is Safe with Us' className='rounded-lg' />
 				</div>
 				{/* FORM RIGHT COLUMN  */}
-				<div className='flex flex-col justify-center items-center mx-10'>
+				<div className='flex flex-col justify-center items-center mx-6 pt-4'>
 					<VerifyAxios />
 				</div>
 			</div>
