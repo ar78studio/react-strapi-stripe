@@ -44,34 +44,34 @@ const VerifyAxios = () => {
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
 		try {
-			const dataForPincode = {
+			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
 			};
 
-			const dataForUser = {
+			const dataCreateUser = {
 				cusFirstName: values.firstName,
 				cusLastName: values.lastName,
 				cusEmail: values.email,
 				phoneNumber: values.phoneNumber,
 			};
 			// SIM CODE VERIFICATION ENDPOINT
-			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataForPincode);
+			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
 
 			// CREATE USER - ADD USER TO THE CONXHUB PORTAL
-			const responseUser = await axios.post('https://acd1.riptec.host/dev9/createUser', dataForUser);
+			const responseUser = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createUser', dataCreateUser);
 
 			setSubmitting(false);
 
 			// Log the entire response object
-			console.log('Response:', responseCode);
+			// console.log('Response:', responseCode);
 
-			if (responseCode.dataForPincode && responseUser.dataForUser && responseCode.dataForPincode.verifCode) {
-				setVerificationCode(responseCode.dataForPincode.verifCode);
-				console.log(`Response Data verifCode: ${responseCode.dataForPincode.verifCode}`);
+			if (responseCode.dataRequestPin && responseUser.dataCreateUser && responseCode.dataRequestPin.verifCode) {
+				setVerificationCode(responseCode.dataRequestPin.verifCode);
+				// console.log(`Response Data verifCode: ${responseCode.dataRequestPin.verifCode}`);
 				setSubmitError(null);
-				setSentCode(responseCode.dataForPincode.verifCode);
-				console.log(setSentCode(responseCode.dataForPincode.verifCode));
+				setSentCode(responseCode.dataRequestPin.verifCode);
+				// console.log(setSentCode(responseCode.dataRequestPin.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
 			} else {
 				console.log('verifCode is undefined');
@@ -89,9 +89,10 @@ const VerifyAxios = () => {
 				setVerificationCode('');
 				setSubmitError(error.message);
 				setSentCode(null);
-				console.log(error.responseCode.data);
-				console.log(error.responseCode.status);
-				console.log(error.responseCode.headers);
+				// console.log(error.responseCode.dataRequestPin);
+				// console.log(error.responseCode.dataCreateUser);
+				// console.log(error.responseCode.status);
+				// console.log(error.responseCode.headers);
 			} else {
 				// No Response at all or 404 or something else occured
 				console.log(`Error: ${error.message}`);

@@ -162,7 +162,7 @@ const SubscriptionPlan = () => {
 							<div>
 								<p className='text-purple-500'>
 									{' '}
-									Billed at: {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} / {price.recurring.interval}
+									Billed at: {`${price.unit_amount} / 100 + '0'`} {price.currency.toUpperCase()} / {price.recurring.interval}
 								</p>
 								<p></p>
 							</div>
