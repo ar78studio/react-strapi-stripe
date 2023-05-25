@@ -112,17 +112,20 @@ const SubscriptionPlan = () => {
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
 			<div className='flex flex-col flex-wrap lg:flex-row lg:flex-nowrap px-10 my-10'>
-				<section id='planDescription' className='flex flex-col w-full lg:w-1/2 justify-center items-center '>
-					<h1 className='text-xl text-buttonColor'>Subscribe to VIP Safety First</h1>
+				<section id='planDescription' className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'>
+					<h1 className='text-xl text-buttonColor font-semibold'>Subscribe to VIP Safety First</h1>
 
 					{/* GET PRICE  */}
-					<div>
+					<div className='w-full'>
 						{price ? (
-							<div className='flex justify-between items-center py-2'>
-								<span className='text-3xl text-buttonColor font-semibold'>
-									{' '}
-									{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
-								</span>
+							<div className='flex  items-center py-2'>
+								<div className='flex justify-start'>
+									{/* LARGE PRICE NUMBERS  */}
+									<span className='text-3xl text-buttonColor font-semibold'>
+										{' '}
+										{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+									</span>
+								</div>
 								<div className='flex flex-col leading-none'>
 									<span className='pl-4 text-purple-500'>per </span>
 									<span className='pl-4 text-purple-500'>{price.recurring.interval}</span>
@@ -135,39 +138,64 @@ const SubscriptionPlan = () => {
 
 					{/* GET PRODUCT  */}
 					<div>
-						{product ? (
-							<div>
-								<div className='flex justify-between my-4'>
+						{price ? (
+							<div className=''>
+								<div className='flex w-full justify-between items-center my-4'>
 									<div className='flex'>
 										<img className='h-8 pr-6' src={SingleHeart} alt='' />
 										<p className='font-semibold text-buttonColor'>{product.name}</p>
 									</div>
 									<div>
-										<p className='text-purple-500'>
+										<p className='text-purple-500 text-sm'>
 											{' '}
 											{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} / {price.recurring.interval}
 										</p>
 									</div>
 								</div>
-								<p className='text-purple-500'>{product.description}</p>
+								<p className='text-sm text-purple-500'>{product.description}</p>
 							</div>
 						) : (
 							<div>Loading product details...</div>
 						)}
 					</div>
 
-					{/* GET PRICE  */}
-					<div>
+					{/* SUBTOTAL  */}
+					<div className='w-full mt-10'>
 						{price ? (
-							<div>
-								<p className='text-purple-500'>
-									{' '}
-									Billed at: {`${price.unit_amount} / 100 + '0'`} {price.currency.toUpperCase()} / {price.recurring.interval}
-								</p>
-								<p></p>
+							<div className='flex justify-between items-center'>
+								<span className='text-buttonColor'>Subtotal: </span>
+								<span className='text-sm text-purple-500'>
+									{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+								</span>
 							</div>
 						) : (
-							<div>Loading price details...</div>
+							<div>Loading subtotal...</div>
+						)}
+					</div>
+					{/* TAXES  */}
+					<div className='w-full mt-5'>
+						{price ? (
+							<div className='flex justify-between items-center'>
+								<span className='text-buttonColor'>IVA: </span>
+								<span className='text-sm text-purple-500'>
+									{0} {price.currency.toUpperCase()}
+								</span>
+							</div>
+						) : (
+							<div>Loading taxes...</div>
+						)}
+					</div>
+					{/* TOTAL  */}
+					<div className='w-full mt-5'>
+						{price ? (
+							<div className='flex justify-between items-center'>
+								<span className='text-buttonColor font-bold'>Total: </span>
+								<span className='text-sm text-purple-500'>
+									{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+								</span>
+							</div>
+						) : (
+							<div>Loading total...</div>
 						)}
 					</div>
 

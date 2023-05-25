@@ -115,13 +115,21 @@ const PaymentForm = () => {
 				{({ isSubmitting }) => (
 					<Form id='stripeCustomer' className='block flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
-							{/* NAME  */}
+							{/* FIRST NAME  */}
 							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='name'>
-									Full Name:{''}
+								<label className='text-buttonColor' htmlFor='firstName'>
+									First Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='name' name='name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
-								<ErrorMessage name='name' />
+								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+								<ErrorMessage name='firstName' />
+							</div>
+							{/* LAST NAME  */}
+							<div className='flex flex-col'>
+								<label className='text-buttonColor' htmlFor='lastName'>
+									Last Name:
+								</label>
+								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+								<ErrorMessage name='lastName' />
 							</div>
 							{/* EMAIL  */}
 							<div className='flex flex-col'>
@@ -151,7 +159,7 @@ const PaymentForm = () => {
 							{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 						</button>
 						<div>
-							<h5 className='text-xs text-center text-buttonColor px-20'>
+							<h5 className='text-xs text-center text-buttonColor lg:px-20'>
 								By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always
 								cancel your subscription.
 							</h5>

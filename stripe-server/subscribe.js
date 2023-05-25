@@ -55,11 +55,12 @@ app.post('/check-existing-client', async (req, res) => {
 app.post('/create-subscription', async (request, response) => {
 	try {
 		if (request.method != 'POST') return response.status(400);
-		const { name, email, paymentMethod } = request.body;
+		const { firstName, lastName, email, paymentMethod } = request.body;
 
 		// Create a customer
 		const customer = await stripe.customers.create({
-			name: name,
+			firstName: firstName,
+			lastName: lastName,
 			email: email,
 			payment_method: paymentMethod,
 			// Stripe use default payment method (probably that you set in your dashboard) to deduct your initial payment
