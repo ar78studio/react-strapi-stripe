@@ -33,7 +33,8 @@ function App() {
 							{/* START STRIPE  */}
 							{/* STRIPE SUBSCRIPTION  */}
 							<Route exact path='/signup/subscribe' element={<SubscriptionPlan />} />
-							<Route exact path='/paymentform' element={<PaymentForm />} />
+							<Route path='/signup/subscribe/payment' element={<PaymentForm />} />
+
 							<Route exact path='/signup/confirmation' element={<Confirmation />} />
 							{/* END STRIPE  */}
 							<Route path='/Help' element={<Help />} />

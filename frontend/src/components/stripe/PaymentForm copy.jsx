@@ -5,25 +5,20 @@ import * as Yup from 'yup';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useLocation } from 'react-router-dom';
-
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
-const PaymentForm = ({ initialValues }) => {
+const PaymentForm = () => {
 	// Also try and copy  the two consts bellow to VerifyAxios.jsx in order to try and to send the name and email from the first Formik form to Stripe to create a customer.
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
-	const location = useLocation();
-	const { firstName, lastName, clientEmail } = location.state || {};
-
 	const stripe = useStripe();
 	const elements = useElements();
-	// const initialValues = {
-	// 	name: '',
-	// 	email: '',
-	// };
+	const initialValues = {
+		name: '',
+		email: '',
+	};
 
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
@@ -125,7 +120,7 @@ const PaymentForm = ({ initialValues }) => {
 								<label className='text-buttonColor' htmlFor='firstName'>
 									First Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
 								<ErrorMessage name='firstName' />
 							</div>
 							{/* LAST NAME  */}
@@ -133,23 +128,24 @@ const PaymentForm = ({ initialValues }) => {
 								<label className='text-buttonColor' htmlFor='lastName'>
 									Last Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
 								<ErrorMessage name='lastName' />
 							</div>
 							{/* EMAIL  */}
 							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='clientEmail'>
+								<label className='text-buttonColor' htmlFor='email'>
 									Email:{''}
 								</label>
 								<Field
+									autoComplete='off'
 									className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2'
-									id='clientEmail'
-									name='clientEmail'
+									id='email'
+									name='email'
 									type='email'
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
-								<ErrorMessage name='userEmail' />
+								<ErrorMessage name='email' />
 							</div>
 						</div>
 

@@ -2,21 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
-// STRIPE
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-
 import * as Yup from 'yup';
 import axios from 'axios';
 
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,30}$/;
-// const nameRule = 'John Smith';
-const mobileNumberRule = /^\d{9}$/;
+const mobileNumberRule = /^\d{11}$/;
 
 const initialValues = {
-	name: '',
+	firstName: '',
+	lastName: '',
 	email: '',
 	phoneNumber: '',
 	verificationCode: '',
@@ -28,7 +24,8 @@ const resetForm = () => {
 };
 
 const validationSchema = Yup.object({
-	name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
+	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
+	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
 	phoneNumber: Yup.string().matches(mobileNumberRule, 'Wrong format. 9 digits only, no country code!').required('Phone number is required'),
 });
@@ -47,25 +44,34 @@ const VerifyAxios = () => {
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
 		try {
-			const data = {
+			const dataRequestPin = {
 				imsi: '000702735808142',
-				countryCode: '34',
 				phoneNumber: values.phoneNumber,
 			};
-			// ANTON BACKEND SERVER
-			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', data);
+
+			const dataCreateUser = {
+				cusFirstName: values.firstName,
+				cusLastName: values.lastName,
+				cusEmail: values.email,
+				phoneNumber: values.phoneNumber,
+			};
+			// SIM CODE VERIFICATION ENDPOINT
+			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
+
+			// CREATE USER - ADD USER TO THE CONXHUB PORTAL
+			const responseUser = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createUser', dataCreateUser);
 
 			setSubmitting(false);
 
 			// Log the entire response object
-			console.log('Response:', response);
+			// console.log('Response:', responseCode);
 
-			if (response.data && response.data.verifCode) {
-				setVerificationCode(response.data.verifCode);
-				// console.log(`Response Data verifCode: ${response.data.verifCode}`);
+			if (responseCode.dataRequestPin && responseUser.dataCreateUser && responseCode.dataRequestPin.verifCode) {
+				setVerificationCode(responseCode.dataRequestPin.verifCode);
+				// console.log(`Response Data verifCode: ${responseCode.dataRequestPin.verifCode}`);
 				setSubmitError(null);
-				setSentCode(response.data.verifCode);
-				// console.log(setSentCode(response.data.verifCode));
+				setSentCode(responseCode.dataRequestPin.verifCode);
+				// console.log(setSentCode(responseCode.dataRequestPin.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
 			} else {
 				console.log('verifCode is undefined');
@@ -77,15 +83,16 @@ const VerifyAxios = () => {
 			document.getElementById('verificationCodeForm').classList.remove('hidden');
 			document.getElementById('verificationCodeForm').classList.add('block');
 		} catch (error) {
-			if (error.response) {
+			if (error.responseCode) {
 				// Response not in the 200 range
 				setSubmitting(false);
 				setVerificationCode('');
 				setSubmitError(error.message);
 				setSentCode(null);
-				console.log(error.response.data);
-				console.log(error.response.status);
-				console.log(error.response.headers);
+				// console.log(error.responseCode.dataRequestPin);
+				// console.log(error.responseCode.dataCreateUser);
+				// console.log(error.responseCode.status);
+				// console.log(error.responseCode.headers);
 			} else {
 				// No Response at all or 404 or something else occured
 				console.log(`Error: ${error.message}`);
@@ -94,83 +101,6 @@ const VerifyAxios = () => {
 		// Reset Client Input form
 		resetForm({ values: '' });
 	};
-
-	// ------------START STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
-	// ------------START STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
-	// ------------START STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
-
-	// HANDLE CUSTOMER STRIPE SUBSCRIPTION INFORMATION COLLECTION AND PASSING IT TO THE SERVER
-
-	// const emailInput = document.querySelector('#email');
-	// const fullNameInput = document.querySelector('#fullName');
-
-	// fetch('/create-customer', {
-	// 	method: 'post',
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 	},
-	// 	body: JSON.stringify({
-	// 		email: emailInput.value,
-	// 		fullName: fullNameInput.value,
-	// 	}),
-	// }).then((r) => r.json());
-
-	// console.log(emailInput.value);
-	// console.log(fullNameInput.value);
-
-	// HANDLE CUSTOMER INFO COLLECTION AND PASSING TO THE STRIPE SERVER USINGG AXIOS
-
-	// useEffect(() => {
-	// 	const createCustomer = async () => {
-	// 		try {
-	// 			const response = await axios.post('/create-customer', {
-	// 				email: emailInput.value,
-	// 				fullName: fullNameInput.value,
-	// 			});
-
-	// 			console.log(response.data);
-	// 		} catch (error) {
-	// 			console.error('Error creating customer:', error);
-	// 		}
-	// 	};
-
-	// 	const emailInput = document.querySelector('#email');
-	// 	const fullNameInput = document.querySelector('#fullName');
-
-	// 	if (emailInput && fullNameInput) {
-	// 		createCustomer();
-	// 		console.log(emailInput.value);
-	// 		console.log(fullNameInput.value);
-	// 	}
-	// }, []);
-
-	// PASSING USER INFO TO STRIPE TO CREATE SUBSCRIPTION ON EITHER 'VERIFY YOUR MOBILE NUMBER' OR THE BUTTON AFTER THE MOBILE CODE PIN VERIFICATION.
-
-	// THIS IS FROM THE SubscriptionPlan.jsx
-
-	// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-
-	// In the video the bellow code is placed in the PaymentForm.jsx
-	const [fullName, setFullName] = useState('');
-	const [email, setEmail] = useState('');
-	const stripe = useStripe();
-	const elements = useElements();
-
-	const createSubscription = async () => {
-		try {
-			const paymentMethod = await stripe.createPaymentMethod({
-				type: 'card',
-				card: elements.getElement('card'),
-			});
-		} catch (error) {
-			console.log(error);
-			alert('Payment failed ' + error.message);
-		}
-	};
-
-	// ------------END  STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
-	// ------------END  STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
-	// ------------END  STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE STRIPE ---------
 
 	// VERIFICATION CODE SUBMITION
 	const navigate = useNavigate();
@@ -195,15 +125,8 @@ const VerifyAxios = () => {
 				setSubmitError(null);
 				setVerificationCode('');
 				resetForm();
-				// REDIRECT TO STRIPE CHECKOUT - SEPARATE PAGE
-				navigate('/checkout/Payment');
-				// OR HIDE THE PREVIOUS FORM AND DISPLAY THE STRIPE CARD ELEMENT
-				// Hide verificationCodeForm
-				document.getElementById('verificationCodeForm').classList.add('hidden');
-
-				// Show STRIPE CARD ELEMENT
-				document.getElementById('stripeCardElement').classList.remove('hidden');
-				document.getElementById('stripeCardElement').classList.add('block');
+				// REDIRECT TO STRIPE CHECKOUT
+				navigate('/signup/subscribe');
 			} else {
 				alert('Invalid Verification Code');
 				console.log('There was an error');
@@ -223,50 +146,43 @@ const VerifyAxios = () => {
 	return (
 		<div>
 			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>Create your VIP Experience</h1>
+			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your phone number</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
 				{({ isSubmitting }) => (
 					<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
-							{/* NAME  */}
+							{/* FIRST NAME  */}
 							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='name'>
-									Full Name:{''}
+								<label className='text-buttonColor' htmlFor='firstName'>
+									First Name:
 								</label>
-								{/* FULL NAME IS USED TO REGISTER CLIENT IN STRIPE FOR SUBSCRIPTION  */}
-								<Field
-									className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2'
-									id='fullName'
-									name='name'
-									type='text'
-									value={fullName}
-									onChange={(e) => setFullName(e.target.value)}
-								/>
-								<ErrorMessage name='name' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+								<ErrorMessage name='firstName' />
+							</div>
+							{/* LAST NAME  */}
+							<div className='flex flex-col'>
+								<label className='text-buttonColor' htmlFor='lastName'>
+									Last Name:
+								</label>
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+								<ErrorMessage name='lastName' />
 							</div>
 							{/* EMAIL  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='email'>
-									Email:{''}
+									Email:
 								</label>
-								{/* EMAIL IS USED TO REGISTER CLIENT IN STRIPE FOR SUBSCRIPTION */}
-								<Field
-									className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2'
-									id='email'
-									name='email'
-									type='email'
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-								/>
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
 								<ErrorMessage name='email' />
 							</div>
 							{/* MOBILE NUMBER  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
-									Your Mobile Number:
+									Enter Your Current Mobile Number:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
 							</div>
 						</div>
@@ -291,7 +207,7 @@ const VerifyAxios = () => {
 							<label className='text-buttonColor text-2xl text-center' htmlFor='verificationCode'>
 								Verification Code:
 							</label>
-							<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='verificationCode' name='verificationCode' type='text' />
+							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='verificationCode' name='verificationCode' type='text' />
 							<ErrorMessage name='verificationCode' />
 
 							<button className='bg-purple-500 hover:bg-purple-400 h-10 rounded-md mt-2 text-white font-semibold' type='submit' disabled={isSubmitting}>
@@ -301,11 +217,6 @@ const VerifyAxios = () => {
 					</Form>
 				)}
 			</Formik>
-			<section id='stripeCardElement' className='flex flex-col justify-center'>
-				<Elements stripe={stripePromise}>
-					<CardElement />
-				</Elements>
-			</section>
 		</div>
 	);
 };

@@ -16,6 +16,7 @@ import FeelSafeWhen from './about/FeelSafeWhen';
 import AVipNumber from './about/AVipNumber';
 // SIGN UP
 import SignUp from './pages/SignUp';
+import VerifyAxios from './verifycode/VerifyAxios';
 // STRIPE CHECKOUT FORM
 import SubscriptionPlan from './stripe/SubscriptionPlan';
 import PaymentForm from './stripe/PaymentForm';
@@ -46,6 +47,7 @@ export {
 	FeelSafeWhen,
 	AVipNumber,
 	SignUp,
+	VerifyAxios,
 	PaymentForm,
 	SubscriptionPlan,
 	Confirmation,

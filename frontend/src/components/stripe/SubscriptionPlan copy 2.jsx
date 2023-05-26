@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
-import PaymentForm from './PaymentForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { motion } from 'framer-motion';
 import { SingleHeart } from '../../assets';
+
+// Transfer user data from VerifyAxios to Stripe payment form
+import { useLocation } from 'react-router-dom';
+import PaymentForm from './PaymentForm';
+import VerifyAxios from './VerifyAxios';
 
 const stripePromise = loadStripe('pk_test_XEzHA2tiLmSdW9kfczbymQTU');
 
@@ -12,6 +16,27 @@ const SubscriptionPlan = () => {
 	const [product, setProduct] = useState(null);
 	const [price, setPrice] = useState(null);
 	// const [invoice, setInvoice] = useState(null);
+
+	// For carrying user data values from VerifyAxios to PaymentForm for stripe
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [clientEmail, setClientEmail] = useState('');
+
+	// Carry user data from VerifyAxios to STripe form
+	const location = useLocation();
+	const initialValues = location.state || {}; // Use an empty object as a fallback
+
+	const handleVerificationCodeSubmit = (values) => {
+		// ... your existing code
+
+		// Set the values in state
+		setFirstName(values.firstName);
+		setLastName(values.lastName);
+		setClientEmail(values.clientEmail);
+
+		// Redirect to the PaymentForm component
+		navigate('/signup/subscribe/payment');
+	};
 
 	useEffect(() => {
 		const fetchSubscription = async () => {
@@ -105,25 +130,14 @@ const SubscriptionPlan = () => {
 				viewport={{ once: true, amount: 0.5 }}
 				transition={{ duration: 1 }}
 				variants={{
-					hidden: { opacity: 0, y: 30 },
+					hidden: { opacity: 1, y: 30 },
 					visible: { opacity: 1, y: 0 },
 				}}
 			>
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
 			<div className='flex flex-col flex-wrap lg:flex-row lg:flex-nowrap px-10 my-10'>
-				<motion.section
-					initial='hidden'
-					whileInView='visible'
-					viewport={{ once: true, amount: 0.5 }}
-					transition={{ duration: 1 }}
-					variants={{
-						hidden: { opacity: 1, y: 30 },
-						visible: { opacity: 1, y: 0 },
-					}}
-					id='planDescription'
-					className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'
-				>
+				<section id='planDescription' className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'>
 					<h1 className='text-xl text-buttonColor font-semibold'>Subscribe to VIP Safety First</h1>
 
 					{/* GET PRICE  */}
@@ -222,28 +236,17 @@ const SubscriptionPlan = () => {
 							<div>Loading invoice details...</div>
 						)}
 					</div> */}
-				</motion.section>
+				</section>
 
-				<motion.section
-					initial='hidden'
-					whileInView='visible'
-					viewport={{ once: true, amount: 0.5 }}
-					transition={{ duration: 1 }}
-					variants={{
-						hidden: { opacity: 0, y: 30 },
-						visible: { opacity: 1, y: 0 },
-					}}
-					id='stripePayment'
-					className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'
-				>
+				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
 					{subscription ? (
 						<Elements id='stripeElements' stripe={stripePromise}>
-							<PaymentForm autoComplete='off' id='stripePaymentForm' subscription={subscription} product={product} />
+							<PaymentForm autoComplete='off' id='stripePaymentForm' subscription={subscription} product={product} initialValues={initialValues} />
 						</Elements>
 					) : (
 						<div>Loading plan details...</div>
 					)}
-				</motion.section>
+				</section>
 			</div>
 		</>
 	);

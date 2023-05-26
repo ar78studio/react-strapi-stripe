@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+// importing PaymentForm to carry over client info values?
 
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -13,7 +15,7 @@ const mobileNumberRule = /^\d{11}$/;
 const initialValues = {
 	firstName: '',
 	lastName: '',
-	email: '',
+	clientEmail: '',
 	phoneNumber: '',
 	verificationCode: '',
 };
@@ -26,7 +28,7 @@ const resetForm = () => {
 const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
-	email: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
+	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
 	phoneNumber: Yup.string().matches(mobileNumberRule, 'Wrong format. 9 digits only, no country code!').required('Phone number is required'),
 });
 
@@ -41,8 +43,15 @@ const VerifyAxios = () => {
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
+	// REDIRECT TO APPROPRIATE
+	const navigate = useNavigate();
+	const location = useLocation();
+	const carryUserData = location.state || {}; // Use an empty object as a fallback
+
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
+		// Access the firstName, lastName, and userEmail values
+
 		try {
 			const dataRequestPin = {
 				imsi: '000702735808142',
@@ -52,7 +61,7 @@ const VerifyAxios = () => {
 			const dataCreateUser = {
 				cusFirstName: values.firstName,
 				cusLastName: values.lastName,
-				cusEmail: values.email,
+				cusEmail: values.clientEmail,
 				phoneNumber: values.phoneNumber,
 			};
 			// SIM CODE VERIFICATION ENDPOINT
@@ -73,6 +82,7 @@ const VerifyAxios = () => {
 				setSentCode(responseCode.dataRequestPin.verifCode);
 				// console.log(setSentCode(responseCode.dataRequestPin.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
+				// navigate('/signup/subscribe', { state: { firstName: values.firstName, lastName: values.lastName, clientEmail: values.clientEmail } });
 			} else {
 				console.log('verifCode is undefined');
 			}
@@ -102,14 +112,24 @@ const VerifyAxios = () => {
 		resetForm({ values: '' });
 	};
 
-	// VERIFICATION CODE SUBMITION
-	const navigate = useNavigate();
+	// STORE NAME, EMAIL VALUES TO CARRY OVER TO THE PaymentForm.jsx
+	// const PaymentFormPage = ({ firstName, lastName, clientEmail }) => {
+	// 	// Implement the Stripe Checkout logic here
+	// 	// Use the firstName, lastName, and email values as needed
+	// 	// ...
+	// };
 
 	const handleVerificationCodeSubmit = async (values, { setSubmitting, resetForm }) => {
+		// Access the firstName, lastName, and userEmail values
+		const { firstName, lastName, clientEmail } = carryUserData;
 		try {
 			const data = {
 				verifCode: values.verificationCode,
+				firstName: firstName,
+				lastName: lastName,
+				clientEmail: clientEmail,
 			};
+
 			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
@@ -126,7 +146,17 @@ const VerifyAxios = () => {
 				setVerificationCode('');
 				resetForm();
 				// REDIRECT TO STRIPE CHECKOUT
-				navigate('/signup/subscribe');
+				// without carrying client info values
+				// navigate('/signup/subscribe');
+				navigate('/signup/subscribe', { state: { firstName, lastName, clientEmail } });
+				// with carrying over client info values
+				// navigate('/signup/subscribe', {
+				// 	state: {
+				// 		firstName: values.firstName,
+				// 		lastName: values.lastName,
+				// 		clientEmail: values.clientEmail,
+				// 	},
+				// });
 			} else {
 				alert('Invalid Verification Code');
 				console.log('There was an error');
@@ -158,7 +188,7 @@ const VerifyAxios = () => {
 								<label className='text-buttonColor' htmlFor='firstName'>
 									First Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
 								<ErrorMessage name='firstName' />
 							</div>
 							{/* LAST NAME  */}
@@ -166,23 +196,23 @@ const VerifyAxios = () => {
 								<label className='text-buttonColor' htmlFor='lastName'>
 									Last Name:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
 								<ErrorMessage name='lastName' />
 							</div>
 							{/* EMAIL  */}
 							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='email'>
+								<label className='text-buttonColor' htmlFor='clientEmail'>
 									Email:
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
-								<ErrorMessage name='email' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='clientEmail' name='clientEmail' type='clientEmail' />
+								<ErrorMessage name='clientEmail' />
 							</div>
 							{/* MOBILE NUMBER  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
-									Enter Your Current Mobile Number:
+									Enter Your Mobile Number Including Country Code :
 								</label>
-								<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
 							</div>
 						</div>
@@ -207,7 +237,7 @@ const VerifyAxios = () => {
 							<label className='text-buttonColor text-2xl text-center' htmlFor='verificationCode'>
 								Verification Code:
 							</label>
-							<Field className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='verificationCode' name='verificationCode' type='text' />
+							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='verificationCode' name='verificationCode' type='text' />
 							<ErrorMessage name='verificationCode' />
 
 							<button className='bg-purple-500 hover:bg-purple-400 h-10 rounded-md mt-2 text-white font-semibold' type='submit' disabled={isSubmitting}>
