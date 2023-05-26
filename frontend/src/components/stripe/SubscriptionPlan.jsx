@@ -105,25 +105,14 @@ const SubscriptionPlan = () => {
 				viewport={{ once: true, amount: 0.5 }}
 				transition={{ duration: 1 }}
 				variants={{
-					hidden: { opacity: 0, y: 30 },
+					hidden: { opacity: 1, y: 30 },
 					visible: { opacity: 1, y: 0 },
 				}}
 			>
 				<div className='w-full flex-row bg-underNavBar p-3'></div>
 			</motion.div>
 			<div className='flex flex-col flex-wrap lg:flex-row lg:flex-nowrap px-10 my-10'>
-				<motion.section
-					initial='hidden'
-					whileInView='visible'
-					viewport={{ once: true, amount: 0.5 }}
-					transition={{ duration: 1 }}
-					variants={{
-						hidden: { opacity: 1, y: 30 },
-						visible: { opacity: 1, y: 0 },
-					}}
-					id='planDescription'
-					className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'
-				>
+				<section id='planDescription' className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'>
 					<h1 className='text-xl text-buttonColor font-semibold'>Subscribe to VIP Safety First</h1>
 
 					{/* GET PRICE  */}
@@ -222,28 +211,17 @@ const SubscriptionPlan = () => {
 							<div>Loading invoice details...</div>
 						)}
 					</div> */}
-				</motion.section>
+				</section>
 
-				<motion.section
-					initial='hidden'
-					whileInView='visible'
-					viewport={{ once: true, amount: 0.5 }}
-					transition={{ duration: 1 }}
-					variants={{
-						hidden: { opacity: 0, y: 30 },
-						visible: { opacity: 1, y: 0 },
-					}}
-					id='stripePayment'
-					className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'
-				>
+				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
 					{subscription ? (
-						<Elements id='stripeElements' stripe={stripePromise}>
-							<PaymentForm autoComplete='off' id='stripePaymentForm' subscription={subscription} product={product} />
+						<Elements stripe={stripePromise}>
+							<PaymentForm subscription={subscription} product={product} />
 						</Elements>
 					) : (
 						<div>Loading plan details...</div>
 					)}
-				</motion.section>
+				</section>
 			</div>
 		</>
 	);
