@@ -5,6 +5,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import { motion } from 'framer-motion';
 import { SingleHeart } from '../../assets';
 
+// import location to carry over data from the dataCreateLead from VerifyAxios.jsx
+import { useLocation } from 'react-router-dom';
+
 const stripePromise = loadStripe('pk_test_XEzHA2tiLmSdW9kfczbymQTU');
 
 const SubscriptionPlan = () => {
@@ -12,6 +15,13 @@ const SubscriptionPlan = () => {
 	const [product, setProduct] = useState(null);
 	const [price, setPrice] = useState(null);
 	// const [invoice, setInvoice] = useState(null);
+	const location = useLocation();
+
+	// transfering form data from VerifyAxios
+	// creating a variable to then use it in PaymentForm component props. dataToStripeForm is received here from VerifyAxios.jsx
+	const { clientData } = location.state;
+
+	console.log(`From SubscriptionPlan: ${clientData}`);
 
 	useEffect(() => {
 		const fetchSubscription = async () => {
@@ -216,7 +226,7 @@ const SubscriptionPlan = () => {
 				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
 					{subscription ? (
 						<Elements stripe={stripePromise}>
-							<PaymentForm subscription={subscription} product={product} />
+							<PaymentForm subscription={subscription} product={product} clientData={clientData} />
 						</Elements>
 					) : (
 						<div>Loading plan details...</div>

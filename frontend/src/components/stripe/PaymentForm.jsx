@@ -1,6 +1,7 @@
 import { PaymentElement, CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,17 +9,22 @@ import { useNavigate } from 'react-router-dom';
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
-const PaymentForm = () => {
-	// Also try and copy  the two consts bellow to VerifyAxios.jsx in order to try and to send the name and email from the first Formik form to Stripe to create a customer.
+const PaymentForm = ({ clientData }) => {
+	console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
 	const stripe = useStripe();
 	const elements = useElements();
+
+	// INITIAL VALUES AND VALUES CARRIED FROM VerifyAxios.jsx
 	const initialValues = {
-		name: '',
-		email: '',
+		firstName: location.state?.firstName || clientData.firstName || '',
+		lastName: location.state?.lastName || clientData.lastName || '',
+		email: location.state?.email || clientData.clientEmail || '',
 	};
+
+	console.log(initialValues);
 
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
@@ -87,20 +93,32 @@ const PaymentForm = () => {
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
-			// get clientSecret and conform the payment. If the payment is not already confirmed on the backend, it will be confirmed now.
 			if (!response.ok) return alert('Payment unsuccessful! Response not ok at paymentform.jsx line 42');
 
 			const data = await response.json();
-			// ADDING THE CODE BELOW BECAUSE OF THE FOLLOWING MISTAKE: Payment failed, Missing value for stripe.confirmCardPayment intent secret: value should be a client_secret string.
-			// const clientSecret = data.clientSecret;
 
 			const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
 				return alert('Payment unsuccessful! confirm.error at paymentform.jsx line 45');
 			}
 			alert('Payment successful! Subscription is active');
-			// REDIRECT TO STRIPE CHECKOUT
-			navigate('/signup/confirmation');
+
+			// CREATE RIPTEC CUSTOMER
+			// const dataCreateUser = {
+			// 	cusFirstName: values.firstName,
+			// 	cusLastName: values.lastName,
+			// 	cusEmail: values.clientEmail,
+			// 	cusSimNumber: values.phoneNumber,
+			// 	cusCountryISO3: '',
+			// 	leadId: '',
+			// };
+			// console.log(dataCreateUser);
+
+			// SIM CODE VERIFICATION ENDPOINT
+			// const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createUser', dataCreateUser);
+
+			// REDIRECT TO STRIPE CONFIRMATION PAGE
+			navigate('/signup/subscribe/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
@@ -142,8 +160,8 @@ const PaymentForm = () => {
 									id='email'
 									name='email'
 									type='email'
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									// value={email}
+									// onChange={(e) => setEmail(e.target.value)}
 								/>
 								<ErrorMessage name='email' />
 							</div>
@@ -154,7 +172,7 @@ const PaymentForm = () => {
 								Enter Your Card Number:{''}
 							</label>
 							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
-							<CardElement autoComplete='off' id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' />
+							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' />
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? 'Subscribing...' : 'Subscribe'}

@@ -20,6 +20,8 @@ import VerifyAxios from './verifycode/VerifyAxios';
 // STRIPE CHECKOUT FORM
 import SubscriptionPlan from './stripe/SubscriptionPlan';
 import PaymentForm from './stripe/PaymentForm';
+// import PaymentForm from './test/PaymentForm';
+// import SubscriptionPlan from './test/SubscriptionPlan';
 import Confirmation from './stripe/Confirmation';
 
 // CONTACT US

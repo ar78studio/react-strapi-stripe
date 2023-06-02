@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-// importing PaymentForm to carry over client info values?
 
 import * as Yup from 'yup';
 import axios from 'axios';
 
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-const nameRule = /^[A-Za-z\s]{0,30}$/;
+const nameRule = /^[A-Za-z\s]{0,25}$/;
 const mobileNumberRule = /^\d{11}$/;
 
 const initialValues = {
@@ -29,7 +27,7 @@ const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
-	phoneNumber: Yup.string().matches(mobileNumberRule, 'Wrong format. 9 digits only, no country code!').required('Phone number is required'),
+	phoneNumber: Yup.string().matches(mobileNumberRule, 'Use 11 digits, Country Code plus Number. Example: 44325485786').required('Phone number is required'),
 });
 
 const verificationSchema = Yup.object({
@@ -43,46 +41,61 @@ const VerifyAxios = () => {
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
-	// REDIRECT TO APPROPRIATE
-	const navigate = useNavigate();
-	const location = useLocation();
-	const carryUserData = location.state || {}; // Use an empty object as a fallback
+	const [formValues, setFormValues] = useState({});
+
+	const [clientData, setClientData] = useState({
+		firstName: '',
+		lastName: '',
+		clientEmail: '',
+	});
+
+	// GET COOKIES
+	// const [cookies, setCookie] = useCookies();
+
+	// GET URL PARAMS AND UTMS
+	// const urlParams = new URLSearchParams(window.location.pathname);
 
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
-		// Access the firstName, lastName, and userEmail values
+		setClientData({
+			firstName: values.firstName,
+			lastName: values.lastName,
+			clientEmail: values.clientEmail,
+		});
 
 		try {
+			// REQUEST PIN NUMBER
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
 			};
 
-			const dataCreateUser = {
+			// CREATE LEAD
+			const dataCreateLead = {
 				cusFirstName: values.firstName,
 				cusLastName: values.lastName,
 				cusEmail: values.clientEmail,
 				phoneNumber: values.phoneNumber,
+				// getParams: urlParams.getAll,
+				// postParams: '',
+				// cookies: cookies,
 			};
+
 			// SIM CODE VERIFICATION ENDPOINT
 			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
 
-			// CREATE USER - ADD USER TO THE CONXHUB PORTAL
-			const responseUser = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createUser', dataCreateUser);
+			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
+			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
 
 			setSubmitting(false);
 
-			// Log the entire response object
-			// console.log('Response:', responseCode);
-
-			if (responseCode.dataRequestPin && responseUser.dataCreateUser && responseCode.dataRequestPin.verifCode) {
+			if (responseCode.dataRequestPin && responseLead.dataCreateLead && responseCode.dataRequestPin.verifCode) {
 				setVerificationCode(responseCode.dataRequestPin.verifCode);
 				// console.log(`Response Data verifCode: ${responseCode.dataRequestPin.verifCode}`);
 				setSubmitError(null);
 				setSentCode(responseCode.dataRequestPin.verifCode);
 				// console.log(setSentCode(responseCode.dataRequestPin.verifCode));
 				initialValues.phoneNumber = values.phoneNumber;
-				// navigate('/signup/subscribe', { state: { firstName: values.firstName, lastName: values.lastName, clientEmail: values.clientEmail } });
 			} else {
 				console.log('verifCode is undefined');
 			}
@@ -109,28 +122,26 @@ const VerifyAxios = () => {
 			}
 		}
 		// Reset Client Input form
-		resetForm({ values: '' });
+		// resetForm({ values: '' }); // original
+		// resetFormAndContext(); // imported from FormDataContextjsx
+		setFormValues(values);
 	};
 
-	// STORE NAME, EMAIL VALUES TO CARRY OVER TO THE PaymentForm.jsx
-	// const PaymentFormPage = ({ firstName, lastName, clientEmail }) => {
-	// 	// Implement the Stripe Checkout logic here
-	// 	// Use the firstName, lastName, and email values as needed
-	// 	// ...
-	// };
+	// REDIRECT TO APPROPRIATE
+	const navigate = useNavigate();
 
 	const handleVerificationCodeSubmit = async (values, { setSubmitting, resetForm }) => {
-		// Access the firstName, lastName, and userEmail values
-		const { firstName, lastName, clientEmail } = carryUserData;
 		try {
 			const data = {
 				verifCode: values.verificationCode,
-				firstName: firstName,
-				lastName: lastName,
-				clientEmail: clientEmail,
 			};
 
-			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
+			const clientData = {
+				...formValues,
+			};
+			console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
+
+			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', clientData);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
 			console.log('Server response is:', response.status);
@@ -138,25 +149,16 @@ const VerifyAxios = () => {
 			setSubmitting(false);
 			// setSubmitError is used to manage any submission errors that may occur while the form is being submitted. By setting the state to null, any previously set error state is cleared, and the component is reset to its initial state.
 			setSubmitError(null);
-			// && sentCode == values.verificationCode
+
 			if (response.status === 200) {
 				alert('Success, your number is verified');
 				console.log('The status is 200');
 				setSubmitError(null);
 				setVerificationCode('');
 				resetForm();
-				// REDIRECT TO STRIPE CHECKOUT
-				// without carrying client info values
-				// navigate('/signup/subscribe');
-				navigate('/signup/subscribe', { state: { firstName, lastName, clientEmail } });
-				// with carrying over client info values
-				// navigate('/signup/subscribe', {
-				// 	state: {
-				// 		firstName: values.firstName,
-				// 		lastName: values.lastName,
-				// 		clientEmail: values.clientEmail,
-				// 	},
-				// });
+				// REDIRECT TO STRIPE CHECKOUT IF VERIFICATION CODE IS ACCEPTED and carry clientData (firstName, lastName, clientEmail)
+
+				navigate('/signup/subscribe/payment', { state: { clientData } });
 			} else {
 				alert('Invalid Verification Code');
 				console.log('There was an error');
@@ -216,7 +218,7 @@ const VerifyAxios = () => {
 								<ErrorMessage name='phoneNumber' />
 							</div>
 						</div>
-						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
+						<button id='verifyButton' className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? 'Submitting...' : 'Verify your Mobile Number'}
 						</button>
 						<div>
