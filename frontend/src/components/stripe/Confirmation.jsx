@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Confirmation = () => {
 	// get profileNumber from PaymentForm - which is the Customer's new phone number
 	const location = useLocation();
 	const profileNumber = location.state?.profileNumber || 'Not Available';
+
+	console.log(location.state);
 
 	return (
 		<>
@@ -27,16 +29,14 @@ const Confirmation = () => {
 				<p className='py-10'> Your new Phone number is: {profileNumber ? profileNumber : 'Not available'}</p>
 
 				<h4>You can download an app for your Android Phone here:</h4>
-				<Link className='text-base text-buttonColor' to='https://play.google.com/store/apps/details?id=net.riptec.conxhub'>
+				<a className='text-md text-buttonColor' href='https://play.google.com/store/apps/details?id=net.riptec.conxhub'>
 					{' '}
-					Android APP{' '}
-				</Link>
-
+					Android APP
+				</a>
 				<h4>You can download an app for your iPhone here:</h4>
-				<Link className='text-base text-buttonColor' to='https://play.google.com/store/apps/details?id=net.riptec.conxhub'>
-					{' '}
-					iOS Apple APP{' '}
-				</Link>
+				<a className='text-md text-buttonColor' href='https://apps.apple.com/es/app/conxhub/id1444346672'>
+					iOS iPhone APP
+				</a>
 			</div>
 		</>
 	);

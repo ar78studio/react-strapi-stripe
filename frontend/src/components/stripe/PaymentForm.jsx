@@ -3,14 +3,14 @@ import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
 const PaymentForm = ({ clientData }) => {
-	// console.log(clientData);
+	console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -144,6 +144,13 @@ const PaymentForm = ({ clientData }) => {
 	// SAVING THE profileNumber received from Riptec backend into the state
 	const [profileNumber, setProfileNumber] = useState('');
 
+	useEffect(() => {
+		if (profileNumber) {
+			console.log('Navigating with profileNumber: ', profileNumber);
+			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
+		}
+	}, [profileNumber, navigate]);
+
 	const createRiptecCustomer = async () => {
 		try {
 			const dataCreateCustomer = {
@@ -154,21 +161,22 @@ const PaymentForm = ({ clientData }) => {
 				cusCountryISO3: '',
 				leadId: '',
 			};
-			// console.log(dataCreateCustomer);
+			console.log(dataCreateCustomer);
 
 			const responseCustomerCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateCustomer);
 			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
 
-			console.log(`responseCustomerCreated is: ${responseCustomerCreated}`);
+			console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
 			if (responseCustomerCreated.status !== 200) {
-				throw new Error(` Error with User Creation or User Already Exists: ${responseCustomerCreated.status}`);
+				throw new Error(` Error with User Creation: ${responseCustomerCreated.status}`);
 			}
 			alert('User Created Successfully!');
 
 			// SINCE USER CREATE SUCCESSFULLY GET THE PROFILE NUMBER FROM THE RIPTEC BACKEND
 			// Extract profileNumber
-			if (responseCustomerCreated && responseCustomerCreated.dataCreateCustomer && responseCustomerCreated.dataCreateCustomer.user) {
-				const profileNumber = responseCustomerCreated.dataCreateCustomer.user.profileNumber;
+			if (responseCustomerCreated && responseCustomerCreated.data.data && responseCustomerCreated.data.data.user) {
+				const profileNumber = responseCustomerCreated.data.data.user.profileNumber;
+				console.log(profileNumber);
 				setProfileNumber(profileNumber);
 			} else {
 				console.error('Unable to access profileNumber from response.');
@@ -177,7 +185,8 @@ const PaymentForm = ({ clientData }) => {
 
 			// REDIRECT TO STRIPE CONFIRMATION PAGE
 			// navigate('/signup/subscribe/confirmation');
-			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
+			console.log('Navigating with profileNumber: ', profileNumber);
+			// navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		} catch (error) {
 			alert(` Error with User Creation: ${error.message}`);
 		}
