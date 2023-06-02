@@ -10,7 +10,7 @@ const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
 const PaymentForm = ({ clientData }) => {
-	console.log(clientData);
+	// console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -23,6 +23,14 @@ const PaymentForm = ({ clientData }) => {
 		lastName: location.state?.lastName || clientData.lastName || '',
 		email: location.state?.email || clientData.clientEmail || '',
 		phone: location.state?.phoneNumber || clientData.phoneNumber || '',
+	};
+
+	// Reset Formik form values in case of existing Customer
+	const resetInitialValues = {
+		firstName: '',
+		lastName: '',
+		email: '',
+		phone: '',
 	};
 
 	console.log(initialValues);
@@ -38,15 +46,20 @@ const PaymentForm = ({ clientData }) => {
 	const navigate = useNavigate();
 
 	// CHECK IF CUSTOMER ALREADY EXISTS via email only
-	const checkExistingClient = async () => {
+	const checkExistingClient = async (formValues, resetForm) => {
 		try {
 			const response = await fetch('http://localhost:1447/check-existing-client', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				// body: JSON.stringify({
+				// 	email: email,
+				// }),
+				// Check against email data carrief over from VerifyAxios defined in initialValues const above
 				body: JSON.stringify({
-					email: email,
+					// email: clientData.clientEmail,
+					email: formValues.email,
 				}),
 			});
 
@@ -56,7 +69,12 @@ const PaymentForm = ({ clientData }) => {
 
 			const data = await response.json();
 
+			// if (data.clientExists) {
+			// 	throw new Error('Client is already subscribed');
+			// }
 			if (data.clientExists) {
+				resetForm({ values: resetInitialValues }); // reset form values if client exists
+				navigate('/signup');
 				throw new Error('Client is already subscribed');
 			}
 
@@ -68,10 +86,10 @@ const PaymentForm = ({ clientData }) => {
 	};
 
 	// CREATE NEW CUSTOMER SUBSCRIPTION
-	const createSubscription = async (formValues) => {
+	const createSubscription = async (formValues, resetForm) => {
 		try {
-			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED
-			const isExistingClient = await checkExistingClient();
+			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED and reset the form
+			const isExistingClient = await checkExistingClient(formValues, resetForm);
 
 			if (!isExistingClient) {
 				return;
@@ -109,19 +127,26 @@ const PaymentForm = ({ clientData }) => {
 			}
 			alert('Payment successful! Subscription is active');
 
+			// Only call createRiptecCustomer if customer is not already in Stripe system
+			if (isExistingClient) {
+				await createRiptecCustomer();
+			}
+
 			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
+			// navigate('/signup/subscribe/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
+			resetForm({ values: resetInitialValues }); // Reset the form in case of an error.
 		}
-
-		createRiptecUser();
 	};
 
-	const createRiptecUser = async () => {
+	// SAVING THE profileNumber received from Riptec backend into the state
+	const [profileNumber, setProfileNumber] = useState('');
+
+	const createRiptecCustomer = async () => {
 		try {
-			const dataCreateUser = {
+			const dataCreateCustomer = {
 				cusFirstName: clientData.firstName,
 				cusLastName: clientData.lastName,
 				cusEmail: clientData.clientEmail,
@@ -129,16 +154,30 @@ const PaymentForm = ({ clientData }) => {
 				cusCountryISO3: '',
 				leadId: '',
 			};
-			console.log(dataCreateUser);
+			// console.log(dataCreateCustomer);
 
-			const responseUserCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateUser);
+			const responseCustomerCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateCustomer);
 			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
-			if (responseUserCreated.status !== 200) {
-				throw new Error(` Error with User Creation: ${responseUserCreated.status}`);
+
+			console.log(`responseCustomerCreated is: ${responseCustomerCreated}`);
+			if (responseCustomerCreated.status !== 200) {
+				throw new Error(` Error with User Creation or User Already Exists: ${responseCustomerCreated.status}`);
 			}
 			alert('User Created Successfully!');
+
+			// SINCE USER CREATE SUCCESSFULLY GET THE PROFILE NUMBER FROM THE RIPTEC BACKEND
+			// Extract profileNumber
+			if (responseCustomerCreated && responseCustomerCreated.dataCreateCustomer && responseCustomerCreated.dataCreateCustomer.user) {
+				const profileNumber = responseCustomerCreated.dataCreateCustomer.user.profileNumber;
+				setProfileNumber(profileNumber);
+			} else {
+				console.error('Unable to access profileNumber from response.');
+				// Handle the error case here.
+			}
+
 			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
+			// navigate('/signup/subscribe/confirmation');
+			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		} catch (error) {
 			alert(` Error with User Creation: ${error.message}`);
 		}
@@ -148,7 +187,12 @@ const PaymentForm = ({ clientData }) => {
 		<>
 			<h1 className='text-4xl pb-10 text-buttonColor font-semibold'>Payment Form</h1>
 
-			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={createSubscription}>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationSchema}
+				// onSubmit={createSubscription} // original
+				onSubmit={(values, { resetForm }) => createSubscription(values, resetForm)}
+			>
 				{({ isSubmitting }) => (
 					<Form id='stripeCustomer' className='block flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>

@@ -135,6 +135,8 @@ const PaymentForm = ({ clientData }) => {
 			}
 		}
 
+		// navigate('/signup/subscribe/payment', { state: { clientData } });
+
 		// REDIRECT TO STRIPE CONFIRMATION PAGE
 		navigate('/signup/subscribe/confirmation');
 	};
