@@ -1,5 +1,5 @@
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
-import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
+import { PaymentElement, CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
-const PaymentForm = ({ clientData }) => {
-	console.log(clientData);
+const PaymentForm = (formData) => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -19,13 +18,10 @@ const PaymentForm = ({ clientData }) => {
 
 	// INITIAL VALUES AND VALUES CARRIED FROM VerifyAxios.jsx
 	const initialValues = {
-		firstName: location.state?.firstName || clientData.firstName || '',
-		lastName: location.state?.lastName || clientData.lastName || '',
-		email: location.state?.email || clientData.clientEmail || '',
-		phone: location.state?.phoneNumber || clientData.phoneNumber || '',
+		firstName: '',
+		lastName: '',
+		email: '',
 	};
-
-	console.log(initialValues);
 
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
@@ -37,7 +33,7 @@ const PaymentForm = ({ clientData }) => {
 	// REDIRECT TO THE CONFIRMATION PAGE
 	const navigate = useNavigate();
 
-	// CHECK IF CUSTOMER ALREADY EXISTS via email only
+	// CHECK IF CUSTOMER ALREADY EXISTS
 	const checkExistingClient = async () => {
 		try {
 			const response = await fetch('http://localhost:1447/check-existing-client', {
@@ -68,7 +64,7 @@ const PaymentForm = ({ clientData }) => {
 	};
 
 	// CREATE NEW CUSTOMER SUBSCRIPTION
-	const createSubscription = async (formValues) => {
+	const createSubscription = async () => {
 		try {
 			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED
 			const isExistingClient = await checkExistingClient();
@@ -88,14 +84,9 @@ const PaymentForm = ({ clientData }) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				// body: JSON.stringify({
-				// 	name: name,
-				// 	email: email,
-				// 	paymentMethod: paymentMethod.paymentMethod.id,
-				// }),
 				body: JSON.stringify({
-					name: formValues.firstName + ' ' + formValues.lastName, // Using Formik values here
-					email: formValues.email, // Using Formik values here
+					name: name,
+					email: email,
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
@@ -110,37 +101,10 @@ const PaymentForm = ({ clientData }) => {
 			alert('Payment successful! Subscription is active');
 
 			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
+			navigate('/signup/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
-		}
-
-		createRiptecUser();
-	};
-
-	const createRiptecUser = async () => {
-		try {
-			const dataCreateUser = {
-				cusFirstName: clientData.firstName,
-				cusLastName: clientData.lastName,
-				cusEmail: clientData.clientEmail,
-				cusSimNumber: clientData.phoneNumber,
-				cusCountryISO3: '',
-				leadId: '',
-			};
-			console.log(dataCreateUser);
-
-			const responseUserCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateUser);
-			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
-			if (responseUserCreated.status !== 200) {
-				throw new Error(` Error with User Creation: ${responseUserCreated.status}`);
-			}
-			alert('User Created Successfully!');
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
-		} catch (error) {
-			alert(` Error with User Creation: ${error.message}`);
 		}
 	};
 
@@ -179,8 +143,8 @@ const PaymentForm = ({ clientData }) => {
 									id='email'
 									name='email'
 									type='email'
-									// value={email}
-									// onChange={(e) => setEmail(e.target.value)}
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<ErrorMessage name='email' />
 							</div>

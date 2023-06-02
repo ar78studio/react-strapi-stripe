@@ -41,12 +41,14 @@ const VerifyAxios = () => {
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
+	// CREATE STATE FOR USER DATA
 	const [formValues, setFormValues] = useState({});
 
 	const [clientData, setClientData] = useState({
 		firstName: '',
 		lastName: '',
 		clientEmail: '',
+		phoneNumber: '',
 	});
 
 	// GET COOKIES
@@ -61,6 +63,7 @@ const VerifyAxios = () => {
 			firstName: values.firstName,
 			lastName: values.lastName,
 			clientEmail: values.clientEmail,
+			phoneNumber: values.phoneNumber,
 		});
 
 		try {
@@ -141,7 +144,7 @@ const VerifyAxios = () => {
 			};
 			console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
 
-			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', clientData);
+			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
 			console.log('Server response is:', response.status);

@@ -1,4 +1,4 @@
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
+import { PaymentElement, CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -68,7 +68,7 @@ const PaymentForm = ({ clientData }) => {
 	};
 
 	// CREATE NEW CUSTOMER SUBSCRIPTION
-	const createSubscription = async (formValues) => {
+	const createSubscription = async () => {
 		try {
 			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED
 			const isExistingClient = await checkExistingClient();
@@ -88,14 +88,9 @@ const PaymentForm = ({ clientData }) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				// body: JSON.stringify({
-				// 	name: name,
-				// 	email: email,
-				// 	paymentMethod: paymentMethod.paymentMethod.id,
-				// }),
 				body: JSON.stringify({
-					name: formValues.firstName + ' ' + formValues.lastName, // Using Formik values here
-					email: formValues.email, // Using Formik values here
+					name: name,
+					email: email,
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
@@ -108,9 +103,6 @@ const PaymentForm = ({ clientData }) => {
 				return alert('Payment unsuccessful! confirm.error at paymentform.jsx line 45');
 			}
 			alert('Payment successful! Subscription is active');
-
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
@@ -121,6 +113,7 @@ const PaymentForm = ({ clientData }) => {
 
 	const createRiptecUser = async () => {
 		try {
+			// CREATE RIPTEC CUSTOMER
 			const dataCreateUser = {
 				cusFirstName: clientData.firstName,
 				cusLastName: clientData.lastName,
@@ -131,17 +124,19 @@ const PaymentForm = ({ clientData }) => {
 			};
 			console.log(dataCreateUser);
 
-			const responseUserCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateUser);
-			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
-			if (responseUserCreated.status !== 200) {
-				throw new Error(` Error with User Creation: ${responseUserCreated.status}`);
-			}
-			alert('User Created Successfully!');
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			navigate('/signup/subscribe/confirmation');
+			// SIM CODE VERIFICATION ENDPOINT
+			const responseUserCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createUser', dataCreateUser);
 		} catch (error) {
-			alert(` Error with User Creation: ${error.message}`);
+			// CHECK IF responseUserCreated ok
+			if (responseUserCreated.error) {
+				return alert(` Error with User Creation: ${error.message}`);
+			} else {
+				alert('User Created Successfully!');
+			}
 		}
+
+		// REDIRECT TO STRIPE CONFIRMATION PAGE
+		navigate('/signup/subscribe/confirmation');
 	};
 
 	return (
