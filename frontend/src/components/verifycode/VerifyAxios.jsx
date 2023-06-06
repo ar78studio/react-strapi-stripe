@@ -5,11 +5,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { useCookies } from 'react-cookie';
+
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,25}$/;
 const mobileNumberRule = /^\d{11}$/;
 
+// Initialise Formik form with empty fields=values
 const initialValues = {
 	firstName: '',
 	lastName: '',
@@ -23,6 +26,7 @@ const resetForm = () => {
 	resetForm({ values: '' });
 };
 
+// Yup validation for the Formik Form User private info
 const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
@@ -30,14 +34,30 @@ const validationSchema = Yup.object({
 	phoneNumber: Yup.string().matches(mobileNumberRule, 'Use 11 digits, Country Code plus Number. Example: 44325485786').required('Phone number is required'),
 });
 
+// Yup validation for the Formik Form Pin Code
 const verificationSchema = Yup.object({
 	verificationCode: Yup.string().matches(pinRegExp, 'Verification Code must be 5 digits').required('Verification code is required'),
 });
 
+// Initializing hooks and variables for UTMs and params
+const [cookies, setCookie] = useCookies();
+const location = useLocation();
+const searchParams = new URLSearchParams(location.search);
+
+// Capture UTM parameters and store them in a cookie
+useEffect(() => {
+	const useParams = {
+		utm_source: searchParams.get('utm_source'),
+		utm_medium: searchParams.get('utm_medium'),
+		utm_campaign: searchParams.get('utm_campaign'),
+	};
+	setCookie('utmParams', JSON.stringify(utmParams), { path: '/' });
+}, [searchParams, setCookie]);
+
 // START OF VERIFY FUNCTION
 const VerifyAxios = () => {
 	const [verificationCode, setVerificationCode] = useState('');
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	// const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
@@ -58,7 +78,7 @@ const VerifyAxios = () => {
 	// const urlParams = new URLSearchParams(window.location.pathname);
 
 	// PHONE NUMBER VERIFICATION
-	const handlePhoneNumberSubmit = async (values, { setSubmitting, resetForm }) => {
+	const handlePhoneNumberSubmit = async (values, { setSubmitting }) => {
 		setClientData({
 			firstName: values.firstName,
 			lastName: values.lastName,
@@ -73,16 +93,21 @@ const VerifyAxios = () => {
 				phoneNumber: values.phoneNumber,
 			};
 
+			// Append UTM parameters to dataCreateLead
+			dataCreateLead.utmParams = cookies.utmParams;
+
 			// CREATE LEAD
 			const dataCreateLead = {
 				cusFirstName: values.firstName,
 				cusLastName: values.lastName,
 				cusEmail: values.clientEmail,
 				phoneNumber: values.phoneNumber,
-				// getParams: urlParams.getAll,
-				// postParams: '',
-				// cookies: cookies,
+				getParams: searchParams.toString(),
+				postParams: '',
+				cookies: cookies,
 			};
+
+			console.log(dataCreateLead);
 
 			// SIM CODE VERIFICATION ENDPOINT
 			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
@@ -124,9 +149,6 @@ const VerifyAxios = () => {
 				console.log(`Error: ${error.message}`);
 			}
 		}
-		// Reset Client Input form
-		// resetForm({ values: '' }); // original
-		// resetFormAndContext(); // imported from FormDataContextjsx
 		setFormValues(values);
 	};
 
@@ -142,7 +164,10 @@ const VerifyAxios = () => {
 			const clientData = {
 				...formValues,
 			};
-			console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
+			// console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
+
+			// Append (add) UTM parameters to the form values
+			values.utmParams = cookies.utmParams;
 
 			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
 
@@ -184,6 +209,7 @@ const VerifyAxios = () => {
 			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your phone number</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
+			{/* User Input Form - Private Info  */}
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
 				{({ isSubmitting }) => (
 					<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
@@ -219,6 +245,10 @@ const VerifyAxios = () => {
 								</label>
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
+							</div>
+							{/* HIDDEN FIELD FOR COOKIES */}
+							<div id='hiddenCookieField'>
+								<Field type='hidden' name='utmParams' value={cookies.utmParams} />
 							</div>
 						</div>
 						<button id='verifyButton' className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>

@@ -3,8 +3,10 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
 import { ContactSvg } from '../../assets';
 
-const ContactUs = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
+import Button from '../buttons/Button';
+
+const ContactUs = () => {
+	// const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
 
 	return (
 		<>
@@ -87,9 +89,9 @@ const ContactUs = ({ setSelectedPage }) => {
 							</div>
 							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Sales</h1>
 							<span className='text-white'>For any sales enquiries or additional information, please open a ticket</span>
-							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
-								Sales Enquiry Here
-							</button>
+							<div className='my-4 w-[14rem] place-self-center text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
+								<Button link='https://billing.conxhub.com/submitticket.php?step=2&deptid=5' label='Sales Enquiry Here' />
+							</div>
 						</motion.div>
 						<motion.div
 							initial='hidden'
@@ -107,9 +109,9 @@ const ContactUs = ({ setSelectedPage }) => {
 							</div>
 							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Accounts</h1>
 							<span className='text-white'>For any billing issues or enquiries, please open a ticket</span>
-							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
-								Support Enquiries Here
-							</button>
+							<div className='my-4 w-[14rem] place-self-center text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
+								<Button link='https://billing.conxhub.com/submitticket.php?step=2&deptid=4' label='Billing Enquiries Here' />
+							</div>
 						</motion.div>
 					</div>
 					<div className='flex container mx-auto flex-row flex-wrap'>
@@ -129,9 +131,9 @@ const ContactUs = ({ setSelectedPage }) => {
 							</div>
 							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Technical</h1>
 							<span className='text-white'>For any technical issues or support enquiries, please open a ticket</span>
-							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
-								Billing Enquiris Here
-							</button>
+							<div className='my-4 w-[14rem] place-self-center text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
+								<Button link='https://billing.conxhub.com/submitticket.php?step=2&deptid=3' label='Support Enquiries Here' />
+							</div>
 						</motion.div>
 						<motion.div
 							initial='hidden'
@@ -149,9 +151,9 @@ const ContactUs = ({ setSelectedPage }) => {
 							</div>
 							<h1 className='mt-2 mb-2 text-white text-4xl font-semibold'>Faults</h1>
 							<span className='text-white'>System, App Bugs or Call Faults, please open a ticket</span>
-							<button className='my-4 w-[14rem] place-self-center  text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
-								Fault Report Here
-							</button>
+							<div className='my-4 w-[14rem] place-self-center text-white font-medium bg-buttonColor p-2 rounded-lg transition duration-300 ease-in-out hover:scale-110'>
+								<Button link='https://billing.conxhub.com/submitticket.php?step=2&deptid=6' label='Fault Report Here' />
+							</div>
 						</motion.div>
 					</div>
 				</section>

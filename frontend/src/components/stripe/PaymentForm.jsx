@@ -53,10 +53,6 @@ const PaymentForm = ({ clientData }) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				// body: JSON.stringify({
-				// 	email: email,
-				// }),
-				// Check against email data carrief over from VerifyAxios defined in initialValues const above
 				body: JSON.stringify({
 					// email: clientData.clientEmail,
 					email: formValues.email,
@@ -69,9 +65,6 @@ const PaymentForm = ({ clientData }) => {
 
 			const data = await response.json();
 
-			// if (data.clientExists) {
-			// 	throw new Error('Client is already subscribed');
-			// }
 			if (data.clientExists) {
 				resetForm({ values: resetInitialValues }); // reset form values if client exists
 				navigate('/signup');
@@ -88,7 +81,7 @@ const PaymentForm = ({ clientData }) => {
 	// CREATE NEW CUSTOMER SUBSCRIPTION
 	const createSubscription = async (formValues, resetForm) => {
 		try {
-			// CHECKING IF CUSTOMER ALREADY SIBSCRIBED and reset the form
+			// CHECKING IF CUSTOMER IS ALREADY SIBSCRIBED and reset the form
 			const isExistingClient = await checkExistingClient(formValues, resetForm);
 
 			if (!isExistingClient) {
@@ -117,13 +110,13 @@ const PaymentForm = ({ clientData }) => {
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
-			if (!response.ok) return alert('Payment unsuccessful! Response not ok at paymentform.jsx line 42');
+			if (!response.ok) return alert('Payment unsuccessful!');
 
 			const data = await response.json();
 
 			const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
-				return alert('Payment unsuccessful! confirm.error at paymentform.jsx line 45');
+				return alert('Payment unsuccessful!');
 			}
 			alert('Payment successful! Subscription is active');
 
@@ -142,11 +135,12 @@ const PaymentForm = ({ clientData }) => {
 	};
 
 	// SAVING THE profileNumber received from Riptec backend into the state
+	// REDIRECT TO STRIPE CONFIRMATION PAGE
 	const [profileNumber, setProfileNumber] = useState('');
 
 	useEffect(() => {
 		if (profileNumber) {
-			console.log('Navigating with profileNumber: ', profileNumber);
+			// console.log('Navigating with profileNumber: ', profileNumber);
 			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		}
 	}, [profileNumber, navigate]);
@@ -166,27 +160,22 @@ const PaymentForm = ({ clientData }) => {
 			const responseCustomerCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateCustomer);
 			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
 
-			console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
+			// console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
 			if (responseCustomerCreated.status !== 200) {
 				throw new Error(` Error with User Creation: ${responseCustomerCreated.status}`);
 			}
-			alert('User Created Successfully!');
+			console.log('User Created Successfully!');
 
 			// SINCE USER CREATE SUCCESSFULLY GET THE PROFILE NUMBER FROM THE RIPTEC BACKEND
 			// Extract profileNumber
 			if (responseCustomerCreated && responseCustomerCreated.data.data && responseCustomerCreated.data.data.user) {
 				const profileNumber = responseCustomerCreated.data.data.user.profileNumber;
-				console.log(profileNumber);
+				// console.log(profileNumber);
 				setProfileNumber(profileNumber);
 			} else {
 				console.error('Unable to access profileNumber from response.');
 				// Handle the error case here.
 			}
-
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			// navigate('/signup/subscribe/confirmation');
-			console.log('Navigating with profileNumber: ', profileNumber);
-			// navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		} catch (error) {
 			alert(` Error with User Creation: ${error.message}`);
 		}
@@ -244,7 +233,7 @@ const PaymentForm = ({ clientData }) => {
 								Enter Your Card Number:{''}
 							</label>
 							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
-							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' />
+							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? 'Subscribing...' : 'Subscribe'}

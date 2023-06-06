@@ -4,8 +4,6 @@ const { resolve } = require('path');
 const env = require('dotenv').config({ path: './.env' });
 const PORT = 1447;
 
-// const YOUR_DOMAIN = 'http://localhost:1447';
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 	apiVersion: '2022-08-01',
 });
@@ -63,34 +61,23 @@ app.post('/create-subscription', async (request, response) => {
 			lastName: lastName,
 			email: email,
 			payment_method: paymentMethod,
+			// automatic_payment_methods: {
+			// 	enabled: true,
+			// },
 			// Stripe use default payment method (probably that you set in your dashboard) to deduct your initial payment
 			invoice_settings: { default_payment_method: paymentMethod },
 		});
-		// Create a product
-		// const product = await stripe.products.create({
-		// 	name: 'Vip Safety First Subscription by Artem',
-		// });
+
 		// Create a subscription
 		const subscription = await stripe.subscriptions.create({
 			customer: customer.id,
-			// Create a product:
-			// items: [
-			// 	{
-			// 		price_data: {
-			// 			currency: 'GBP',
-			// 			product: product.id,
-			// 			unit_amount: 850,
-			// 			recurring: {
-			// 				interval: 'month',
-			// 			},
-			// 		},
-			// 	},
-			// ],
-			//
 			// USE AN EXISTING PRODUCT FROM THE PRODUCT PRICE API ID
 			items: [
 				{
-					price: 'price_1N8Oz6HfTo5S12kxznMu8sFf',
+					// GBP
+					// price: 'price_1N8Oz6HfTo5S12kxznMu8sFf',
+					// EUR
+					price: 'price_1NFdh8HfTo5S12kx2IIvOn4t',
 				},
 			],
 			payment_settings: {
