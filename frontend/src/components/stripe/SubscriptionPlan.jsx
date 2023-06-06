@@ -133,7 +133,10 @@ const SubscriptionPlan = () => {
 									{/* LARGE PRICE NUMBERS  */}
 									<span className='text-3xl text-buttonColor font-semibold'>
 										{' '}
-										{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+										{/* + '0' is for GBP  */}
+										{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} */}
+										{/* for EUR  */}
+										{price.unit_amount / 100} {price.currency.toUpperCase()}
 									</span>
 								</div>
 								<div className='flex flex-col leading-none'>
@@ -158,7 +161,10 @@ const SubscriptionPlan = () => {
 									<div>
 										<p className='text-purple-500 text-sm'>
 											{' '}
-											{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} / {price.recurring.interval}
+											{/* + '0' is for GBP  */}
+											{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} / {price.recurring.interval} */}
+											{/* for EUR  */}
+											{price.unit_amount / 100} {price.currency.toUpperCase()} / {price.recurring.interval}
 										</p>
 									</div>
 								</div>
@@ -175,7 +181,10 @@ const SubscriptionPlan = () => {
 							<div className='flex justify-between items-center'>
 								<span className='text-buttonColor'>Subtotal: </span>
 								<span className='text-sm text-purple-500'>
-									{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+									{/* + '0' is for GBP  */}
+									{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} */}
+									{/* for EUR  */}
+									{price.unit_amount / 100} {price.currency.toUpperCase()}
 								</span>
 							</div>
 						) : (
@@ -201,7 +210,10 @@ const SubscriptionPlan = () => {
 							<div className='flex justify-between items-center'>
 								<span className='text-buttonColor font-bold'>Total: </span>
 								<span className='text-sm text-purple-500'>
-									{price.unit_amount / 100 + '0'} {price.currency.toUpperCase()}
+									{/* + '0' is for GBP  */}
+									{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} */}
+									{/* for EUR  */}
+									{price.unit_amount / 100} {price.currency.toUpperCase()}
 								</span>
 							</div>
 						) : (

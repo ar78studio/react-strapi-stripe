@@ -133,7 +133,12 @@ app.get('/get-product', async (request, response) => {
 app.get('/get-price', async (request, response) => {
 	try {
 		if (request.method !== 'GET') return response.status(400);
-		const priceId = 'price_1N8Oz6HfTo5S12kxznMu8sFf';
+		// Prices are created/added inside a particular Stripe Product you want to offer
+		// GBP
+		// const priceId = 'price_1N8Oz6HfTo5S12kxznMu8sFf';
+		// EUR
+		const priceId = 'price_1NFdh8HfTo5S12kx2IIvOn4t';
+
 		const price = await stripe.prices.retrieve(`${priceId}`);
 		response.json({ price });
 	} catch (error) {
