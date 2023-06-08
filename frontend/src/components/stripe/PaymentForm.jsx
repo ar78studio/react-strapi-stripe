@@ -1,15 +1,18 @@
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
-import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
+import; { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { MdPermIdentity } from 'react-icons/md';
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
 const PaymentForm = ({ clientData }) => {
+	const location = useLocation();
 	console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -99,22 +102,20 @@ const PaymentForm = ({ clientData }) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				// body: JSON.stringify({
-				// 	name: name,
-				// 	email: email,
-				// 	paymentMethod: paymentMethod.paymentMethod.id,
-				// }),
+
 				body: JSON.stringify({
-					name: formValues.firstName + ' ' + formValues.lastName, // Using Formik values here
+					// name: formValues.firstName + ' ' + formValues.lastName, // Using Formik values here
+					firstName: formValues.firstName,
+					lastName: formValues.lastName,
 					email: formValues.email, // Using Formik values here
 					paymentMethod: paymentMethod.paymentMethod.id,
 				}),
 			});
 			if (!response.ok) return alert('Payment unsuccessful!');
 
-			const data = await response.json();
+			// const data = await response.json();
 
-			const confirm = await stripe.confirmCardPayment(data.clientSecret);
+			// const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
 				return alert('Payment unsuccessful!');
 			}
@@ -199,6 +200,7 @@ const PaymentForm = ({ clientData }) => {
 								<label className='text-buttonColor' htmlFor='firstName'>
 									First Name:
 								</label>
+								{/* <MdPermIdentity size={30} /> */}
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
 								<ErrorMessage name='firstName' />
 							</div>
