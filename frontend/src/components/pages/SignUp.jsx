@@ -7,7 +7,10 @@ import VerifyAxios from '../verifycode/VerifyAxios';
 
 import { motion } from 'framer-motion';
 
+import { useUrlParams } from '../../hooks/useUrlParams';
+
 const SignUp = () => {
+	useUrlParams();
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}

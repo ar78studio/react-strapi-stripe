@@ -55,17 +55,21 @@ app.post('/create-subscription', async (request, response) => {
 		if (request.method != 'POST') return response.status(400);
 		const { firstName, lastName, email, paymentMethod } = request.body;
 
+		// Log the received firstName and lastName
+		// console.log(`Received firstName: ${firstName}, lastName: ${lastName}`);
+
 		// Create a customer
 		const customer = await stripe.customers.create({
-			firstName: firstName,
-			lastName: lastName,
+			// firstName: firstName,
+			// lastName: lastName,
+			name: `${firstName} ${lastName}`,
 			email: email,
 			payment_method: paymentMethod,
+			invoice_settings: { default_payment_method: paymentMethod },
 			// automatic_payment_methods: {
 			// 	enabled: true,
 			// },
 			// Stripe use default payment method (probably that you set in your dashboard) to deduct your initial payment
-			invoice_settings: { default_payment_method: paymentMethod },
 		});
 
 		// Create a subscription
@@ -83,11 +87,11 @@ app.post('/create-subscription', async (request, response) => {
 			payment_settings: {
 				// From video
 				payment_method_types: ['card'],
+				save_default_payment_method: 'on_subscription',
 				// AUTO PAYMENT METHODS FROM THE PAYMENT ELEMENT TO TRY
 				// automatic_payment_methods: {
 				// 	enabled: true,
 				// },
-				save_default_payment_method: 'on_subscription',
 			},
 			// expand lets us have the client secret
 			expand: ['latest_invoice.payment_intent'],

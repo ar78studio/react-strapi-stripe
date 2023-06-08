@@ -18,10 +18,10 @@ const SubscriptionPlan = () => {
 	const location = useLocation();
 
 	// transfering form data from VerifyAxios
-	// creating a variable to then use it in PaymentForm component props. dataToStripeForm is received here from VerifyAxios.jsx
+	// creating a variable to then use it in PaymentForm component props(embeded all the down at the end of code). dataToStripeForm is received here from VerifyAxios.jsx
 	const { clientData } = location.state;
 
-	console.log(`From SubscriptionPlan: ${clientData}`);
+	// console.log(`From SubscriptionPlan: ${clientData}`);
 
 	useEffect(() => {
 		const fetchSubscription = async () => {

@@ -102,7 +102,7 @@ const Footer = () => {
 				</section>
 			</main>
 			<div className='flex flex-wrap items-center justify-center md:justify-between bg-[#734d9e] py-6 px-10'>
-				<p className='text-white font-medium mb-4'>© 2023 ConXhub. All rights reserved</p>
+				<p className='text-white font-medium mb-4'>© 2023 VipSafetyFirst. All rights reserved</p>
 				<div className='flex gap-2'>
 					<a href='https://www.facebook.com/vipsafetyfirstapp' target='_blank'>
 						<FaFacebookSquare color='white' size={30} />

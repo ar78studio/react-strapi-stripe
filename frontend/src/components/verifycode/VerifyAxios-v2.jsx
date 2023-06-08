@@ -6,9 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 import { useCookies } from 'react-cookie';
-import { useUrlParams } from '../../hooks/useUrlParams';
 
-// SETTING RULES FOR YUP FORM VALIDATION
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,25}$/;
@@ -45,7 +43,6 @@ const verificationSchema = Yup.object({
 // ================================
 // ================================
 const VerifyAxios = () => {
-	const { searchParams } = useUrlParams();
 	const [cookies] = useCookies(['linkParams']);
 
 	// Parse linkParams from cookies (if exists)
@@ -77,7 +74,6 @@ const VerifyAxios = () => {
 			cookies: cookies,
 			...linkParams,
 		};
-		console.log(linkParams);
 
 		try {
 			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
@@ -105,11 +101,13 @@ const VerifyAxios = () => {
 			};
 
 			// RECEIVE CREATE LEAD
-			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
 			await createLead(values);
 
 			// SIM CODE VERIFICATION ENDPOINT
 			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
+
+			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
+			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
 
 			setSubmitting(false);
 

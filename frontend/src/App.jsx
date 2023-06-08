@@ -9,13 +9,21 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import BlogCategories from './components/blog/BlogCategories';
 
 // Stripe
-import { SubscriptionPlan, PaymentForm } from './components/index';
+import { SubscriptionPlan } from './components/index';
 
 // Apollo client
 const client = new ApolloClient({
 	uri: 'http://localhost:1337/graphql',
 	cache: new InMemoryCache(),
 });
+
+// useUrlParams custom hook gathers UTM and FPR params
+import { useUrlParams } from './hooks/useUrlParams';
+
+const CaptureUrlParams = () => {
+	useUrlParams();
+	return null; // This component doesn't render anything
+};
 
 function App() {
 	return (
@@ -24,6 +32,7 @@ function App() {
 				<Router>
 					<ScrollToTop />
 					<ApolloProvider client={client}>
+						<CaptureUrlParams />
 						<Navbar />
 						<Routes>
 							<Route exact path='/' element={<Homepage />} />
