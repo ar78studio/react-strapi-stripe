@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "PORT=5173 react-scripts start",
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -36,7 +36,7 @@ const PaymentForm = (formData) => {
 	// CHECK IF CUSTOMER ALREADY EXISTS
 	const checkExistingClient = async () => {
 		try {
-			const response = await fetch('http://localhost:1447/check-existing-client', {
+			const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/check-existing-client`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const PaymentForm = (formData) => {
 				card: elements.getElement('card'),
 			});
 
-			const response = await fetch('http://localhost:1447/create-subscription', {
+			const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/create-subscription`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

@@ -72,7 +72,7 @@ const BlogContent = () => {
 					<div className='bg-purple-50 p-6 lg:pl-10 w-full flex flex-col justify-center items-center pt-20'>
 						<div className='flex flex-col justify-center items-center'>
 							<h4 className='text-3xl lg:text-5xl text-center text-buttonColor pb-10'>{data.blog.data.attributes.title}</h4>
-							<img className='max-w-screen-md object-cover rounded-lg' src={`http://localhost:1337${data.blog.data.attributes.coverImage.data.attributes.formats}`} alt='Image' />
+							<img className='max-w-screen-md object-cover rounded-lg' src={`${process.env.REACT_APP_API_URL}:1337${data.blog.data.attributes.coverImage.data.attributes.formats}`} alt='Image' />
 
 							<div className='pt-10'>
 								<p className='text-base pb-2 text-buttonColor'>{data.blog.data.attributes.blogContent}</p>
