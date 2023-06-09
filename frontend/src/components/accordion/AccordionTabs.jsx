@@ -28,7 +28,7 @@ const AccordionTabs = ({ setSelectedPage }) => {
 
 	return (
 		<Accordion transition transitionTimeout={200}>
-			<AccordionItem className=' font-light leading-4 lg:text-base ' header='Why should I choose this safety app and not others? Can you really assure me total privacy?'>
+			<AccordionItem className=' font-light leading-4 text-xs lg:text-base ' header='Why should I choose this safety app and not others? Can you really assure me total privacy?'>
 				Because you can control what calls to answer, block unwanted callers, keep personal data private, avoid spam and scam
 			</AccordionItem>
 			<AccordionItem className=' font-light leading-4 lg:text-base ' header='Do I need a SIM card or current contract to use this safety app?'>

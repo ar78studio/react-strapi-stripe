@@ -16,12 +16,20 @@
     width: 100%;
     margin: 0;
     padding: 1rem;
+    /* font-size: 1rem; */
     font-size: 1rem;
     text-align: left;
     color: #973cce;
     font-weight: 600;
     border: none;
     border-radius: 5px;
+  }
+
+  @media (max-width: 460px) {
+    .itemBtn {
+      font-size: 0.8rem;
+      height: 4rem;
+    }
   }
 
   .itemBtnBg {

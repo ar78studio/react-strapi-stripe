@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 import { useCookies } from 'react-cookie';
+// from hooks folder to capture UTMs and FPRs
 import { useUrlParams } from '../../hooks/useUrlParams';
 
 // SETTING RULES FOR YUP FORM VALIDATION
@@ -45,14 +46,15 @@ const verificationSchema = Yup.object({
 // ================================
 // ================================
 const VerifyAxios = () => {
+	// capture UTMs and FPRs
 	const { searchParams } = useUrlParams();
+	// linkParams is difined in useUrlParams.js in the hooks folder
 	const [cookies] = useCookies(['linkParams']);
 
 	// Parse linkParams from cookies (if exists)
 	const linkParams = cookies.linkParams ? JSON.parse(cookies.linkParams) : {};
 
 	const [verificationCode, setVerificationCode] = useState('');
-	// const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
@@ -160,12 +162,12 @@ const VerifyAxios = () => {
 			const clientData = {
 				...formValues,
 			};
-			console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
+			// console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
 
 			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
-			console.log('Server response is:', response.status);
+			// console.log('Server response is:', response.status);
 			// The purpose of setSubmitting is to manage the submit button state while the form is being submitted. By setting the state to false, the submit button is re-enabled after the submission is complete.
 			setSubmitting(false);
 			// setSubmitError is used to manage any submission errors that may occur while the form is being submitted. By setting the state to null, any previously set error state is cleared, and the component is reset to its initial state.

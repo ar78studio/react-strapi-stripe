@@ -46,7 +46,7 @@ const FeelSafe = ({ setSelectedPage }) => {
 							hidden: { opacity: 0 },
 							visible: { opacity: 1 },
 						}}
-						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
+						className='flex justify-center items-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
 						<Link to='../SignUp'>SIGN UP TO ADD VIP PROTECTION</Link>
 					</motion.button>
