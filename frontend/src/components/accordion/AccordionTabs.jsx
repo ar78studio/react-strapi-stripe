@@ -41,7 +41,9 @@ const AccordionTabs = ({ setSelectedPage }) => {
 				If your VIP number becomes compromised, we can change it for you to remove source of harassment by phone/messaging
 			</AccordionItem>
 			<AccordionItem className=' font-light leading-4 lg:text-base ' header='What happens if I need support?'>
-				Contact Us Here!
+				<a className='hover:text-[#f20f76] hover:font-semibold' href='https://billing.conxhub.com/submitticket.php?step=2&deptid=4'>
+					Contact Us Here!
+				</a>
 			</AccordionItem>
 			<AccordionItem className=' font-light leading-4 lg:text-base ' header='Can I trust the App?'>
 				The VIP / conXhub App is certified by Apple and Android, completely ad-free and updated regularly

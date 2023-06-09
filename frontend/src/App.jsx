@@ -28,7 +28,7 @@ const CaptureUrlParams = () => {
 function App() {
 	return (
 		<>
-			<div className='bg-white w-full m-0'>
+			<div className='bg-white w-full m-0 p-0'>
 				<Router>
 					<ScrollToTop />
 					<ApolloProvider client={client}>

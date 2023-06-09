@@ -12,7 +12,7 @@ const Footer = () => {
 			<div>
 				<div className='w-full bg-buttonColor p-1'></div>
 			</div>
-			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-b from-[#9352e8] to-[#c4a6e4] justify-center items-center md:justify-between lg:px-10 pt-8 pb-20 px-10'>
+			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-b from-[#9352e8] to-[#c4a6e4] justify-center items-center  lg:px-10 pt-8 pb-20 px-10'>
 				{/* CONXHUB WHITE LOGO AND TEXT BELLOW IT  */}
 				<section>
 					<div className='flex container mx-auto'>
@@ -27,7 +27,7 @@ const Footer = () => {
 				</section>
 
 				{/* FOOTER NAVIGATION MENU  */}
-				<section className='flex gap-8 container mw-auto flex-col justify-center items-center text-xl font-semibold'>
+				<section className='flex gap-8 container flex-col justify-center items-center text-xl font-semibold'>
 					{/* MENU ITEMS  */}
 
 					<Link className='text-white hover:text-buttonColor' to='../product'>
