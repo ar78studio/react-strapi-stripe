@@ -38,19 +38,6 @@ const ContactUs = () => {
 					>
 						For any enquiries or additional information please contact:
 					</motion.p>
-					{/* <motion.button
-						initial='hidden'
-						whileInView='visible'
-						viewport={{ once: true, amount: 0.5 }}
-						transition={{ delay: 0.8, duration: 2 }}
-						variants={{
-							hidden: { opacity: 0 },
-							visible: { opacity: 1 },
-						}}
-						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
-					>
-						(UK) +44 (0)208 099 8889
-					</motion.button> */}
 					<motion.div
 						initial='hidden'
 						whileInView='visible'
