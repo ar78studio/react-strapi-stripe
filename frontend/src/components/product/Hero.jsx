@@ -1,11 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { GirlHero } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
-const Hero = ({ setSelectedPage }) => {
+const Hero = () => {
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}

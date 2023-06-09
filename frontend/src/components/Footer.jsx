@@ -3,7 +3,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { WhiteConxhubLogo, DownloadFromApple, GetItFromGooglePlay } from '../assets';
-import { FaFacebookSquare, FaLinkedin, FaInstagramSquare, FaTwitterSquare, FaTiktok } from 'react-icons/fa';
+
+import { FacebookSvg, LinkedinSvg, InstagramSvg, TwitterSvg, TiktokSvg } from '../assets/index';
 
 const Footer = () => {
 	return (
@@ -105,19 +106,24 @@ const Footer = () => {
 				<p className='text-white font-medium mb-4'>© 2023 VipSafetyFirst. All rights reserved</p>
 				<div className='flex gap-2'>
 					<a href='https://www.facebook.com/vipsafetyfirstapp' target='_blank'>
-						<FaFacebookSquare color='white' size={30} />
+						{/* <FaFacebookSquare color='white' size={30} /> */}
+						<img className='hover:font-[#f20f76]' src={FacebookSvg} alt='Facebook Icon' />
 					</a>
 					<a href='https://www.linkedin.com/company/vip-safety-first/' target='_blank'>
-						<FaLinkedin color='white' size={30} />
+						{/* <FaLinkedin color='white' size={30} /> */}
+						<img className='hover:text-[#f20f76]' src={LinkedinSvg} alt='LinkedIn Icon' />
 					</a>
 					<a href='https://www.instagram.com/vipsafetyfirst/' target='_blank'>
-						<FaInstagramSquare color='white' size={30} />
+						{/* <FaInstagramSquare color='white' size={30} /> */}
+						<img className='hover:text-[#f20f76]' src={InstagramSvg} alt='Instagram Icon' />
 					</a>
 					<a href='https://twitter.com/VIPSafetyFirst' target='_blank'>
-						<FaTwitterSquare color='white' size={30} />
+						{/* <FaTwitterSquare color='white' size={30} /> */}
+						<img className='hover:text-[#f20f76]' src={TwitterSvg} alt='Twitter Icon' />
 					</a>
 					<a href='https://www.tiktok.com/@vipsafetyfirst' target='_blank'>
-						<FaTiktok color='white' size={30} />
+						{/* <FaTiktok color='white' size={30} /> */}
+						<img className='hover:text-[#f20f76]' src={TiktokSvg} alt='TikTok Icon' />
 					</a>
 				</div>
 			</div>

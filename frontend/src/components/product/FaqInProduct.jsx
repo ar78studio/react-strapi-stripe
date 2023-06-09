@@ -1,14 +1,10 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { SimHearts } from '../../assets/index';
 
 import AccordionTabs from '../accordion/AccordionTabs';
 
-const FaqInProduct = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
+const FaqInProduct = () => {
 	return (
 		<>
 			<section id='help' className='flex justify-center flex-wrap lg:flex-nowrap bg-faqBackground lg:justify-between lg:px-10 lg:pt-10 pb-20'>

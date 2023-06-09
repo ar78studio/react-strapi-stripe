@@ -1,14 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { Link } from 'react-router-dom';
 
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { PhoneVipNumber } from '../../assets/index';
 
-const AVipPhone = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
+const AVipPhone = () => {
 	return (
 		<>
 			<main id='aVipPhone' className='w-full flex flex-wrap-reverse lg:flex-nowrap bg-aVipPhoneBg justify-between lg:px-10 lg:pt-10'>

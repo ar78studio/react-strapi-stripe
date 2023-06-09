@@ -13,3 +13,8 @@ export { default as WhiteConxhubLogo } from '../../src/assets/white-logo-conxhub
 export { default as DownloadFromApple } from '../../src/assets/downloadOnAppStore.svg';
 export { default as GetItFromGooglePlay } from '../../src/assets/getItOnGooglePlay.svg';
 export { default as GirlWithPhone } from '../../src/assets/girl-with-phone.jpeg';
+export { default as FacebookSvg } from '../../src/assets/facebook.svg';
+export { default as LinkedinSvg } from '../../src/assets/linkedin.svg';
+export { default as InstagramSvg } from '../../src/assets/instagram.svg';
+export { default as TwitterSvg } from '../../src/assets/twitter.svg';
+export { default as TiktokSvg } from '../../src/assets/tiktok.svg';

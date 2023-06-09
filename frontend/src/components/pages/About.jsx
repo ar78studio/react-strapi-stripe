@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Navbar, AboutVipSafety, FeelSafeWhen, AVipNumber, Footer } from '../index.js';
+import { AboutVipSafety, FeelSafeWhen, AVipNumber } from '../index.js';
 
 const About = () => {
 	return (

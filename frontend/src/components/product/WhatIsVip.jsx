@@ -1,12 +1,8 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { GirlVip, SingleHeart } from '../../assets/index';
 
-const WhatIsVip = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
+const WhatIsVip = () => {
 	return (
 		<>
 			<main className='flex flex-wrap-reverse lg:flex-nowrap bg-gradient-to-tr from-[#263266] to-[#8164af] justify-between lg:px-10 lg:pt-10'>

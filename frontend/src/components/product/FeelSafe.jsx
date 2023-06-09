@@ -1,11 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { motion } from 'framer-motion';
-import AnchorLink from 'react-anchor-link-smooth-scroll-v2';
 import { GirlFeelSafe } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
-const FeelSafe = ({ setSelectedPage }) => {
+const FeelSafe = () => {
 	return (
 		<>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
