@@ -1,10 +1,6 @@
-import React, { lazy } from 'react';
+import React from 'react';
 
-// import { AboutVipSafety, FeelSafeWhen, AVipNumber } from '../index.js';
-
-const AboutVipSafety = lazy(() => import('../about/AboutVipSafety'));
-const FeelSafeWhen = lazy(() => import('../about/FeelSafeWhen'));
-const AVipNumber = lazy(() => import('../about/AVipNumber'));
+import { AboutVipSafety, FeelSafeWhen, AVipNumber } from '../index.js';
 
 const About = () => {
 	return (

@@ -1,10 +1,9 @@
 // Render Prop
-import React, { lazy } from 'react';
+import React from 'react';
 
 import { GirlWithPhone } from '../../assets';
 
-// import VerifyAxios from '../verifycode/VerifyAxios';
-const VerifyAxios = lazy(() => import('../verifycode/VerifyAxios'));
+import VerifyAxios from '../verifycode/VerifyAxios';
 
 import { motion } from 'framer-motion';
 

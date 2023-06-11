@@ -151,7 +151,7 @@ const PaymentForm = ({ clientData }) => {
 				cusLastName: clientData.lastName,
 				cusEmail: clientData.clientEmail,
 				cusSimNumber: clientData.phoneNumber,
-				cusCountryISO3: '',
+				cusCountryISO3: 'ESP',
 				leadId: '',
 			};
 			console.log(dataCreateCustomer);
