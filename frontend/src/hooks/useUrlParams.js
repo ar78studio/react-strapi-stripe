@@ -9,16 +9,22 @@ export const useUrlParams = () => {
 
 	useEffect(() => {
 		const parseUrlParams = () => {
-			let params = {};
-			if (searchParams.has('utm_source')) params.utmSource = searchParams.get('utm_source');
-			if (searchParams.has('utm_medium')) params.utmMedium = searchParams.get('utm_medium');
-			if (searchParams.has('utm_campaign')) params.utmCampaign = searchParams.get('utm_campaign');
-			if (searchParams.has('fpr')) params.fpr = searchParams.get('fpr');
-			if (Object.keys(params).length > 0 && !cookies.linkParams) setCookie('linkParams', JSON.stringify(params), { path: '/' });
+			let paramsString = '';
+			if (searchParams.has('utm_source')) paramsString += `utmSource=${searchParams.get('utm_source')}&`;
+			if (searchParams.has('utm_medium')) paramsString += `utmMedium=${searchParams.get('utm_medium')}&`;
+			if (searchParams.has('utm_campaign')) paramsString += `utmCampaign=${searchParams.get('utm_campaign')}&`;
+			if (searchParams.has('fpr')) paramsString += `fpr=${searchParams.get('fpr')}&`;
+
+			if (paramsString) {
+				paramsString = paramsString.slice(0, -1); // Remove the trailing '&'
+				paramsString = paramsString.replace(/&/g, ' '); // Replace '&' with spaces
+				// setCookie('linkParams', paramsString, { path: '/' });
+				setCookie('linkParams', paramsString, { path: '/', expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
+			}
 		};
 
 		parseUrlParams();
-	}, [searchParams, setCookie, cookies.linkParams]); // Added 'cookies.linkParams' to the dependency array
+	}, [searchParams, setCookie, cookies.linkParams]);
 
 	return { searchParams };
 };

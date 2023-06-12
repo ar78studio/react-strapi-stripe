@@ -13,7 +13,7 @@ import { SubscriptionPlan } from './components/index';
 
 // Apollo client
 const client = new ApolloClient({
-	uri: `${process.env.REACT_APP_API_URL}:1337/graphql`,
+	uri: 'http://localhost:1337/graphql',
 	cache: new InMemoryCache(),
 });
 

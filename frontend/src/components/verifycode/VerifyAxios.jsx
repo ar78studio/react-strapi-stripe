@@ -52,7 +52,10 @@ const VerifyAxios = () => {
 	const [cookies] = useCookies(['linkParams']);
 
 	// Parse linkParams from cookies (if exists)
-	const linkParams = cookies.linkParams ? JSON.parse(cookies.linkParams) : {};
+	// const linkParams = cookies.linkParams ? JSON.parse(cookies.linkParams) : {};
+	const linkParams = cookies.linkParams ? cookies.linkParams : {};
+
+	console.log(linkParams);
 
 	const [verificationCode, setVerificationCode] = useState('');
 	const [submitError, setSubmitError] = useState(null);
