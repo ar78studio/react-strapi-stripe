@@ -245,13 +245,9 @@ const VerifyAxios = () => {
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
 									Enter Your 9 digit <ReactCountryFlag countryCode='ES' style={{ fontSize: '1.5em', padding: '6px' }} /> Number:
 								</label>
-								<div className='flex'>
-									{/* <ReactCountryFlag countryCode='ES' style={{ fontSize: '2em', padding: '6px' }} /> */}
-									<div className='flex flex-wrap min-w-full'>
-										<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
-										<ErrorMessage name='phoneNumber' />
-									</div>
-								</div>
+
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+								<ErrorMessage name='phoneNumber' />
 							</div>
 							{/* HIDDEN FIELD WITH UTM AND FPR TO CREATE LEAD  */}
 							{/* Hidden fields for linkParams */}
