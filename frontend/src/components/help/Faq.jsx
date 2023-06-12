@@ -1,13 +1,11 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
+
 import { motion } from 'framer-motion';
 import { SimHearts } from '../../assets/index';
 
 import AccordionTabs from '../accordion/AccordionTabs';
 
 const Faq = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}

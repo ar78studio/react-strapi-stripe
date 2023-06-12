@@ -1,12 +1,10 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
+
 import { motion } from 'framer-motion';
 import { GirlFeelSafe } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
 const FeelSafeWhen = () => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>

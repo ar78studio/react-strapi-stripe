@@ -1,5 +1,5 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
+
 import { motion } from 'framer-motion';
 import { ContactSvg } from '../../assets';
 

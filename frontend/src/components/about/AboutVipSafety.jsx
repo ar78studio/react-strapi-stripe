@@ -1,11 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
+
 import { motion } from 'framer-motion';
 import { GirlVip, SingleHeart } from '../../assets/index';
 
 const AboutVipSafety = () => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}

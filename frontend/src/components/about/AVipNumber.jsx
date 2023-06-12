@@ -1,13 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { PhoneVipNumber } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
 const AVipNumber = () => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	return (
 		<>
 			<main className='w-full flex flex-wrap-reverse lg:flex-nowrap bg-aVipPhoneBg justify-between lg:px-10 lg:pt-10'>

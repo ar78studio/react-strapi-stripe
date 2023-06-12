@@ -1,13 +1,10 @@
 import React from 'react';
-import useMediaQuery from '../../hooks/useMediaQuery';
 import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import styles from '../accordion/styles.module.css';
 
 import { ChevronArrow } from '../../assets/index';
 
 const AccordionTabs = ({ setSelectedPage }) => {
-	const isAboveMediumScreens = useMediaQuery('(min-width: 1060px');
-
 	const AccordionItem = ({ header, ...rest }) => (
 		<Item
 			{...rest}
