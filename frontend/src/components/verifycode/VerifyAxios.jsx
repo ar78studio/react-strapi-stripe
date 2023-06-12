@@ -14,7 +14,7 @@ import { useUrlParams } from '../../hooks/useUrlParams';
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,25}$/;
-const mobileNumberRule = /^\d{11}$/;
+const mobileNumberRule = /^\d{9}$/;
 
 // Initialise Formik form with empty fields=values
 const initialValues = {
@@ -34,7 +34,7 @@ const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
-	phoneNumber: Yup.string().matches(mobileNumberRule, 'Use 11 digits, Country Code plus Number. Example: 44325485786').required('Phone number is required'),
+	phoneNumber: Yup.string().matches(mobileNumberRule, 'Enter a 9 digit Number. Example: 325485786').required('Phone number is required'),
 });
 
 const verificationSchema = Yup.object({
