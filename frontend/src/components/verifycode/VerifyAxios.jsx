@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
 import axios from 'axios';
+import ReactCountryFlag from 'react-country-flag';
 
 import { useCookies } from 'react-cookie';
 // from hooks folder to capture UTMs and FPRs
@@ -242,10 +243,15 @@ const VerifyAxios = () => {
 							{/* MOBILE NUMBER  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
-									Enter Your Mobile Number Including Country Code :
+									Enter Your 9 digit <ReactCountryFlag countryCode='ES' style={{ fontSize: '1.5em', padding: '6px' }} /> Number:
 								</label>
-								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
-								<ErrorMessage name='phoneNumber' />
+								<div className='flex'>
+									{/* <ReactCountryFlag countryCode='ES' style={{ fontSize: '2em', padding: '6px' }} /> */}
+									<div className='flex flex-wrap min-w-full'>
+										<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+										<ErrorMessage name='phoneNumber' />
+									</div>
+								</div>
 							</div>
 							{/* HIDDEN FIELD WITH UTM AND FPR TO CREATE LEAD  */}
 							{/* Hidden fields for linkParams */}
