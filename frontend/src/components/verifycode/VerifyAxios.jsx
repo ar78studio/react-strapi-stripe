@@ -77,12 +77,16 @@ const VerifyAxios = () => {
 			cusFirstName: values.firstName,
 			cusLastName: values.lastName,
 			cusEmail: values.clientEmail,
-			phoneNumber: values.phoneNumber,
+			cusSimNumber: values.phoneNumber,
+			cusCountryISO3: 'ESP',
 			getParams: searchParams.toString(),
+			// Add this line to include all form values
+			postParams: JSON.stringify(values),
 			cookies: cookies,
 			...linkParams,
 		};
 		console.log(linkParams);
+		console.log('This is postParams value:', dataCreateLead.postParams);
 
 		try {
 			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);

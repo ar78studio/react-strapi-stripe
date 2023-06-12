@@ -26,7 +26,8 @@ const SubscriptionPlan = () => {
 	useEffect(() => {
 		const fetchSubscription = async () => {
 			try {
-				const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-subscription`, {
+				// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-subscription`, {
+				const response = await fetch(`http://localhost:1447/get-subscription`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
@@ -46,7 +47,8 @@ const SubscriptionPlan = () => {
 
 		const fetchProduct = async () => {
 			try {
-				const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-product`, {
+				// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-product`, {
+				const response = await fetch(`http://localhost:1447/get-product`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
@@ -67,7 +69,8 @@ const SubscriptionPlan = () => {
 		// FETCH PRICE
 		const fetchPrice = async () => {
 			try {
-				const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-price`, {
+				// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-price`, {
+				const response = await fetch(`http://localhost:1447/get-price`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',

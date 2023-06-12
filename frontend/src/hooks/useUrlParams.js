@@ -18,8 +18,9 @@ export const useUrlParams = () => {
 			if (paramsString) {
 				paramsString = paramsString.slice(0, -1); // Remove the trailing '&'
 				paramsString = paramsString.replace(/&/g, ' '); // Replace '&' with spaces
-				// setCookie('linkParams', paramsString, { path: '/' });
-				setCookie('linkParams', paramsString, { path: '/', expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
+				setCookie('linkParams', paramsString, { path: '/' });
+				// Expire cookie after 30 days - optional
+				// setCookie('linkParams', paramsString, { path: '/', expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
 			}
 		};
 

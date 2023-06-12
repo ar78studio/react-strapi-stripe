@@ -11,7 +11,7 @@ const nameRule = /^[A-Za-z\s]{0,50}$/;
 
 const PaymentForm = ({ clientData }) => {
 	const location = useLocation();
-	console.log(clientData);
+	// console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -34,7 +34,7 @@ const PaymentForm = ({ clientData }) => {
 		phone: '',
 	};
 
-	console.log(initialValues);
+	// console.log(initialValues);
 
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
@@ -49,7 +49,8 @@ const PaymentForm = ({ clientData }) => {
 	// CHECK IF CUSTOMER ALREADY EXISTS via email only
 	const checkExistingClient = async (formValues, resetForm) => {
 		try {
-			const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/check-existing-client`, {
+			// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/check-existing-client`, {
+			const response = await fetch(`http://localhost:1447/check-existing-client`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -95,14 +96,14 @@ const PaymentForm = ({ clientData }) => {
 				card: elements.getElement('card'),
 			});
 
-			const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/create-subscription`, {
+			// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/create-subscription`, {
+			const response = await fetch(`http://localhost:1447/create-subscription`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 
 				body: JSON.stringify({
-					// name: formValues.firstName + ' ' + formValues.lastName, // Using Formik values here
 					firstName: formValues.firstName,
 					lastName: formValues.lastName,
 					email: formValues.email, // Using Formik values here
