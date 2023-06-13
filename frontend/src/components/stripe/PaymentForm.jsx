@@ -68,9 +68,12 @@ const PaymentForm = ({ clientData }) => {
 			const data = await response.json();
 
 			if (data.clientExists) {
-				resetForm({ values: resetInitialValues }); // reset form values if client exists
-				navigate('/signup');
-				throw new Error('Client is already subscribed');
+				// IF CLIENT EXISTS - RESET FORM
+				// resetForm({ values: resetInitialValues }); // reset form values if client exists
+				// navigate('/signup');
+				// throw new Error('Client is already subscribed');
+
+				return true;
 			}
 
 			return true;

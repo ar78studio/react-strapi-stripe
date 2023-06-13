@@ -6,6 +6,9 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';
 
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 import { useCookies } from 'react-cookie';
 // from hooks folder to capture UTMs and FPRs
 import { useUrlParams } from '../../hooks/useUrlParams';
@@ -72,6 +75,9 @@ const VerifyAxios = () => {
 		phoneNumber: '',
 	});
 
+	// CREATE STATE FOR PHONE NUMBER INPUT FIELD WITH FLAGS
+	const [phone, setPhone] = useState();
+
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
 		const dataCreateLead = {
@@ -112,6 +118,7 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
+				countryCode: '34',
 			};
 
 			// RECEIVE CREATE LEAD
@@ -245,7 +252,18 @@ const VerifyAxios = () => {
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
 									Enter Your 9 digit <ReactCountryFlag countryCode='ES' style={{ fontSize: '1.5em', padding: '6px' }} /> Number:
 								</label>
-
+								{/* Phone number field  */}
+								{/* <PhoneInput
+									className='bg-purple-200  w-60 min-w-full rounded-md p-2'
+									id='phoneNumber'
+									name='phoneNumber'
+									type='tel'
+									placeholder='Enter phone number'
+									country={'ES'}
+									enableSearch={true}
+									value={phone}
+									onChange={(phone) => setPhone(phone)}
+								/> */}
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
 							</div>
