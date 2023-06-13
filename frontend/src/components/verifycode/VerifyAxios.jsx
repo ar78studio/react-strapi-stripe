@@ -291,7 +291,7 @@ const VerifyAxios = () => {
 											<div className='flex flex-col w-full'>
 												<div className='flex w-full pl-[55px]'>
 													<label className='text-buttonColor' htmlFor='phoneNumber'>
-														Enter Your Number:
+														Your Number:
 													</label>
 												</div>
 
