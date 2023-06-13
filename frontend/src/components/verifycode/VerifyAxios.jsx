@@ -37,7 +37,7 @@ const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
-	phoneNumber: Yup.string().matches(mobileNumberRule, 'Enter Number only').required('Phone number is required'),
+	phoneNumber: Yup.string().matches(mobileNumberRule, 'Use Numbers').required('Phone number is required'),
 });
 
 const verificationSchema = Yup.object({
