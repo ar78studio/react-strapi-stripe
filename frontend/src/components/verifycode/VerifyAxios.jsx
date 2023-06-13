@@ -17,7 +17,7 @@ import { useUrlParams } from '../../hooks/useUrlParams';
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,25}$/;
-const mobileNumberRule = /^\d{9}$/;
+const mobileNumberRule = /^\d+$/;
 
 // Initialise Formik form with empty fields=values
 const initialValues = {
@@ -37,7 +37,7 @@ const validationSchema = Yup.object({
 	firstName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().min(2, 'Too Short!').max(25, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
-	phoneNumber: Yup.string().matches(mobileNumberRule, 'Enter a 9 digit Number. Example: 325485786').required('Phone number is required'),
+	phoneNumber: Yup.string().matches(mobileNumberRule, 'Enter Number only').required('Phone number is required'),
 });
 
 const verificationSchema = Yup.object({
@@ -59,7 +59,7 @@ const VerifyAxios = () => {
 	// const linkParams = cookies.linkParams ? JSON.parse(cookies.linkParams) : {};
 	const linkParams = cookies.linkParams ? cookies.linkParams : {};
 
-	console.log(linkParams);
+	// console.log(linkParams);
 
 	const [verificationCode, setVerificationCode] = useState('');
 	const [submitError, setSubmitError] = useState(null);
@@ -75,8 +75,17 @@ const VerifyAxios = () => {
 		phoneNumber: '',
 	});
 
-	// CREATE STATE FOR PHONE NUMBER INPUT FIELD WITH FLAGS
-	const [phone, setPhone] = useState();
+	// Define country codes
+	const countryCodes = {
+		US: '1',
+		GB: '44',
+		ES: '34',
+	};
+
+	// Create a new state variable to store the selected country code.
+	const [selectedCountry, setSelectedCountry] = useState('ES');
+	// Add a new state variable for country code
+	const [countryCode, setCountryCode] = useState('34');
 
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
@@ -118,7 +127,9 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
-				countryCode: '34',
+				// countryCode: '34',
+				// Use the state variable instead of hardcoding
+				countryCode: countryCodes[selectedCountry],
 			};
 
 			// RECEIVE CREATE LEAD
@@ -220,38 +231,41 @@ const VerifyAxios = () => {
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
-				{({ isSubmitting }) => (
-					<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
-						<div className='flex flex-col gap-6'>
-							{/* FIRST NAME  */}
-							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='firstName'>
-									First Name:
-								</label>
-								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
-								<ErrorMessage name='firstName' />
-							</div>
-							{/* LAST NAME  */}
-							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='lastName'>
-									Last Name:
-								</label>
-								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
-								<ErrorMessage name='lastName' />
-							</div>
-							{/* EMAIL  */}
-							<div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='clientEmail'>
-									Email:
-								</label>
-								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='clientEmail' name='clientEmail' type='clientEmail' />
-								<ErrorMessage name='clientEmail' />
-							</div>
-							{/* MOBILE NUMBER  */}
-							<div className='flex flex-col'>
+				{/* {({ isSubmitting }) => ( */}
+				{(formikProps) => {
+					const { isSubmitting, setFieldValue } = formikProps;
+					return (
+						<Form id='phoneNumberForm' className='block flex flex-col max-w-full gap-4 '>
+							<div className='flex flex-col gap-6'>
+								{/* FIRST NAME  */}
+								<div className='flex flex-col'>
+									<label className='text-buttonColor' htmlFor='firstName'>
+										First Name:
+									</label>
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
+									<ErrorMessage name='firstName' />
+								</div>
+								{/* LAST NAME  */}
+								<div className='flex flex-col'>
+									<label className='text-buttonColor' htmlFor='lastName'>
+										Last Name:
+									</label>
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
+									<ErrorMessage name='lastName' />
+								</div>
+								{/* EMAIL  */}
+								<div className='flex flex-col'>
+									<label className='text-buttonColor' htmlFor='clientEmail'>
+										Email:
+									</label>
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='clientEmail' name='clientEmail' type='clientEmail' />
+									<ErrorMessage name='clientEmail' />
+								</div>
+								{/* MOBILE NUMBER  */}
+								{/* <div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='phoneNumber'>
 									Enter Your 9 digit <ReactCountryFlag countryCode='ES' style={{ fontSize: '1.5em', padding: '6px' }} /> Number:
-								</label>
+								</label> */}
 								{/* Phone number field  */}
 								{/* <PhoneInput
 									className='bg-purple-200  w-60 min-w-full rounded-md p-2'
@@ -264,23 +278,68 @@ const VerifyAxios = () => {
 									value={phone}
 									onChange={(phone) => setPhone(phone)}
 								/> */}
-								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+								{/* <Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
 								<ErrorMessage name='phoneNumber' />
+							</div> */}
+
+								{/* DROP DOWN WITH COUNTRY CODES  */}
+								{/* Add a select element for country selection */}
+								{/* COUNTRY SELECT */}
+								<div className='flex items-center'>
+									<div>
+										<label className='text-buttonColor' htmlFor='countryCode'>
+											Country:
+										</label>
+										<div className='flex w-[120px]'>
+											<select
+												className='bg-purple-200 h-10 w-60 w-full rounded-md p-2'
+												name='countryCode'
+												value={selectedCountry}
+												onChange={(e) => {
+													setSelectedCountry(e.target.value);
+													setFieldValue('countryCode', countryCode[e.target.value]);
+												}}
+											>
+												<option value='US'>US +1</option>
+												<option value='GB'>GB +44</option>
+												<option value='ES'>ES +34</option>
+											</select>
+										</div>
+									</div>
+									<div className='flex w-full'>
+										<div className='flex w-full'>
+											<div className='flex flex-col w-full'>
+												<label className='text-buttonColor' htmlFor='phoneNumber'>
+													Enter Your Number:
+												</label>
+
+												<div className='flex'>
+													<div className='pl-4 pr-4'>
+														<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em', padding: '6px' }} />
+													</div>
+													<div className='w-full'>
+														<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
+														<ErrorMessage name='phoneNumber' />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								{Object.keys(linkParams).map((key) => (
+									<Field key={key} type='hidden' name={key} value={linkParams[key]} />
+								))}
 							</div>
-							{/* HIDDEN FIELD WITH UTM AND FPR TO CREATE LEAD  */}
-							{/* Hidden fields for linkParams */}
-							{Object.keys(linkParams).map((key) => (
-								<Field key={key} type='hidden' name={key} value={linkParams[key]} />
-							))}
-						</div>
-						<button id='verifyButton' className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
-							{isSubmitting ? 'Submitting...' : 'Verify your Mobile Number'}
-						</button>
-						<div>
-							<h4 className='text-base text-buttonColor'>You will receive an SMS with a verification code to validate next...</h4>
-						</div>
-					</Form>
-				)}
+							<button id='verifyButton' className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
+								{isSubmitting ? 'Submitting...' : 'Verify your Mobile Number'}
+							</button>
+							<div>
+								<h4 className='text-base text-buttonColor'>You will receive an SMS with a verification code to validate next...</h4>
+							</div>
+						</Form>
+					);
+				}}
 			</Formik>
 
 			<Formik
