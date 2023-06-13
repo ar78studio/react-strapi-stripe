@@ -28,7 +28,7 @@ const SignUp = () => {
 			</motion.div>
 			{/* WRAPPER */}
 
-			<div className='flex flex-wrap-reverse justify-center items-center px-10 py-20 bg-purple-100'>
+			<div className='flex flex-wrap-reverse justify-center items-center px-2 py-20 bg-purple-100'>
 				{/* IMAGE LEFT COLUMN */}
 				<div className='lg:w-[50%] mx-6 my-10'>
 					<img src={GirlWithPhone} alt='Your Personal Number is Safe with Us' className='rounded-lg' />

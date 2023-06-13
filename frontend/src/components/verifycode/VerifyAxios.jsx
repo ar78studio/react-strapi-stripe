@@ -261,31 +261,11 @@ const VerifyAxios = () => {
 									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='clientEmail' name='clientEmail' type='clientEmail' />
 									<ErrorMessage name='clientEmail' />
 								</div>
-								{/* MOBILE NUMBER  */}
-								{/* <div className='flex flex-col'>
-								<label className='text-buttonColor' htmlFor='phoneNumber'>
-									Enter Your 9 digit <ReactCountryFlag countryCode='ES' style={{ fontSize: '1.5em', padding: '6px' }} /> Number:
-								</label> */}
-								{/* Phone number field  */}
-								{/* <PhoneInput
-									className='bg-purple-200  w-60 min-w-full rounded-md p-2'
-									id='phoneNumber'
-									name='phoneNumber'
-									type='tel'
-									placeholder='Enter phone number'
-									country={'ES'}
-									enableSearch={true}
-									value={phone}
-									onChange={(phone) => setPhone(phone)}
-								/> */}
-								{/* <Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
-								<ErrorMessage name='phoneNumber' />
-							</div> */}
 
 								{/* DROP DOWN WITH COUNTRY CODES  */}
 								{/* Add a select element for country selection */}
 								{/* COUNTRY SELECT */}
-								<div className='flex items-center'>
+								<div id='selectCountryPhone' className='flex items-center'>
 									<div>
 										<label className='text-buttonColor' htmlFor='countryCode'>
 											Country:
@@ -309,17 +289,21 @@ const VerifyAxios = () => {
 									<div className='flex w-full'>
 										<div className='flex w-full'>
 											<div className='flex flex-col w-full'>
-												<label className='text-buttonColor' htmlFor='phoneNumber'>
-													Enter Your Number:
-												</label>
+												<div className='flex w-full pl-[55px]'>
+													<label className='text-buttonColor' htmlFor='phoneNumber'>
+														Enter Your Number:
+													</label>
+												</div>
 
 												<div className='flex'>
-													<div className='pl-4 pr-4'>
+													<div className='pl-2 pr-2'>
 														<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em', padding: '6px' }} />
 													</div>
 													<div className='w-full'>
 														<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md p-2' id='phoneNumber' name='phoneNumber' type='tel' />
-														<ErrorMessage name='phoneNumber' />
+														<div>
+															<ErrorMessage name='phoneNumber' />
+														</div>
 													</div>
 												</div>
 											</div>
