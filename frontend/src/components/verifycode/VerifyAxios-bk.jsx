@@ -37,7 +37,7 @@ const validationSchema = Yup.object({
 	firstName: Yup.string().max(40, 'Too Long!').matches(nameRule).required('First Name is required'),
 	lastName: Yup.string().max(40, 'Too Long!').matches(nameRule).required('Last Name is required'),
 	clientEmail: Yup.string().matches(emailRule, 'Verify Email Format').required('Email is required'),
-	phoneNumber: Yup.string().max(20, 'Too Long!').matches(mobileNumberRule, 'Use Numbers').required('Phone number is required'),
+	phoneNumber: Yup.string().max(20, 'Too Long!').matches(mobileNumberRule, 'Use Numbers').required('Phone is required'),
 });
 
 const verificationSchema = Yup.object({
@@ -85,7 +85,7 @@ const VerifyAxios = () => {
 	// Create a new state variable to store the selected country code.
 	const [selectedCountry, setSelectedCountry] = useState('ES');
 	// Add a new state variable for country code
-	const [countryCode, setCountryCode] = useState('34');
+	// const [countryCode, setCountryCode] = useState('34');
 
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
@@ -127,7 +127,6 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
-				// countryCode: '34',
 				// Use the state variable instead of hardcoding
 				countryCode: countryCodes[selectedCountry],
 			};
@@ -227,11 +226,10 @@ const VerifyAxios = () => {
 	return (
 		<div>
 			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>Create your VIP Experience</h1>
-			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your phone number</h3>
+			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your mobile phone</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
-				{/* {({ isSubmitting }) => ( */}
 				{(formikProps) => {
 					const { isSubmitting, setFieldValue } = formikProps;
 					return (
@@ -242,7 +240,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='firstName'>
 										First Name:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='firstName' name='firstName' type='text' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='firstName' name='firstName' type='text' />
 									<ErrorMessage name='firstName' />
 								</div>
 								{/* LAST NAME  */}
@@ -250,7 +248,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='lastName'>
 										Last Name:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='lastName' name='lastName' type='text' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='lastName' name='lastName' type='text' />
 									<ErrorMessage name='lastName' />
 								</div>
 								{/* EMAIL  */}
@@ -258,7 +256,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='clientEmail'>
 										Email:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='clientEmail' name='clientEmail' type='clientEmail' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='clientEmail' name='clientEmail' type='clientEmail' />
 									<ErrorMessage name='clientEmail' />
 								</div>
 
@@ -270,24 +268,20 @@ const VerifyAxios = () => {
 										<label className='text-buttonColor' htmlFor='countryCode'>
 											Country:
 										</label>
-										<label className='text-buttonColor ml-[4.5em]' htmlFor='phoneNumber'>
+										<label className='text-buttonColor ml-[4.8em]' htmlFor='phoneNumber'>
 											Your Number:
 										</label>
 									</div>
 									<div className='flex w-full items-center'>
-										{/* COUNTRY FLAG  */}
-										<div className='flex bg-purple-200 rounded-l-md h-10 items-center px-2'>
-											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
-										</div>
 										{/* DROP DOWN LIST  */}
 										<div className='flex w-[90px]'>
 											<select
-												className='bg-purple-200 h-10 rounded-r-md'
+												className='bg-purple-200 h-10 rounded-l-md pl-2'
 												name='countryCode'
 												value={selectedCountry}
 												onChange={(e) => {
 													setSelectedCountry(e.target.value);
-													setFieldValue('countryCode', countryCode[e.target.value]);
+													setFieldValue('countryCode', countryCodes[e.target.value]);
 												}}
 											>
 												<option value='US'>US +1</option>
@@ -295,15 +289,19 @@ const VerifyAxios = () => {
 												<option value='ES'>ES +34</option>
 											</select>
 										</div>
+										{/* COUNTRY FLAG  */}
+										<div className='flex bg-purple-200 rounded-r-md h-10 items-center px-2'>
+											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
+										</div>
 										{/* PHONE NUMBER INPUT FIELD  */}
 										<div className='flex w-full ml-4'>
-											<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md px-4' id='phoneNumber' name='phoneNumber' type='tel' />
+											<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md pl-2' id='phoneNumber' name='phoneNumber' type='tel' />
 											{/* <ErrorMessage name='phoneNumber' /> */}
 										</div>
 									</div>
 								</div>
 								{/* PHONE INPUT FIELD ERRORS  */}
-								<div className='flex pl-[8.4em] mt-[-24px]'>
+								<div className='flex pl-[9em] mt-[-24px]'>
 									<ErrorMessage name='phoneNumber' />
 								</div>
 

@@ -85,7 +85,7 @@ const VerifyAxios = () => {
 	// Create a new state variable to store the selected country code.
 	const [selectedCountry, setSelectedCountry] = useState('ES');
 	// Add a new state variable for country code
-	const [countryCode, setCountryCode] = useState('34');
+	// const [countryCode, setCountryCode] = useState('34');
 
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
@@ -127,7 +127,6 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
-				// countryCode: '34',
 				// Use the state variable instead of hardcoding
 				countryCode: countryCodes[selectedCountry],
 			};
@@ -231,7 +230,6 @@ const VerifyAxios = () => {
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
-				{/* {({ isSubmitting }) => ( */}
 				{(formikProps) => {
 					const { isSubmitting, setFieldValue } = formikProps;
 					return (
@@ -283,7 +281,7 @@ const VerifyAxios = () => {
 												value={selectedCountry}
 												onChange={(e) => {
 													setSelectedCountry(e.target.value);
-													setFieldValue('countryCode', countryCode[e.target.value]);
+													setFieldValue('countryCode', countryCodes[e.target.value]);
 												}}
 											>
 												<option value='US'>US +1</option>
