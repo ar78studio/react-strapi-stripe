@@ -13,7 +13,7 @@ import BlogCategories from './components/blog/BlogCategories';
 import { SubscriptionPlan } from './components/index';
 
 // ============================================
-// Uncomment for Production
+// FOR BLOGS - Uncomment for Production
 
 // const httpLink = createHttpLink({
 // 	uri: 'http://localhost:1337/graphql',
@@ -32,16 +32,16 @@ import { SubscriptionPlan } from './components/index';
 // 	};
 // });
 
-// Apollo client - UNCOMMENT FOR PRODUCTION
+// // Apollo client - UNCOMMENT FOR PRODUCTION
 // const client = new ApolloClient({
 // 	link: authLink.concat(httpLink),
 // 	cache: new InMemoryCache(),
 // });
 
-// Uncomment for Production
+// FOR BLOGS - Uncomment for Production
 // ============================================
 
-// APOLLO CLIENT - FOR LOCAL DEVELOPMENT
+// FOR BLOGS - APOLLO CLIENT - FOR LOCAL DEVELOPMENT
 
 const client = new ApolloClient({
 	uri: 'http://localhost:1337/graphql',

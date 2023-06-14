@@ -284,6 +284,7 @@ const VerifyAxios = () => {
 												<option value='US'>US +1</option>
 												<option value='GB'>GB +44</option>
 												<option value='ES'>ES +34</option>
+												<option value='IE'>IE +353</option>
 											</select>
 										</div>
 										{/* COUNTRY FLAG  */}

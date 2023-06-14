@@ -6,9 +6,6 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';
 
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
-
 import { useCookies } from 'react-cookie';
 // from hooks folder to capture UTMs and FPRs
 import { useUrlParams } from '../../hooks/useUrlParams';
