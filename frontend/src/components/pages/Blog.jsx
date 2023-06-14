@@ -66,7 +66,8 @@ const Blog = () => {
 					<Link className='underline' to={`/BlogContent/${blogs.id}`}>
 						<img
 							className='w-full rounded-bl-none rounded-br-none rounded-t-xl object-contain rounded-lg transition duration-300 ease-in-out filter  brightness-75 hover:brightness-100'
-							src={`${process.env.REACT_APP_API_URL}:1337${blogs.attributes.coverImage.data.attributes.formats}`}
+							// src={`${process.env.REACT_APP_API_URL}:1337${blogs.attributes.coverImage.data.attributes.formats}`}
+							src={`http://localhost:1337${blogs.attributes.coverImage.data.attributes.formats}`}
 							alt='Image'
 						/>
 					</Link>

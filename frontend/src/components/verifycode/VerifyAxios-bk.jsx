@@ -227,7 +227,7 @@ const VerifyAxios = () => {
 	return (
 		<div>
 			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>Create your VIP Experience</h1>
-			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your mobile phone</h3>
+			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your phone number</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
@@ -242,7 +242,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='firstName'>
 										First Name:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='firstName' name='firstName' type='text' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='firstName' name='firstName' type='text' />
 									<ErrorMessage name='firstName' />
 								</div>
 								{/* LAST NAME  */}
@@ -250,7 +250,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='lastName'>
 										Last Name:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='lastName' name='lastName' type='text' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='lastName' name='lastName' type='text' />
 									<ErrorMessage name='lastName' />
 								</div>
 								{/* EMAIL  */}
@@ -258,7 +258,7 @@ const VerifyAxios = () => {
 									<label className='text-buttonColor' htmlFor='clientEmail'>
 										Email:
 									</label>
-									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='clientEmail' name='clientEmail' type='clientEmail' />
+									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md px-4' id='clientEmail' name='clientEmail' type='clientEmail' />
 									<ErrorMessage name='clientEmail' />
 								</div>
 
@@ -275,10 +275,14 @@ const VerifyAxios = () => {
 										</label>
 									</div>
 									<div className='flex w-full items-center'>
+										{/* COUNTRY FLAG  */}
+										<div className='flex bg-purple-200 rounded-l-md h-10 items-center px-2'>
+											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
+										</div>
 										{/* DROP DOWN LIST  */}
 										<div className='flex w-[90px]'>
 											<select
-												className='bg-purple-200 h-10 rounded-l-md pl-2'
+												className='bg-purple-200 h-10 rounded-r-md'
 												name='countryCode'
 												value={selectedCountry}
 												onChange={(e) => {
@@ -291,19 +295,15 @@ const VerifyAxios = () => {
 												<option value='ES'>ES +34</option>
 											</select>
 										</div>
-										{/* COUNTRY FLAG  */}
-										<div className='flex bg-purple-200 rounded-r-md h-10 items-center px-2'>
-											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
-										</div>
 										{/* PHONE NUMBER INPUT FIELD  */}
 										<div className='flex w-full ml-4'>
-											<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md pl-2' id='phoneNumber' name='phoneNumber' type='tel' />
+											<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md px-4' id='phoneNumber' name='phoneNumber' type='tel' />
 											{/* <ErrorMessage name='phoneNumber' /> */}
 										</div>
 									</div>
 								</div>
 								{/* PHONE INPUT FIELD ERRORS  */}
-								<div className='flex pl-[9em] mt-[-24px]'>
+								<div className='flex pl-[8.4em] mt-[-24px]'>
 									<ErrorMessage name='phoneNumber' />
 								</div>
 
