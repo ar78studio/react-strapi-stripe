@@ -270,7 +270,7 @@ const VerifyAxios = () => {
 										<label className='text-buttonColor' htmlFor='countryCode'>
 											Country:
 										</label>
-										<label className='text-buttonColor ml-[4.5em]' htmlFor='phoneNumber'>
+										<label className='text-buttonColor ml-[4.8em]' htmlFor='phoneNumber'>
 											Your Number:
 										</label>
 									</div>
