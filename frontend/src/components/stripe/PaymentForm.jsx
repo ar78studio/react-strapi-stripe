@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { locatedError } from 'graphql';
 
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
@@ -23,8 +24,11 @@ const PaymentForm = ({ clientData }) => {
 		firstName: location.state?.firstName || clientData.firstName || '',
 		lastName: location.state?.lastName || clientData.lastName || '',
 		email: location.state?.email || clientData.clientEmail || '',
+		countryCode: locatedError.state?.countryCode || clientData.countryCode || '',
 		phone: location.state?.phoneNumber || clientData.phoneNumber || '',
 	};
+
+	console.log(initialValues);
 
 	// Reset Formik form values in case of existing Customer
 	const resetInitialValues = {
@@ -154,8 +158,8 @@ const PaymentForm = ({ clientData }) => {
 				cusFirstName: clientData.firstName,
 				cusLastName: clientData.lastName,
 				cusEmail: clientData.clientEmail,
+				cusCountryISO3: clientData.countryCode,
 				cusSimNumber: clientData.phoneNumber,
-				cusCountryISO3: 'ESP',
 				leadId: '',
 			};
 			console.log(dataCreateCustomer);

@@ -8,9 +8,6 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 // from hooks folder to capture UTMs and FPRs
 import { useUrlParams } from '../../hooks/useUrlParams';
-// Country Options are difined in CountryOptions.js
-import { countryOptions } from './CountryOptions';
-import Select from 'react-select';
 
 // SETTING RULES FOR YUP FORM VALIDATION
 const pinRegExp = /^\d{5}$/;
@@ -27,11 +24,9 @@ const initialValues = {
 	verificationCode: '',
 };
 
-// const resetForm = () => {
-// 	resetForm({ values: '' });
-// };
-const resetForm = (resetForm) => {
-	resetForm();
+const resetForm = () => {
+	console.log(values);
+	resetForm({ values: '' });
 };
 
 const validationSchema = Yup.object({
@@ -44,17 +39,6 @@ const validationSchema = Yup.object({
 const verificationSchema = Yup.object({
 	verificationCode: Yup.string().matches(pinRegExp, 'Verification Code must be 5 digits').required('Verification code is required'),
 });
-
-// Custom Styles for the Country Dropdown box (npm react-select)
-const customStyles = {
-	control: (base, state) => ({
-		...base,
-		backgroundColor: '#E9D5FF',
-		border: 'none',
-		width: '300px', // Add your desired background color here
-		// You can also add other custom styles here
-	}),
-};
 
 // ================================
 // ================================
@@ -77,23 +61,54 @@ const VerifyAxios = () => {
 	const [submitError, setSubmitError] = useState(null);
 	const [sentCode, setSentCode] = useState(null);
 
-	// CREATE STATE FOR USER DATA
+	// CREATE STATE FOR USER DATA to carry over to PaymentForm as props
 	const [formValues, setFormValues] = useState({});
 
-	// State for passing props into PaymentForm.jsx
 	const [clientData, setClientData] = useState({
 		firstName: '',
 		lastName: '',
 		clientEmail: '',
-		countryCode: '',
+		countryCodes: '',
 		phoneNumber: '',
 	});
 
+	// Define country codes
+	const countryCodes = {
+		US: '1',
+		GB: '44',
+		ES: '34',
+		AR: '54',
+		AU: '61',
+		BE: '32',
+		BR: '55',
+		CA: '1',
+		CO: '57',
+		CY: '357',
+		CZ: '420',
+		FR: '33',
+		DE: '49',
+		IE: '353',
+		IL: '972',
+		IT: '39',
+		LU: '352',
+		MT: '356',
+		MX: '52',
+		NL: '31',
+		NZ: '64',
+		NO: '47',
+		PH: '63',
+		PT: '351',
+		SG: '65',
+		SK: '421',
+		ZA: '27',
+		SE: '46',
+		CH: '41',
+	};
+
 	// Create a new state variable to store the selected country code.
-	// const [selectedCountry, setSelectedCountry] = useState(countryOptions[0]);
-	const [selectedCountry, setSelectedCountry] = useState(null);
+	const [selectedCountry, setSelectedCountry] = useState('ES');
 	// Add a new state variable for country code
-	// const [countryOption, setCountryOptions] = useState('34');
+	// const [countryCode, setCountryCode] = useState('34');
 
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
@@ -103,8 +118,7 @@ const VerifyAxios = () => {
 			cusEmail: values.clientEmail,
 			cusSimNumber: values.phoneNumber,
 			// cusCountryISO3: 'ESP',
-			// cusCountryISO3: values.countryCode,
-			cusCountryISO3: selectedCountry.code,
+			cusCountryISO3: values.countryCode,
 			getParams: searchParams.toString(),
 			// Add this line to include all form values
 			postParams: JSON.stringify(values),
@@ -113,6 +127,7 @@ const VerifyAxios = () => {
 		};
 		console.log(linkParams);
 		console.log('This is postParams value:', dataCreateLead.postParams);
+		console.log('This is CountryCode: ', dataCreateLead.cusCountryISO3);
 
 		try {
 			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
@@ -125,12 +140,11 @@ const VerifyAxios = () => {
 
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting }) => {
-		// setClientData sets the data for transfer into PaymentForm.jsx into const initialValues
 		setClientData({
 			firstName: values.firstName,
 			lastName: values.lastName,
 			clientEmail: values.clientEmail,
-			countryCode: selectedCountry.code,
+			countryCode: values.countryCodes,
 			phoneNumber: values.phoneNumber,
 		});
 
@@ -139,10 +153,9 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
-				countryCode: selectedCountry.code,
+				// Use the state variable instead of hardcoding
+				countryCode: countryCodes[selectedCountry],
 			};
-
-			console.log('This is dataRequestPin:', dataRequestPin.countryCode);
 
 			// RECEIVE CREATE LEAD
 			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
@@ -274,6 +287,8 @@ const VerifyAxios = () => {
 								</div>
 
 								{/* DROP DOWN WITH COUNTRY CODES  */}
+								{/* Add a select element for country selection */}
+								{/* COUNTRY SELECT */}
 								<div id='selectCountryPhone'>
 									<label className='text-buttonColor' htmlFor='countryCode'>
 										Country:
@@ -281,23 +296,24 @@ const VerifyAxios = () => {
 
 									<div className='flex w-full items-center'>
 										{/* DROP DOWN LIST  */}
-										<div className='flex rounded-md'>
-											<Select
-												className='basic-single'
-												// classNamePrefix='select'
-												styles={customStyles}
-												defaultValue={countryOptions[0]}
-												isSearchable={true}
+										<div className='flex'>
+											<select
+												id='selectCountryCode'
+												className='bg-purple-200 h-10 rounded-md pl-2'
 												name='countryCode'
-												options={countryOptions}
-												// value={selectedCountry}
 												value={selectedCountry}
-												onChange={(option) => {
-													setSelectedCountry(option);
-													setFieldValue('countryCode', option.code);
+												onChange={(e) => {
+													setSelectedCountry(e.target.value);
+													setFieldValue('countryCode', countryCodes[e.target.value]);
 												}}
-											/>
+											>
+												<CountryOptions />
+											</select>
 										</div>
+										{/* COUNTRY FLAG  */}
+										{/* <div className='flex bg-purple-200 rounded-r-md h-10 items-center px-2'>
+											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
+										</div> */}
 									</div>
 
 									{/* PHONE NUMBER INPUT FIELD  */}
@@ -309,6 +325,10 @@ const VerifyAxios = () => {
 										<ErrorMessage name='phoneNumber' />
 									</div>
 								</div>
+								{/* PHONE INPUT FIELD ERRORS  */}
+								{/* <div className='flex pl-[9em] mt-[-24px]'>
+									<ErrorMessage name='phoneNumber' />
+								</div> */}
 
 								{Object.keys(linkParams).map((key) => (
 									<Field key={key} type='hidden' name={key} value={linkParams[key]} />

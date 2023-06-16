@@ -4,7 +4,7 @@ import React from 'react';
 import { GirlWithPhone } from '../../assets';
 
 import VerifyAxios from '../verifycode/VerifyAxios';
-// import VerifyAxiosBK from '../verifycode/VerifyAxios-bk';
+// import VerifyAxiosDev from '../verifycode/VerifyAxios-dev';
 
 import { motion } from 'framer-motion';
 
@@ -36,7 +36,7 @@ const SignUp = () => {
 				</div>
 				{/* FORM RIGHT COLUMN */}
 				<div className='flex flex-col justify-center items-center mx-6 pt-4'>
-					{/* <VerifyAxiosBK /> */}
+					{/* <VerifyAxiosDev /> */}
 					<VerifyAxios />
 				</div>
 			</div>

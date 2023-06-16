@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
 import axios from 'axios';
-import ReactCountryFlag from 'react-country-flag';
 
 import { useCookies } from 'react-cookie';
 // from hooks folder to capture UTMs and FPRs
 import { useUrlParams } from '../../hooks/useUrlParams';
+// import CountryOptions from './CountryOptions';
+import Select from 'react-select';
 
 // SETTING RULES FOR YUP FORM VALIDATION
 const pinRegExp = /^\d{5}$/;
@@ -41,6 +42,17 @@ const verificationSchema = Yup.object({
 	verificationCode: Yup.string().matches(pinRegExp, 'Verification Code must be 5 digits').required('Verification code is required'),
 });
 
+// Custom Styles for the Country Dropdown box (npm react-select)
+const customStyles = {
+	control: (base, state) => ({
+		...base,
+		backgroundColor: '#E9D5FF',
+		border: 'none',
+		width: '300px', // Add your desired background color here
+		// You can also add other custom styles here
+	}),
+};
+
 // ================================
 // ================================
 // START OF VerifyAxios FUNCTION
@@ -65,24 +77,54 @@ const VerifyAxios = () => {
 	// CREATE STATE FOR USER DATA
 	const [formValues, setFormValues] = useState({});
 
+	// State for passing props into PaymentForm.jsx
 	const [clientData, setClientData] = useState({
 		firstName: '',
 		lastName: '',
 		clientEmail: '',
+		countryCode: '',
 		phoneNumber: '',
 	});
 
 	// Define country codes
-	const countryCodes = {
-		US: '1',
-		GB: '44',
-		ES: '34',
-	};
+	const countryOptions = [
+		// { label: 'Search for Your Country:' },
+		{ value: 'AR', label: '🇦🇷 Argentina (AR) +54', code: '54' },
+		{ value: 'AU', label: '🇦🇺 Australia (AU) +61', code: '61' },
+		{ value: 'BE', label: '🇧🇪 Belgium (BE) +32', code: '32' },
+		{ value: 'BR', label: '🇧🇷 Brazil (BR) +55', code: '55' },
+		{ value: 'CA', label: '🇨🇦 Canada (CA) +1', code: '1' },
+		{ value: 'CO', label: '🇨🇴 Colombia (CO) +57', code: '57' },
+		{ value: 'CY', label: '🇨🇾 Cyprus (CY) +357', code: '357' },
+		{ value: 'CZ', label: '🇨🇿 Czech Republic (CZ) +420', code: '420' },
+		{ value: 'FR', label: '🇫🇷 France (FR) +33', code: '33' },
+		{ value: 'DE', label: '🇩🇪 Germany (DE) +49', code: '49' },
+		{ value: 'IE', label: '🇮🇪 Ireland (IE) +353', code: '353' },
+		{ value: 'IL', label: '🇮🇱 Israel (IL) +972', code: '972' },
+		{ value: 'IT', label: '🇮🇹 Italy (IT) +39', code: '39' },
+		{ value: 'LU', label: '🇱🇺 Luxembourg (LU) +352', code: '352' },
+		{ value: 'MT', label: '🇲🇹 Malta (MT) +356', code: '356' },
+		{ value: 'MX', label: '🇲🇽 Mexico (MX) +52', code: '52' },
+		{ value: 'NL', label: '🇳🇱 Netherlands (NL) +31', code: '31' },
+		{ value: 'NZ', label: '🇳🇿 New Zealand (NZ) +64', code: '64' },
+		{ value: 'NO', label: '🇳🇴 Norway (NO) +47', code: '47' },
+		{ value: 'PH', label: '🇵🇭 Philippines (PH) +63', code: '63' },
+		{ value: 'PT', label: '🇵🇹 Portugal (PT) +351', code: '351' },
+		{ value: 'SG', label: '🇸🇬 Singapore (SG) +65', code: '65' },
+		{ value: 'SK', label: '🇸🇰 Slovakia (SK) +421', code: '421' },
+		{ value: 'ZA', label: '🇿🇦 South Africa (ZA) +27', code: '27' },
+		{ value: 'ES', label: '🇪🇸 Spain (ES) +34', code: '34' },
+		{ value: 'SE', label: '🇸🇪 Sweden (SE) +46', code: '46' },
+		{ value: 'CH', label: '🇨🇭 Switzerland (CH) +41', code: '41' },
+		{ value: 'GB', label: '🇬🇧 United Kingdom (GB) +44', code: '44' },
+		{ value: 'US', label: '🇺🇸 United States (US) +1', code: '1' },
+	];
 
 	// Create a new state variable to store the selected country code.
-	const [selectedCountry, setSelectedCountry] = useState('ES');
+	// const [selectedCountry, setSelectedCountry] = useState(countryOptions[0]);
+	const [selectedCountry, setSelectedCountry] = useState('');
 	// Add a new state variable for country code
-	// const [countryCode, setCountryCode] = useState('34');
+	// const [countryOption, setCountryOptions] = useState('34');
 
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
@@ -91,7 +133,9 @@ const VerifyAxios = () => {
 			cusLastName: values.lastName,
 			cusEmail: values.clientEmail,
 			cusSimNumber: values.phoneNumber,
-			cusCountryISO3: 'ESP',
+			// cusCountryISO3: 'ESP',
+			// cusCountryISO3: values.countryCode,
+			cusCountryISO3: selectedCountry.code,
 			getParams: searchParams.toString(),
 			// Add this line to include all form values
 			postParams: JSON.stringify(values),
@@ -112,10 +156,12 @@ const VerifyAxios = () => {
 
 	// PHONE NUMBER VERIFICATION
 	const handlePhoneNumberSubmit = async (values, { setSubmitting }) => {
+		// setClientData
 		setClientData({
 			firstName: values.firstName,
 			lastName: values.lastName,
 			clientEmail: values.clientEmail,
+			countryCode: selectedCountry.code,
 			phoneNumber: values.phoneNumber,
 		});
 
@@ -124,9 +170,10 @@ const VerifyAxios = () => {
 			const dataRequestPin = {
 				imsi: '000702735808142',
 				phoneNumber: values.phoneNumber,
-				// Use the state variable instead of hardcoding
-				countryCode: countryCodes[selectedCountry],
+				countryCode: selectedCountry.code,
 			};
+
+			console.log('This is dataRequestPin:', dataRequestPin.countryCode);
 
 			// RECEIVE CREATE LEAD
 			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
@@ -261,46 +308,50 @@ const VerifyAxios = () => {
 								{/* Add a select element for country selection */}
 								{/* COUNTRY SELECT */}
 								<div id='selectCountryPhone'>
-									<div className='flex'>
-										<label className='text-buttonColor' htmlFor='countryCode'>
-											Country:
-										</label>
-										<label className='text-buttonColor ml-[4.8em]' htmlFor='phoneNumber'>
-											Your Number:
-										</label>
-									</div>
+									<label className='text-buttonColor' htmlFor='countryCode'>
+										Country:
+									</label>
+
 									<div className='flex w-full items-center'>
 										{/* DROP DOWN LIST  */}
-										<div className='flex w-[90px]'>
-											<select
-												className='bg-purple-200 h-10 rounded-l-md pl-2'
+										<div className='flex rounded-md'>
+											<Select
+												className='basic-single'
+												// classNamePrefix='select'
+												styles={customStyles}
+												defaultValue={countryOptions[0]}
+												isSearchable={true}
 												name='countryCode'
+												options={countryOptions}
+												// value={selectedCountry}
 												value={selectedCountry}
-												onChange={(e) => {
-													setSelectedCountry(e.target.value);
-													setFieldValue('countryCode', countryCodes[e.target.value]);
+												onChange={(option) => {
+													setSelectedCountry(option);
+													setFieldValue('countryCode', option.code);
 												}}
-											>
-												<option value='US'>US +1</option>
-												<option value='GB'>GB +44</option>
-												<option value='ES'>ES +34</option>
-											</select>
+											/>
+											{/* <CountryOptions /> */}
+											{/* </select> */}
 										</div>
 										{/* COUNTRY FLAG  */}
-										<div className='flex bg-purple-200 rounded-r-md h-10 items-center px-2'>
+										{/* <div className='flex bg-purple-200 rounded-r-md h-10 items-center px-2'>
 											<ReactCountryFlag countryCode={selectedCountry} style={{ fontSize: '1.5em' }} />
-										</div>
-										{/* PHONE NUMBER INPUT FIELD  */}
-										<div className='flex w-full ml-4'>
-											<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md pl-2' id='phoneNumber' name='phoneNumber' type='tel' />
-											{/* <ErrorMessage name='phoneNumber' /> */}
-										</div>
+										</div> */}
+									</div>
+
+									{/* PHONE NUMBER INPUT FIELD  */}
+									<div className='flex flex-col w-full pt-4'>
+										<label className='text-buttonColor' htmlFor='phoneNumber'>
+											Your Number:
+										</label>
+										<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md pl-2' id='phoneNumber' name='phoneNumber' type='tel' />
+										<ErrorMessage name='phoneNumber' />
 									</div>
 								</div>
 								{/* PHONE INPUT FIELD ERRORS  */}
-								<div className='flex pl-[9em] mt-[-24px]'>
+								{/* <div className='flex pl-[9em] mt-[-24px]'>
 									<ErrorMessage name='phoneNumber' />
-								</div>
+								</div> */}
 
 								{Object.keys(linkParams).map((key) => (
 									<Field key={key} type='hidden' name={key} value={linkParams[key]} />
