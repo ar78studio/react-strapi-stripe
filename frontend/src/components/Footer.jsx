@@ -82,7 +82,9 @@ const Footer = () => {
 							}}
 							className='flex justify-center items-center mt-8 mb-10 p-4 w-60 bg-buttonColor text-base rounded-[3rem] transition duration-300 ease-in-out hover:scale-110'
 						>
-							<img className='w-[11rem]' src={DownloadFromApple}></img>
+							<Link to='../SignUp'>
+								<img className='w-[11rem]' src={DownloadFromApple}></img>
+							</Link>
 						</motion.button>
 					</div>
 					<div>
@@ -97,7 +99,9 @@ const Footer = () => {
 							}}
 							className='flex justify-center items-center mt-8 mb-10 p-4 w-60 bg-buttonColor text-base rounded-[3rem] transition duration-300 ease-in-out hover:scale-110'
 						>
-							<img className='w-[12rem]' src={GetItFromGooglePlay}></img>
+							<Link to='../SignUp'>
+								<img className='w-[12rem]' src={GetItFromGooglePlay}></img>
+							</Link>
 						</motion.button>
 					</div>
 				</section>
