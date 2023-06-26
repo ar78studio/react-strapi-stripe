@@ -1,6 +1,8 @@
 // Render Prop
 import React from 'react';
 
+import ScrollToTop from '../ScrollToTop';
+
 import { GirlWithPhone } from '../../assets';
 
 import VerifyAxios from '../verifycode/VerifyAxios';
@@ -29,6 +31,7 @@ const SignUp = () => {
 			</motion.div>
 			{/* WRAPPER */}
 
+			<ScrollToTop />
 			<div className='flex flex-wrap-reverse justify-center items-center px-2 py-20 bg-purple-100'>
 				{/* IMAGE LEFT COLUMN */}
 				<div className='lg:w-[50%] mx-6 my-10'>

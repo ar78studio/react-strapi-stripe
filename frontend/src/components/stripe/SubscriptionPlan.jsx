@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 const stripePromise = loadStripe('pk_test_XEzHA2tiLmSdW9kfczbymQTU');
 
 const SubscriptionPlan = () => {
-	const [subscription, setSubscription] = useState(null);
+	// const [subscription, setSubscription] = useState(null);
 	const [product, setProduct] = useState(null);
 	const [price, setPrice] = useState(null);
 	// const [invoice, setInvoice] = useState(null);
@@ -24,26 +24,26 @@ const SubscriptionPlan = () => {
 	// console.log(`From SubscriptionPlan: ${clientData}`);
 
 	useEffect(() => {
-		const fetchSubscription = async () => {
-			try {
-				// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-subscription`, {
-				const response = await fetch(`http://localhost:1447/get-subscription`, {
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
+		// const fetchSubscription = async () => {
+		// 	try {
+		// 		// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/get-subscription`, {
+		// 		const response = await fetch(`http://localhost:1447/get-subscription`, {
+		// 			method: 'GET',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 			},
+		// 		});
 
-				if (response.ok) {
-					const data = await response.json();
-					setSubscription(data.subscription);
-				} else {
-					console.log('Failed to fetch subscription');
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		};
+		// 		if (response.ok) {
+		// 			const data = await response.json();
+		// 			setSubscription(data.subscription);
+		// 		} else {
+		// 			console.log('Failed to fetch subscription');
+		// 		}
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 	}
+		// };
 
 		const fetchProduct = async () => {
 			try {
@@ -103,7 +103,7 @@ const SubscriptionPlan = () => {
 		// 	} catch (error) {}
 		// };
 
-		fetchSubscription();
+		// fetchSubscription();
 		fetchProduct();
 		fetchPrice();
 		// fetchInvoice();
@@ -238,7 +238,7 @@ const SubscriptionPlan = () => {
 					</div> */}
 				</section>
 
-				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
+				{/* <section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
 					{subscription ? (
 						<Elements stripe={stripePromise}>
 							<PaymentForm subscription={subscription} product={product} clientData={clientData} />
@@ -246,6 +246,11 @@ const SubscriptionPlan = () => {
 					) : (
 						<div>Loading plan details...</div>
 					)}
+				</section> */}
+				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
+					<Elements stripe={stripePromise}>
+						<PaymentForm product={product} clientData={clientData} />
+					</Elements>
 				</section>
 			</div>
 		</>

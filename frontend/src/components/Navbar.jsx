@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	const [isMenuToggled, setIsMenuToggled] = useState(false);
-	const isAboveSmallScreens = useMediaQuery('(min-width: 768px');
+	// const isAboveSmallScreens = useMediaQuery('(min-width: 768px');
+	const isAboveSmallScreens = useMediaQuery('(min-width: 1000px');
 
 	return (
 		<nav className={`z-40 w-full top-0 py-2`}>
@@ -58,6 +59,12 @@ const Navbar = () => {
 						<Link className='text-navColor hover:text-navColorHover' to='/blog'>
 							BLOG
 						</Link>
+						{/* <Link className='text-navColor hover:text-navColorHover' target='_blank' to='https://billing.stripe.com/p/login/test_6oEdUc2qoa02bD23cc'>
+							CLIENT PORTAL
+						</Link> */}
+						<Link className='text-navColor hover:text-navColorHover' to='/portal'>
+							CLIENT PORTAL
+						</Link>
 
 						{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
 					</motion.div>
@@ -88,7 +95,7 @@ const Navbar = () => {
 							</button>
 						</div>
 						{/* MENU ITEMS  */}
-						<div className='flex flex-col gap-10 ml-[33%] text-2xl'>
+						<div className='flex flex-col gap-8 ml-[20%] text-2xl'>
 							<Link className='text-navColor hover:text-navColorHover' to='../product'>
 								PRODUCT
 							</Link>
@@ -103,6 +110,9 @@ const Navbar = () => {
 							</Link>
 							<Link className='text-navColor hover:text-navColorHover' to='../blog'>
 								BLOG
+							</Link>
+							<Link className='text-navColor hover:text-navColorHover' to='/portal'>
+								CLIENT PORTAL
 							</Link>
 							{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
 						</div>

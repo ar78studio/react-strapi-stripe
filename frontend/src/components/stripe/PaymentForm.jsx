@@ -76,7 +76,8 @@ const PaymentForm = ({ clientData }) => {
 				// resetForm({ values: resetInitialValues }); // reset form values if client exists
 				// navigate('/signup');
 				// throw new Error('Client is already subscribed');
-
+				//
+				// We decided not to limit multiple sign-ups for existing clients, thus return true
 				return true;
 			}
 

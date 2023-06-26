@@ -51,7 +51,7 @@ const customStyles = {
 		...base,
 		backgroundColor: '#E9D5FF',
 		border: 'none',
-		width: '300px', // Add your desired background color here
+		width: '270px', // Add your desired background color here
 		// You can also add other custom styles here
 	}),
 };

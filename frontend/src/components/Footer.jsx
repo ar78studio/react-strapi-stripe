@@ -46,6 +46,9 @@ const Footer = () => {
 					<Link className='text-white hover:text-buttonColor' to='../blog'>
 						BLOG
 					</Link>
+					<Link className='text-white hover:text-buttonColor' to='/portal'>
+						CLIENT PORTAL
+					</Link>
 				</section>
 				{/* TEXT AND BUTTONS ON THE RIGHT OF FOOTER  */}
 				<section className='flex flex-col justify-center items-center'>
@@ -106,9 +109,17 @@ const Footer = () => {
 					</div>
 				</section>
 			</main>
-			<div className='flex flex-wrap items-center justify-center md:justify-between bg-[#734d9e] py-6 px-10'>
-				<p className='text-white font-medium mb-4'>© 2023 VipSafetyFirst. All rights reserved</p>
-				<div className='flex gap-2'>
+			<div className='flex flex-col lg:flex-row items-center justify-center lg:justify-between bg-[#734d9e] py-6 px-10'>
+				<div className='text-white text-base font-medium p-2'>
+					<Link to='http://localhost:1337/admin/auth/login' target='_blank'>
+						Blog Admin Login
+					</Link>
+				</div>
+				<div className='flex flex-col lg:flex-row'>
+					<span className='text-white text-center font-medium lg:mb-0'>© 2023 VipSafetyFirst.</span>
+					<span className='text-white text-center font-medium lg:pl-4 lg:mb-0'>All rights reserved</span>
+				</div>
+				<div className='flex p-2'>
 					<a href='https://www.facebook.com/vipsafetyfirstapp' target='_blank'>
 						{/* <FaFacebookSquare color='white' size={30} /> */}
 						<img className='hover:font-[#f20f76]' src={FacebookSvg} alt='Facebook Icon' />

@@ -24,6 +24,9 @@ import PaymentForm from './stripe/PaymentForm';
 // import SubscriptionPlan from './test/SubscriptionPlan';
 import Confirmation from './stripe/Confirmation';
 
+// CLIENT PORTAL
+import ClientPortal from './portal/ClientPortal';
+
 // CONTACT US
 import Help from './pages/Help';
 // --
@@ -53,6 +56,7 @@ export {
 	PaymentForm,
 	SubscriptionPlan,
 	Confirmation,
+	ClientPortal,
 	Help,
 	Faq,
 	ContactUs,

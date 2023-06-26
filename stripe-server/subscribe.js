@@ -108,17 +108,17 @@ app.post('/create-subscription', async (request, response) => {
 });
 
 // GET SUBSCRIPTION PLAN DETAILS
-app.get('/get-subscription', async (request, response) => {
-	try {
-		if (request.method != 'GET') return response.status(400);
-		const subId = 'sub_1N92nvHfTo5S12kx4ekY69aw'; // Replace with your actual plan ID
-		const subscription = await stripe.subscriptions.retrieve(subId);
-		response.json({ subscription });
-	} catch (error) {
-		console.error(error);
-		response.status(500).json({ error: 'Failed to retrieve subscription details' });
-	}
-});
+// app.get('/get-subscription', async (request, response) => {
+// 	try {
+// 		if (request.method != 'GET') return response.status(400);
+// 		const subId = 'sub_1NAVm3HfTo5S12kxuFje0bbx'; // Replace with your actual plan ID
+// 		const subscription = await stripe.subscriptions.retrieve(subId);
+// 		response.json({ subscription });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve subscription details' });
+// 	}
+// });
 
 // GET PRODUCT DETAILS
 app.get('/get-product', async (request, response) => {
