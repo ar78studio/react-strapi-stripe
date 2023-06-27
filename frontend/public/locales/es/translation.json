@@ -1,0 +1,79 @@
+
+{
+    "heroTitle": "Hay una nueva forma de proteger tu entorno personal. Con nuestro servicio se puede reducir el acoso, el spam, la intimidación y la atención no deseada.",
+    "heroDescription": "Resulta desagradable e incómodo sentirse acosada, insegura o incluso atrapada. Haber compartido información privada es algo que la mayoría de las mujeres experimentan al menos una vez en su vida. Nuestro servicio VIP añade otra capa de protección al mantener tu número personal en privado.",
+    "heroButton": "REGÍSTRATE PARA OBTENER PROTECCIÓN VIP",
+
+    
+    "whatIsVipTitle": "Qué es VIP?",
+    "whatIsVipDescription": {
+        "p1": "VIP es 'la seguridad ante todo'. VIP es la forma inteligente de mantener tu número de teléfono y a ti, a salvo.",
+        "p2": "Sólo tienes que añadir nuestro servicio VIP a tu teléfono móvil: te damos un nuevo número que tiene la función de proteger tu número de móvil personal. Al utilizar nuestra aplicación de seguridad, tu número de móvil personal pasa a ser completamente privado.",
+        "h4": "Te preocupa tu privacidad?",
+        "p3": "Tu número de teléfono es valioso para estafadores, vendedores, groupies y acosadores: utiliza una aplicación de seguridad y mantenlo a salvo. Controle todos los aspectos de su vida desde su teléfono móvil personal. Nuestro servicio VIP Safety First también puede grabar llamadas y ubicaciones para ayudar a detener las amenazas a su seguridad."
+    },
+
+    "feelSafeTitle": "Siéntete segura al compartir tu número de teléfono con otras personas",
+    "feelSafeDescription": "Hay ocasiones en las que quieres registrarte en un servicio en línea o necesitas añadir tu número de teléfono para operaciones bancarias, citas o relaciones sociales, pero una vez hecho esto no tienes ningún control sobre la seguridad de tu número de teléfono. Cada vez que compartes tu número en línea, se presta a abusos, por lo que te recomendamos utilizar una aplicación para mayor seguridad.",
+    "feelSafeButton": "REGÍSTRESE PARA SU NÚMERO VIP",
+
+    "AVipPhoneTitle": "Un número de teléfono VIP es la mejor solución para mantenerte segura",
+    "description": {
+        "p1": "Cuando utilizas un número VIP para autentificarse en un sitio web, para realizar actividades en línea o incluso para tener citas, añade una capa adicional de seguridad, ya que su información personal (como su ubicación, dirección y número de teléfono personal) permanece privada.",
+        "p2": "conXhub es una de las mejores aplicaciones para la seguridad de las mujeres, ya que te permite crear tantos números virtuales como necesites. Crea uno para tus amigos, uno para tus compañeros de trabajo, uno para citas, uno para ventas online... ¡uno para cada aspecto de tu vida!"
+    },
+    "button": "REGÍSTRESE PARA UNA PROTECCIÓN ADICIONAL",
+
+    "faqTitle": "Preguntas frecuentes",
+    "faqAccordion": {
+        "q1": "Por qué debería elegir esta aplicación de seguridad y no otras? Puede realmente garantizarme una privacidad total?",
+        "a1": "Porque puedes controlar qué llamadas responder, bloquear llamadas no deseadas, mantener la privacidad de tus datos personales, evitar el spam y las estafas.",
+        "q2": "Necesito una tarjeta SIM o un contrato en vigor para utilizar esta aplicación de seguridad?",
+        "a2": "Sí, pero esa información permanecerá segura. Ya no tendrás que dar tu número personal.",
+        "q3": "Cuánto cuesta utilizar el servicio VIP Safety First?",
+        "a3": "Un abono mensual de sólo €9 al mes que incluye tu nuevo número y llamadas/mensajes ilimitados. Sin contrato, cancela cuando quieras...",
+        "q4": "Qué ocurre si necesito cambiar mi número VIP?",
+        "a4": "Si su número VIP se ve comprometido, podemos cambiarlo por usted para eliminar la fuente de acoso por teléfono/mensajería.",
+        "q5": "Qué ocurre si necesito ayuda?",
+        "a5": "Póngase en contacto con nosotros!",
+        "q6": "Puedo confiar en la aplicación?",
+        "a6": "La aplicación VIP / conXhub está certificada por Apple y Android, está totalmente libre de publicidad y se actualiza regularmente.",
+        "q7": "Tengo que firmar un contrato?",
+        "a7": "No! Sin contrato: cancele cuando quiera sin penalizaciones."
+    },
+
+    "contactUsTitle": "Contáctanos",
+    "contactUsSubTitle": "Para cualquier consulta o información adicional, póngase en contacto con:",
+    "contactUsButtons": {
+        "sales": "Ventas",
+        "salesDescription": "Para cualquier consulta sobre ventas o información adicional, abra un ticket",
+        "salesButton": "Solicitud de ventas",
+
+        "technical": "Técnico",
+        "technicalDescription": "Para cualquier problema técnico o consulta de asistencia, abra un ticket",
+        "technicalButton": "Solicitud técnica",
+
+        "accounts": "Cuentas",
+        "accountsDescription": "Para cualquier consulta o problema de facturación, abra un ticket",
+        "accountsButton": "Solicitud de facturación",
+
+        "faults": "Fallos",
+        "faultsDescription": "Fallos del sistema, de la aplicación o de las llamadas, abra un ticket",
+        "faultsButton": "Reporte de fallos"
+    },
+
+    "footerTitle": "Desarrollado por conXhub - conXhub es un servicio de comunicación polifacético que da soporte a millones de clientes en todo el mundo.",
+    "footerLinks": {
+        "product": "PRODUCTO",
+        "about": "ACERCA DE",
+        "signup": "REGÍSTRATE",
+        "help": "AYUDA",
+        "contactus": "CONTÁCTANOS",
+        "blog": "BLOG"
+    },
+    "footerOrdering": "Empezar es sencillo, todo está en línea y en cuestión de minutos podrás estar utilizando tu nuevo número virtual para estar más seguro.",
+    "footerButtons": {
+        "number": "CONSIQUE TU NÚMERO AHORA"
+    }
+    
+}

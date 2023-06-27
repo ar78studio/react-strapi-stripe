@@ -1,0 +1,80 @@
+{ 
+    
+    "heroTitle": "There is a new way to protect your personal world. Reduce harassment, spam, bullying and unwanted attention.",
+    "heroDescription": "It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at least once. Our VIP service adds another layer of protection by keeping your personal number private.",
+    "heroButton": "SIGN UP TO ADD VIP PROTECTION",
+
+    
+    "whatIsVipTitle": "What is VIP?",
+    "whatIsVipDescription": {
+        "p1": "VIP is ‘safety first’. VIP is the intelligent way to keep your phone number and you, safe.",
+        "p2": "Simply add our VIP service to your mobile phone – we give you a new number that works to protect your personal mobile number. By using our safety app, your personal mobile number becomes completely private.",
+        "h4": "Concerned about your privacy?",
+        "p3": "Your phone number is valuable to scammers, marketeers, groupies & stalkers – use a safety app and keep it safe. Control all aspects of your life, on your personal mobile phone! Our VIP safety first service can also record calls and locations to help stem threats to your safety."
+    },
+
+    "feelSafeTitle": "Feel safe when sharing your phone number with others",
+    "feelSafeDescription": "There are times when you want to sign up to an online service, or need to add your phone number for banking,  dating or socialising, but once done you have no control over the safety of your phone number. Anytime you share your number online it is open to abuse and for this reason it is recommended that you use an app for safety.",
+    "feelSafeButton": "SIGN UP FOR VIP NUMBER",
+
+    "AVipPhoneTitle": "A VIP phone number is the best solution to keep you safe",
+    "description": {
+        "p1": "When you use a VIP number for website authentication, online activity or even dating, you add an extra layer of security with your personal information (such as your location, address, and personal phone number) remaining private.",
+        "p2": "conXhub is one of the best apps for women’s safety as it enables you to create as many virtual numbers as you need. Create one for friends, one for work colleagues, one for dating, one for online selling…one for each and every aspect of your life!"
+    },
+    "button": "SIGN UP FOR ADDED PROTECTION",
+
+    "faqTitle": "Frequently Asked Questions",
+    "faqAccordion": {
+        "q1": "Why should I choose this safety app and not others? Can you really assure me total privacy?",
+        "a1": "Because you can control what calls to answer, block unwanted callers, keep personal data private, avoid spam and scam",
+        "q2": "Do I need a SIM card or current contract to use this safety app?",
+        "a2": "Yes, but that information will stay safe. You won't have to give away your personal number any more.",
+        "q3": "How much does it cost to use the VIP safety first service?",
+        "a3": "A monthly subscription of just 9€ a month including your new number and unlimited calls/messages! No contract, cancel anytime...",
+        "q4": "What happens if I need to change my VIP number?",
+        "a4": "If your VIP number becomes compromised, we can change it for you to remove source of harassment by phone/messaging",
+        "q5": "What happens if I need support?",
+        "a5": "Contact us here!",
+        "q6": "Can I trust the App?",
+        "a6": "The VIP / conXhub App is certified by Apple and Android, completely ad-free and updated regularly",
+        "q7": "Do I need to sign up to a contract?",
+        "a7": "No contract required – cancel anytime you want with no penalties!"
+    },
+
+    "contactUsTitle": "Contact Us",
+    "contactUsSubTitle": "For any enquiries or additional information please contact:",
+    "contactUsButtons": {
+        "sales": "Sales",
+        "salesDescription": "For any sales enquiries or additional information, please open a ticket",
+        "salesButton": "Sales Inquiry Here",
+
+        "technical": "Technical",
+        "technicalDescription": "For any technical issues or support enquiries, please open a ticket",
+        "technicalButton": "Support Enquiries Here",
+
+        "accounts": "Accounts",
+        "accountsDescription": "For any billing issues or enquiries, please open a ticket",
+        "accountsButton": "Billing Inquiries Here",
+
+        "faults": "Faults",
+        "faultsDescription": "System, App Bugs or Call Faults, please open a ticket",
+        "faultsButton": "Report Fault Here"
+    },
+
+    "footerTitle": "Powered by conXhub – conXhub is a multi-faceted communication service supporting millions of customers around the world.",
+    "footerLinks": {
+        "product": "PRODUCT",
+        "about": "ABOUT",
+        "signup": "SIGN UP",
+        "help": "HELP",
+        "contactus": "CONTACT US",
+        "blog": "BLOG"
+    },
+    "footerOrdering": "Ordering is simple, everything is online & within minutes of your request you could be using your new Virtual Number to stay safer!",
+    "footerButtons": {
+        "number": "GET YOUR NEW NUMBER NOW"
+    }
+
+
+}

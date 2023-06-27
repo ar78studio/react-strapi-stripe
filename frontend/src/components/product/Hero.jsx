@@ -3,7 +3,12 @@ import { motion } from 'framer-motion';
 import { GirlHero } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const Hero = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}
@@ -34,7 +39,8 @@ const Hero = () => {
 						}}
 						className=' mx-10 text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
-						There is a new way to protect your personal world. Reduce harassment, spam, bullying and unwanted attention.
+						{/* There is a new way to protect your personal world. Reduce harassment, spam, bullying and unwanted attention. */}
+						<Trans i18nKey='heroTitle'></Trans>
 					</motion.h1>
 					{/* PARAGRAPH UNDER HEADING  */}
 					<motion.p
@@ -48,8 +54,9 @@ const Hero = () => {
 						}}
 						className='text-base text-center lg:text-left text-white pt-6 mx-10'
 					>
-						It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
-						least once. Our VIP service adds another layer of protection by keeping your personal number private.
+						{/* It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
+						least once. Our VIP service adds another layer of protection by keeping your personal number private. */}
+						<Trans i18nKey='heroDescription'></Trans>
 					</motion.p>
 					<motion.button
 						initial='hidden'
@@ -62,7 +69,9 @@ const Hero = () => {
 						}}
 						className='place-self-center lg:place-self-start mx-10 my-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor xs:text-lg text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						<Link to='../SignUp'>SIGN UP TO ADD VIP PROTECTION</Link>
+						<Link to='../SignUp'>
+							<Trans i18nKey='heroButton'></Trans>
+						</Link>
 					</motion.button>
 				</div>
 				{/* IMAGE OF GIRL IN THE HERO SECTION 		 */}

@@ -5,11 +5,20 @@ import { motion } from 'framer-motion';
 import useMediaQuery from '../hooks/useMediaQuery';
 
 import { Link } from 'react-router-dom';
+import { changeLanguage } from 'i18next';
 
 const Navbar = () => {
 	const [isMenuToggled, setIsMenuToggled] = useState(false);
 	// const isAboveSmallScreens = useMediaQuery('(min-width: 768px');
-	const isAboveSmallScreens = useMediaQuery('(min-width: 1000px');
+	const isAboveSmallScreens = useMediaQuery('(min-width: 1100px');
+
+	// language state
+	const [currentLanguage, setCurrentLanguage] = useState('en'); // default lang
+
+	const handleLanguageChange = (language) => {
+		changeLanguage(language);
+		setCurrentLanguage(language);
+	};
 
 	return (
 		<nav className={`z-40 w-full top-0 py-2`}>
@@ -30,6 +39,19 @@ const Navbar = () => {
 						alt=''
 					/>
 				</Link>
+				{/* Small Screen Language Button  */}
+				<div className='flex justify-end w-full lg:w-0 lg:hidden mr-6'>
+					{/* Language Change  */}
+					{currentLanguage === 'en' ? (
+						<button onClick={() => handleLanguageChange('es')} className='text-2xl transition duration-300 ease-in-out hover:scale-110'>
+							🇪🇸
+						</button>
+					) : (
+						<button onClick={() => handleLanguageChange('en')} className='text-2xl transition duration-300 ease-in-out hover:scale-110'>
+							🇬🇧
+						</button>
+					)}
+				</div>
 
 				{/* DESKTOP NAV */}
 				{isAboveSmallScreens ? (
@@ -59,14 +81,19 @@ const Navbar = () => {
 						<Link className='text-navColor hover:text-navColorHover' to='/blog'>
 							BLOG
 						</Link>
-						{/* <Link className='text-navColor hover:text-navColorHover' target='_blank' to='https://billing.stripe.com/p/login/test_6oEdUc2qoa02bD23cc'>
-							CLIENT PORTAL
-						</Link> */}
 						<Link className='text-navColor hover:text-navColorHover' to='/portal'>
 							CLIENT PORTAL
 						</Link>
-
-						{/* <LinkAnchor page='BLOG' selectedPage={selectedPage} setSelectedPage={setSelectedPage} /> */}
+						{/* Language Change  */}
+						{currentLanguage === 'en' ? (
+							<button onClick={() => handleLanguageChange('es')} className='text-2xl transition duration-300 ease-in-out hover:scale-110'>
+								🇪🇸
+							</button>
+						) : (
+							<button onClick={() => handleLanguageChange('en')} className='text-2xl transition duration-300 ease-in-out hover:scale-110'>
+								🇬🇧
+							</button>
+						)}
 					</motion.div>
 				) : (
 					<motion.button
@@ -81,7 +108,7 @@ const Navbar = () => {
 						className='p-2'
 						onClick={() => setIsMenuToggled(!isMenuToggled)}
 					>
-						<img className='w-10 rounded-full bg-navColor p-2' src={BurgerMenu} alt='Burger-Menu' />
+						<img className='w-12 rounded-full bg-navColor p-2' src={BurgerMenu} alt='Burger-Menu' />
 					</motion.button>
 				)}
 

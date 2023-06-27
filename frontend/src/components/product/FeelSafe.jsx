@@ -3,7 +3,12 @@ import { motion } from 'framer-motion';
 import { GirlFeelSafe } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const FeelSafe = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
@@ -19,7 +24,8 @@ const FeelSafe = () => {
 						}}
 						className=' mx-10 text-3xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
-						Feel safe when sharing your phone number with others
+						{/* Feel safe when sharing your phone number with others */}
+						<Trans i18nKey='feelSafeTitle'></Trans>
 					</motion.h1>
 					<motion.p
 						initial='hidden'
@@ -32,8 +38,9 @@ const FeelSafe = () => {
 						}}
 						className='text-base text-center lg:text-left text-white pt-6 mx-10'
 					>
-						It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
-						least once. Our VIP service adds another layer of protection by keeping your personal number private.
+						{/* It is unpleasant & uncomfortable when you feel harassed, insecure or even trapped. Having shared their private information, this is something most women experience, at
+						least once. Our VIP service adds another layer of protection by keeping your personal number private. */}
+						<Trans i18nKey='feelSafeDescription'></Trans>
 					</motion.p>
 					<motion.button
 						initial='hidden'
@@ -46,7 +53,10 @@ const FeelSafe = () => {
 						}}
 						className='flex justify-center items-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						<Link to='../SignUp'>SIGN UP TO ADD VIP PROTECTION</Link>
+						<Link to='../SignUp'>
+							{/* SIGN UP TO ADD VIP PROTECTION */}
+							<Trans i18nKey='feelSafeButton'></Trans>
+						</Link>
 					</motion.button>
 				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}

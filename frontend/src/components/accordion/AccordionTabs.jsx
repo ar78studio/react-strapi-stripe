@@ -4,7 +4,12 @@ import styles from '../accordion/styles.module.css';
 
 import { ChevronArrow } from '../../assets/index';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const AccordionTabs = ({ setSelectedPage }) => {
+	const { t, i18n } = useTranslation();
+
 	const AccordionItem = ({ header, ...rest }) => (
 		<Item
 			{...rest}
