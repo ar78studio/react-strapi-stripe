@@ -5,7 +5,12 @@ import { SimHearts } from '../../assets/index';
 
 import AccordionTabs from '../accordion/AccordionTabs';
 
-const Faq = ({ setSelectedPage }) => {
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
+const Faq = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}
@@ -34,7 +39,8 @@ const Faq = ({ setSelectedPage }) => {
 					className='pr-10 mt-10 lg:w-1/2 flex justify-self-center flex-col pt-6'
 				>
 					<h1 className='flex flex-column mx-10 text-3xl sm:text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'>
-						Frequently Asked Questions
+						{/* Frequently Asked Questions */}
+						<Trans i18nKey='faqTitle'></Trans>
 					</h1>
 					<div className='my-10 flex flex-row'>
 						{/* BORDER LINE BEFORE WORD General  */}

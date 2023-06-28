@@ -3,27 +3,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { GirlFeelSafe } from '../../assets/index';
 
-const ClientPortal = () => {
-	// const createPortalSession = async () => {
-	// 	try {
-	// 		// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/check-existing-client`, {
-	// 		const response = await fetch(`http://localhost:1447/create-customer-portal-session`, {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 			},
-	// 		});
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
 
-	// 		if (!response.ok) {
-	// 			throw new Error('Failed to create portal session');
-	// 		} else {
-	// 			alert('Portal session created successfully ');
-	// 		}
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		throw error;
-	// 	}
-	// };
+const ClientPortal = () => {
+	const { t, i18n } = useTranslation();
 
 	return (
 		<>
@@ -46,17 +30,23 @@ const ClientPortal = () => {
 						<img className='px-10 lg:pt-10' src={GirlFeelSafe} alt='' />
 					</div>
 					<div className='flex flex-col lg:w-3/5 justify-center items-start px-10'>
-						<h1 className='text-3xl text-purple-700 py-10'>Manage your Billing and Subscriptions: </h1>
+						<h1 className='text-3xl text-purple-700 py-10'>
+							{/* Manage your Billing and Subscriptions: */}
+							<Trans i18nKey='portalTitle'></Trans>
+						</h1>
 						<p className=' text-base text-purple-700 font-semibold pb-10 text-start'>
-							The billing and subscription management is powered by Stripe. To access it please click the button below. The Stripe Gateway will open, where you can enter the email
-							you have used to Sign Up for your Subscription.{' '}
+							{/* The billing and subscription management is powered by Stripe. To access it please click the button below. The Stripe Gateway will open, where you can enter the email
+							you have used to Sign Up for your Subscription. */}{' '}
+							<Trans i18nKey='portalDescription.p1'></Trans>
 						</p>
 						<p className=' text-base text-purple-700 font-semibold pb-10 text-start'>
-							If the email is registered with Stripe a link to the Stripe Billing and Subscription portal will be sent to that email.
+							{/* If the email is registered with Stripe a link to the Stripe Billing and Subscription portal will be sent to that email. */}
+							<Trans i18nKey='portalDescription.p2'></Trans>
 						</p>
-						<button className='flex justify-center items-center p-4 mb-10 w-60 bg-purple-600 text-base rounded-[3rem] transition duration-300 ease-in-out hover:scale-110 hover:bg-purple-500'>
+						<button className='flex justify-center items-center p-4 mb-10 w-80 bg-purple-600 text-base rounded-[3rem] transition duration-300 ease-in-out hover:scale-110 hover:bg-purple-500'>
 							<Link className='text-white font-semibold' target='_blank' to='https://billing.stripe.com/p/login/test_6oEdUc2qoa02bD23cc'>
-								Access Customer Portal
+								{/* Access Customer Portal */}
+								<Trans i18nKey='portalButton'></Trans>
 							</Link>
 						</button>
 						{/* <form method='POST' action='/create-customer-portal-session'>

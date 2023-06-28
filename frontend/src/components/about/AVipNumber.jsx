@@ -4,7 +4,12 @@ import { motion } from 'framer-motion';
 import { PhoneVipNumber } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const AVipNumber = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			<main className='w-full flex flex-wrap-reverse lg:flex-nowrap bg-aVipPhoneBg justify-between lg:px-10 lg:pt-10'>
@@ -33,7 +38,8 @@ const AVipNumber = () => {
 						}}
 						className='px-10 text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
-						A VIP phone number is the best solution to keep you safe
+						{/* A VIP phone number is the best solution to keep you safe */}
+						<Trans i18nKey='aboutAVipPhoneTitle'></Trans>
 					</motion.h1>
 
 					<motion.div
@@ -48,15 +54,17 @@ const AVipNumber = () => {
 						className='px-10 text-base text-center lg:text-left text-white pt-6 lg:mr-10'
 					>
 						<p>
-							At VIPSafetyFirst, our mission is to provide women with the tools they need to protect themselves and their privacy in today’s digital age. We understand that women
+							{/* At VIPSafetyFirst, our mission is to provide women with the tools they need to protect themselves and their privacy in today’s digital age. We understand that women
 							face unique challenges when it comes to safety and security, and our service is designed to help them overcome these challenges and feel confident in their ability to
-							protect themselves.{' '}
+							protect themselves. */}
+							<Trans i18nKey='aboutAVipPhoneDescr.p1'></Trans>
 						</p>
 
 						<br />
 						<p>
-							We are committed to providing top-quality service and support to all of our customers, and we believe that everyone deserves to feel safe and secure. With
-							VIPSafetyFirst, you can rest assured that you have a trusted partner by your side, helping you navigate the challenges of today’s digital world.
+							{/* We are committed to providing top-quality service and support to all of our customers, and we believe that everyone deserves to feel safe and secure. With
+							VIPSafetyFirst, you can rest assured that you have a trusted partner by your side, helping you navigate the challenges of today’s digital world. */}
+							<Trans i18nKey='aboutAVipPhoneDescr.p2'></Trans>
 						</p>
 
 						<motion.button
@@ -70,7 +78,10 @@ const AVipNumber = () => {
 							}}
 							className='place-self-center lg:place-self-start mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 						>
-							<Link to='../SignUp'> SIGN UP FOR ADDED PROTECTION</Link>
+							<Link to='../SignUp'>
+								{/* SIGN UP FOR ADDED PROTECTION */}
+								<Trans i18nKey='aboutAVipPhoneButton'></Trans>
+							</Link>
 						</motion.button>
 					</motion.div>
 				</section>

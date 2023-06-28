@@ -7,10 +7,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { locatedError } from 'graphql';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const nameRule = /^[A-Za-z\s]{0,50}$/;
 
 const PaymentForm = ({ clientData }) => {
+	const { t, i18n } = useTranslation();
+
 	const location = useLocation();
 	// console.log(clientData);
 	const [name, setName] = useState('');
@@ -191,7 +196,10 @@ const PaymentForm = ({ clientData }) => {
 
 	return (
 		<>
-			<h1 className='text-4xl pb-10 text-buttonColor font-semibold'>Payment Form</h1>
+			<h1 className='text-4xl pb-10 text-buttonColor font-semibold'>
+				{/* Payment Form */}
+				<Trans i18nKey='stripePaymentForm'></Trans>
+			</h1>
 
 			<Formik
 				initialValues={initialValues}
@@ -205,7 +213,8 @@ const PaymentForm = ({ clientData }) => {
 							{/* FIRST NAME  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='firstName'>
-									First Name:
+									{/* First Name: */}
+									<Trans i18nKey='stripeForm.fname'></Trans>
 								</label>
 								{/* <MdPermIdentity size={30} /> */}
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
@@ -214,7 +223,8 @@ const PaymentForm = ({ clientData }) => {
 							{/* LAST NAME  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='lastName'>
-									Last Name:
+									{/* Last Name: */}
+									<Trans i18nKey='stripeForm.lname'></Trans>
 								</label>
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='lastName' name='lastName' type='text' />
 								<ErrorMessage name='lastName' />
@@ -222,7 +232,10 @@ const PaymentForm = ({ clientData }) => {
 							{/* EMAIL  */}
 							<div className='flex flex-col'>
 								<label className='text-buttonColor' htmlFor='email'>
-									Email:{''}
+									{/* Email: */}
+									<Trans i18nKey='stripeForm.email'></Trans>
+
+									{''}
 								</label>
 								<Field
 									autoComplete='off'
@@ -239,13 +252,15 @@ const PaymentForm = ({ clientData }) => {
 
 						<div>
 							<label className='text-buttonColor' htmlFor='cardElement'>
-								Enter Your Card Number:{''}
+								{/* Enter Your Card Number: */}
+								<Trans i18nKey='stripeForm.card'></Trans>
+								{''}
 							</label>
 							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
-							{isSubmitting ? 'Subscribing...' : 'Subscribe'}
+							{isSubmitting ? <Trans i18nKey='subscribing'></Trans> : <Trans i18nKey='subscribeButton'></Trans>}
 						</button>
 						<div>
 							<h5 className='text-xs text-center text-buttonColor lg:px-20'>

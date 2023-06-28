@@ -3,7 +3,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GirlVip, SingleHeart } from '../../assets/index';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const AboutVipSafety = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			{/* DARK BAR UNDER MENU  */}
@@ -46,7 +51,8 @@ const AboutVipSafety = () => {
 						}}
 						className=' mx-10 text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
-						What is VIP?
+						{/* What is VIP? */}
+						<Trans i18nKey='aboutVipTitle'></Trans>
 					</motion.h1>
 					{/* HEART IMAGE  */}
 					<motion.img
@@ -74,19 +80,27 @@ const AboutVipSafety = () => {
 						}}
 						className='text-base text-center lg:text-left text-white pt-6 pb-20 mx-10'
 					>
-						<motion.p>VIP is ‘safety first’. VIP is the intelligent way to keep your phone number and you, safe.</motion.p>
+						<motion.p>
+							{/* VIP is ‘safety first’. VIP is the intelligent way to keep your phone number and you, safe. */}
+							<Trans i18nKey='aboutVipHeader.p1'></Trans>
+						</motion.p>
 
 						<br />
 						<motion.p>
-							Simply add our VIP service to your mobile phone – we give you a new number that works to protect your personal mobile number. By using our safety app, your personal
-							mobile number becomes completely private.
+							{/* Simply add our VIP service to your mobile phone – we give you a new number that works to protect your personal mobile number. By using our safety app, your personal
+							mobile number becomes completely private. */}
+							<Trans i18nKey='aboutVipHeader.p2'></Trans>
 						</motion.p>
 						<br />
-						<motion.h4 className='font-semibold text-2xl'>Concerned about your privacy?</motion.h4>
+						<motion.h4 className='font-semibold text-2xl'>
+							{/* Concerned about your privacy? */}
+							<Trans i18nKey='whatIsVipDescription.h4'></Trans>
+						</motion.h4>
 						<br />
 						<motion.p>
-							Your phone number is valuable to scammers, marketeers, groupies & stalkers – use a safety app and keep it safe. Control all aspects of your life, on your personal
-							mobile phone! Our VIP safety first service can also record calls and locations to help stem threats to your safety.
+							{/* Your phone number is valuable to scammers, marketeers, groupies & stalkers – use a safety app and keep it safe. Control all aspects of your life, on your personal
+							mobile phone! Our VIP safety first service can also record calls and locations to help stem threats to your safety. */}
+							<Trans i18nKey='whatIsVipDescription.p3'></Trans>
 						</motion.p>
 					</motion.div>
 				</section>

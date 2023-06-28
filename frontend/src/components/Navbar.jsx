@@ -7,7 +7,12 @@ import useMediaQuery from '../hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
 import { changeLanguage } from 'i18next';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 const Navbar = () => {
+	const { t, i18n } = useTranslation();
+
 	const [isMenuToggled, setIsMenuToggled] = useState(false);
 	// const isAboveSmallScreens = useMediaQuery('(min-width: 768px');
 	const isAboveSmallScreens = useMediaQuery('(min-width: 1100px');
@@ -67,22 +72,28 @@ const Navbar = () => {
 						className='flex justify-between gap-10 font-poppins text-lg font-semibold'
 					>
 						<Link className='text-navColor hover:text-navColorHover' to='/product'>
-							PRODUCT
+							{/* PRODUCT */}
+							<Trans i18nKey='navLinks.product'></Trans>
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/about'>
-							ABOUT
+							{/* ABOUT */}
+							<Trans i18nKey='navLinks.about'></Trans>
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/signup'>
-							SIGN UP
+							{/* SIGN UP */}
+							<Trans i18nKey='navLinks.signup'></Trans>
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/help'>
-							HELP
+							{/* HELP */}
+							<Trans i18nKey='navLinks.help'></Trans>
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/blog'>
-							BLOG
+							{/* BLOG */}
+							<Trans i18nKey='navLinks.blog'></Trans>
 						</Link>
 						<Link className='text-navColor hover:text-navColorHover' to='/portal'>
-							CLIENT PORTAL
+							{/* CLIENT PORTAL */}
+							<Trans i18nKey='navLinks.portal'></Trans>
 						</Link>
 						{/* Language Change  */}
 						{currentLanguage === 'en' ? (

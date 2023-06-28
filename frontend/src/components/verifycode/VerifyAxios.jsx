@@ -12,6 +12,9 @@ import { useUrlParams } from '../../hooks/useUrlParams';
 import { countryOptions } from './CountryOptions';
 import Select from 'react-select';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 // SETTING RULES FOR YUP FORM VALIDATION
 const pinRegExp = /^\d{5}$/;
 const emailRule = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -62,6 +65,8 @@ const customStyles = {
 // ================================
 // ================================
 const VerifyAxios = () => {
+	const { t, i18n } = useTranslation();
+
 	// capture UTMs and FPRs
 	const { searchParams } = useUrlParams();
 	// linkParams is difined in useUrlParams.js in the hooks folder
@@ -238,8 +243,14 @@ const VerifyAxios = () => {
 
 	return (
 		<div>
-			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>Create your VIP Experience</h1>
-			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>Lets start with verifying your mobile phone</h3>
+			<h1 className='text-buttonColor text-2xl lg:text-3xl pb-4'>
+				{/* Create your VIP Experience */}
+				<Trans i18nKey='signupTitle'></Trans>
+			</h1>
+			<h3 className='text-buttonColor text-xl lg:text-xl pb-4'>
+				{/* Lets start with verifying your mobile phone */}
+				<Trans i18nKey='signupMobileText'></Trans>
+			</h3>
 			{submitError && <div className='error-message'>{submitError}</div>}
 
 			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handlePhoneNumberSubmit}>
@@ -251,7 +262,8 @@ const VerifyAxios = () => {
 								{/* FIRST NAME  */}
 								<div className='flex flex-col'>
 									<label className='text-buttonColor' htmlFor='firstName'>
-										First Name:
+										{/* First Name: */}
+										<Trans i18nKey='signupFields.first'></Trans>
 									</label>
 									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='firstName' name='firstName' type='text' />
 									<ErrorMessage name='firstName' />
@@ -259,7 +271,8 @@ const VerifyAxios = () => {
 								{/* LAST NAME  */}
 								<div className='flex flex-col'>
 									<label className='text-buttonColor' htmlFor='lastName'>
-										Last Name:
+										{/* Last Name: */}
+										<Trans i18nKey='signupFields.last'></Trans>
 									</label>
 									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='lastName' name='lastName' type='text' />
 									<ErrorMessage name='lastName' />
@@ -267,7 +280,8 @@ const VerifyAxios = () => {
 								{/* EMAIL  */}
 								<div className='flex flex-col'>
 									<label className='text-buttonColor' htmlFor='clientEmail'>
-										Email:
+										{/* Email: */}
+										<Trans i18nKey='signupFields.email'></Trans>
 									</label>
 									<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md pl-2' id='clientEmail' name='clientEmail' type='clientEmail' />
 									<ErrorMessage name='clientEmail' />
@@ -276,7 +290,8 @@ const VerifyAxios = () => {
 								{/* DROP DOWN WITH COUNTRY CODES  */}
 								<div id='selectCountryPhone'>
 									<label className='text-buttonColor' htmlFor='countryCode'>
-										Country:
+										{/* Country: */}
+										<Trans i18nKey='signupFields.country'></Trans>
 									</label>
 
 									<div className='flex w-full items-center'>
@@ -303,7 +318,8 @@ const VerifyAxios = () => {
 									{/* PHONE NUMBER INPUT FIELD  */}
 									<div className='flex flex-col w-full pt-4'>
 										<label className='text-buttonColor' htmlFor='phoneNumber'>
-											Your Number:
+											{/* Your Number: */}
+											<Trans i18nKey='signupFields.number'></Trans>
 										</label>
 										<Field autoComplete='off' className='bg-purple-200 h-10 w-full rounded-md pl-2' id='phoneNumber' name='phoneNumber' type='tel' />
 										<ErrorMessage name='phoneNumber' />
@@ -315,10 +331,13 @@ const VerifyAxios = () => {
 								))}
 							</div>
 							<button id='verifyButton' className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-10' type='submit' disabled={isSubmitting}>
-								{isSubmitting ? 'Submitting...' : 'Verify your Mobile Number'}
+								{isSubmitting ? 'Submitting...' : <Trans i18nKey='signupButton'></Trans>}
 							</button>
 							<div>
-								<h4 className='text-base text-buttonColor'>You will receive an SMS with a verification code to validate next...</h4>
+								<h4 className='text-base text-buttonColor'>
+									{/* You will receive an SMS with a verification code to validate next... */}
+									<Trans i18nKey='signupSMS'></Trans>
+								</h4>
 							</div>
 						</Form>
 					);
@@ -334,13 +353,14 @@ const VerifyAxios = () => {
 					<Form id='verificationCodeForm' className=' hidden flex justify-center items-center flex-col max-w-full gap-2 mt-10 '>
 						<div className='flex flex-col gap-4'>
 							<label className='text-buttonColor text-2xl text-center' htmlFor='verificationCode'>
-								Verification Code:
+								{/* Verification Code: */}
+								<Trans i18nKey='verifCode'></Trans>
 							</label>
 							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='verificationCode' name='verificationCode' type='text' />
 							<ErrorMessage name='verificationCode' />
 
 							<button className='bg-purple-500 hover:bg-purple-400 h-10 rounded-md mt-2 text-white font-semibold' type='submit' disabled={isSubmitting}>
-								{isSubmitting ? 'Submitting...' : 'Submit'}
+								{isSubmitting ? 'Submitting...' : <Trans i18nKey='verifButton'></Trans>}
 							</button>
 						</div>
 					</Form>

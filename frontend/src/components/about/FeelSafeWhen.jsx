@@ -3,8 +3,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GirlFeelSafe } from '../../assets/index';
 import { Link } from 'react-router-dom';
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
 
 const FeelSafeWhen = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<>
 			<main className='flex flex-wrap lg:flex-nowrap bg-gradient-to-tr from-[#c873f6] to-[#5330a9] justify-between lg:px-10 pt-10'>
@@ -20,7 +24,8 @@ const FeelSafeWhen = () => {
 						}}
 						className=' mx-10 text-3xl lg:text-5xl text-white text-center lg:text-left font-semibold leading-tight lg:leading-snug'
 					>
-						Feel safe when sharing your phone number with others
+						{/* Feel safe when sharing your phone number with others */}
+						<Trans i18nKey='aboutFeelSafeTitle'></Trans>
 					</motion.h1>
 					<motion.p
 						initial='hidden'
@@ -33,9 +38,10 @@ const FeelSafeWhen = () => {
 						}}
 						className='text-base text-center lg:text-left text-white pt-6 mx-10'
 					>
-						It was this realization that sparked the idea of VIPSafetyFirst. As a brand solely aimed at women’s safety, we are proud to offer a solution that gives women the
+						{/* It was this realization that sparked the idea of VIPSafetyFirst. As a brand solely aimed at women’s safety, we are proud to offer a solution that gives women the
 						ability to protect themselves in a world where their privacy and security are often at risk. Our service empowers women to take control of their personal information by
-						keeping their personal phone number private, allowing them to feel safe and secure at all times.
+						keeping their personal phone number private, allowing them to feel safe and secure at all times. */}
+						<Trans i18nKey='aboutFeelSafeDescr'></Trans>
 					</motion.p>
 					<motion.button
 						initial='hidden'
@@ -48,7 +54,10 @@ const FeelSafeWhen = () => {
 						}}
 						className='place-self-center lg:place-self-start ml-10 mt-8 mb-10 p-4 w-80 sm:w-96 sm:text-base bg-buttonColor lg:text-[1.3rem] text-base font-semibold rounded-lg text-white transition duration-300 ease-in-out hover:scale-110'
 					>
-						<Link to='../SignUp'> SIGN UP FOR YOUR VIP NUMBER</Link>
+						<Link to='../SignUp'>
+							{/* SIGN UP FOR YOUR VIP NUMBER */}
+							<Trans i18nKey='aboutFeelSafeButton'></Trans>
+						</Link>
 					</motion.button>
 				</section>
 				{/* IMAGE OF GIRL IN HEADPHONES 		 */}

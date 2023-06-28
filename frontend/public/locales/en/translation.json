@@ -63,18 +63,93 @@
     },
 
     "footerTitle": "Powered by conXhub – conXhub is a multi-faceted communication service supporting millions of customers around the world.",
-    "footerLinks": {
+
+    "navLinks": {
         "product": "PRODUCT",
         "about": "ABOUT",
         "signup": "SIGN UP",
         "help": "HELP",
-        "contactus": "CONTACT US",
-        "blog": "BLOG"
+        "blog": "BLOG",
+        "portal": "CLIENT PORTAL"
     },
     "footerOrdering": "Ordering is simple, everything is online & within minutes of your request you could be using your new Virtual Number to stay safer!",
     "footerButtons": {
         "number": "GET YOUR NEW NUMBER NOW"
-    }
+    },
+    "footerFooter": {
+        "blogLogin": "Blog Admin Login",
+        "year": "© 2023 VipSafetyFirst.",
+        "rights": "All rights reserved"
+    },
+
+    "aboutVipTitle": "About VIP Safety First",
+    "aboutVipHeader": {
+        "p1": "VIPSafetyFirst is a dedicated brand from conXhub, a cloud-based communication and collaboration platform. Our platform offers a core feature that allows users to add virtual phone numbers to their mobile phones, enabling them to make and receive calls from those numbers.",
+        "p2": "My name is Nicole, and as one of the Marketing Managers for conXhub, I personally understand the importance of safety and privacy. I have experienced abuse and harassment in the past, and I believe that having a service like conXhub would have given me peace of mind and more control over my personal information.",
+        "h4":"Concerned about your privacy?",
+        "p3": "Your phone number is valuable to scammers, marketeers, groupies & stalkers – use a safety app and keep it safe. Control all aspects of your life, on your personal mobile phone! Our VIP safety first service can also record calls and locations to help stem threats to your safety."
+    },
+
+    "aboutFeelSafeTitle": "Feel safe when sharing your phone number with others",
+    "aboutFeelSafeDescr": "It was this realization that sparked the idea of VIPSafetyFirst. As a brand solely aimed at women’s safety, we are proud to offer a solution that gives women the ability to protect themselves in a world where their privacy and security are often at risk. Our service empowers women to take control of their personal information by keeping their personal phone number private, allowing them to feel safe and secure at all times.",
+    "aboutFeelSafeButton": "SIGN UP FOR YOUR VIP NUMBER",
+
+    "aboutAVipPhoneTitle": "A VIP phone number is the best solution to keep you safe",
+    "aboutAVipPhoneDescr": {
+        "p1": "At VIPSafetyFirst, our mission is to provide women with the tools they need to protect themselves and their privacy in today’s digital age. We understand that women face unique challenges when it comes to safety and security, and our service is designed to help them overcome these challenges and feel confident in their ability to protect themselves.",
+        "p2": "We are committed to providing top-quality service and support to all of our customers, and we believe that everyone deserves to feel safe and secure. With VIPSafetyFirst, you can rest assured that you have a trusted partner by your side, helping you navigate the challenges of today’s digital world."
+    },
+    "aboutAVipPhoneButton": "SIGN UP FOR ADDED PROTECTION",
+
+    "signupTitle": "Create your VIP Experience",
+    "signupMobileText": "Lets start with verifying your mobile phone",
+    "signupFields": {
+        "first": "First Name",
+        "last": "Last Name",
+        "email": "Email",
+        "country": "Country",
+        "number": "Your Number"
+    },
+    "submitting": "Submitting",
+    "signupButton": "Verify your Mobile Number",
+    "signupSMS": "You will receive an SMS with a verification code to validate next...",
+    "verifCode": "Verification Code",
+    "verifButton": "Submit",
+
+    "portalTitle": "Manage your Billing and Subscriptions:",
+    "portalDescription": {
+        "p1": "The billing and subscription management is powered by Stripe. To access it please click the button below. The Stripe Gateway will open, where you can enter the email you have used to Sign Up for your Subscription.",
+        "p2": "If the email is registered with Stripe a link to the Stripe Billing and Subscription portal will be sent to that email."
+    },
+    "portalButton": "Access Customer Portal",
+
+    "stripePaymentTitle": "Subscribe to VIP Safety First",
+    "stripePlan": {
+        "per": "per",
+        "priceInterval": "month",
+        "productName": "VIP Safety First",
+        "subtotal": "Subtotal",
+        "productDescr": "VIP Safety First UK Virtual Mobile Number & Unlimited Calls / Messages"
+    },
+
+    "stripePaymentForm": "Payment Form",
+    "stripeForm": {
+        "fname": "First Name",
+        "lname": "Last Name",
+        "email": "Email",
+        "card": "Enter you card number"
+    },
+    "subscribing": "Subscribing",
+    "subscribeButton": "Subscribe",
+    "paymentSuccess": "Payment successful! Subscription is active",
+    "confirmDescr": "By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always cancel your subscription.",
+    "powered": "Powered by Stripe",
+
+
+    "confirmationTitle": "Your Subscription is Confirmed",
+    "newNumber": "Your new number is: ",
+    "android": "Download Android App",
+    "iOS": "Download iPhone App"
 
 
 }

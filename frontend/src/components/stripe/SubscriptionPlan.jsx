@@ -5,12 +5,17 @@ import { loadStripe } from '@stripe/stripe-js';
 import { motion } from 'framer-motion';
 import { SingleHeart } from '../../assets';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 // import location to carry over data from the dataCreateLead from VerifyAxios.jsx
 import { useLocation } from 'react-router-dom';
 
 const stripePromise = loadStripe('pk_test_XEzHA2tiLmSdW9kfczbymQTU');
 
 const SubscriptionPlan = () => {
+	const { t, i18n } = useTranslation();
+
 	// const [subscription, setSubscription] = useState(null);
 	const [product, setProduct] = useState(null);
 	const [price, setPrice] = useState(null);
@@ -126,7 +131,10 @@ const SubscriptionPlan = () => {
 			</motion.div>
 			<div className='flex flex-col flex-wrap lg:flex-row lg:flex-nowrap px-10 my-10'>
 				<section id='planDescription' className='flex flex-col w-full lg:w-1/2 justify-start items-start lg:px-20 pt-20 pb-10'>
-					<h1 className='text-xl text-buttonColor font-semibold'>Subscribe to VIP Safety First</h1>
+					<h1 className='text-xl text-buttonColor font-semibold'>
+						{/* Subscribe to VIP Safety First */}
+						<Trans i18nKey='stripePaymentTitle'></Trans>
+					</h1>
 
 					{/* GET PRICE  */}
 					<div className='w-full'>
@@ -143,8 +151,14 @@ const SubscriptionPlan = () => {
 									</span>
 								</div>
 								<div className='flex flex-col leading-none'>
-									<span className='pl-4 text-purple-500'>per </span>
-									<span className='pl-4 text-purple-500'>{price.recurring.interval}</span>
+									<span className='pl-4 text-purple-500'>
+										{/* per  */}
+										<Trans i18nKey='per'></Trans>
+									</span>
+									<span className='pl-4 text-purple-500'>
+										{/* <Trans i18nKey='priceInterval'>{price.recurring.interval}</Trans> */}
+										<Trans i18nKey='stripePlan.priceInterval'></Trans>
+									</span>
 								</div>
 							</div>
 						) : (
@@ -158,20 +172,35 @@ const SubscriptionPlan = () => {
 							<div className=''>
 								<div className='flex w-full justify-between items-center my-4'>
 									<div className='flex'>
+										{/* HEART IMAGE  */}
 										<img className='h-8 pr-6' src={SingleHeart} alt='' />
-										<p className='font-semibold text-buttonColor'>{product.name}</p>
+										{/* VIP Safety First  */}
+										<p className='font-semibold text-buttonColor'>
+											<Trans i18nKey='stripePlan.productName' values={{ productName: product.name }}></Trans>
+										</p>
 									</div>
 									<div>
+										{/* PRICE PER MONTH  */}
 										<p className='text-purple-500 text-sm'>
 											{' '}
 											{/* + '0' is for GBP  */}
 											{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} / {price.recurring.interval} */}
 											{/* for EUR  */}
-											{price.unit_amount / 100} {price.currency.toUpperCase()} / {price.recurring.interval}
+											{price.unit_amount / 100} {price.currency.toUpperCase()} /<Trans i18nKey='stripePlan.priceInterval'></Trans>
+											{/* {price.recurring.interval} */}
 										</p>
 									</div>
 								</div>
-								<p className='text-sm text-purple-500'>{product.description}</p>
+								{/* PRODUCT NAME  */}
+								<p className='text-sm text-purple-500'>
+									<Trans i18nKey='stripePlan.productName' values={{ productName: product.name }}></Trans>{' '}
+								</p>
+								{/* PRODUCT DESCRIPTION  */}
+								{/* <p className='text-sm text-purple-500'>{product.description}</p> */}
+								<p className='text-sm text-purple-500'>
+									{/* {t(`stripePlan.productDescr.${product.description}`)} */}
+									{product.description}
+								</p>
 							</div>
 						) : (
 							<div>Loading product details...</div>
@@ -182,7 +211,10 @@ const SubscriptionPlan = () => {
 					<div className='w-full mt-10'>
 						{price ? (
 							<div className='flex justify-between items-center'>
-								<span className='text-buttonColor'>Subtotal: </span>
+								<span className='text-buttonColor'>
+									{/* Subtotal:  */}
+									<Trans i18nKey='stripePlan.subtotal'></Trans>
+								</span>
 								<span className='text-sm text-purple-500'>
 									{/* + '0' is for GBP  */}
 									{/* {price.unit_amount / 100 + '0'} {price.currency.toUpperCase()} */}

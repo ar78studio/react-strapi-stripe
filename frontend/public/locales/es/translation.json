@@ -63,17 +63,97 @@
     },
 
     "footerTitle": "Desarrollado por conXhub - conXhub es un servicio de comunicación polifacético que da soporte a millones de clientes en todo el mundo.",
-    "footerLinks": {
+
+    "navLinks": {
         "product": "PRODUCTO",
         "about": "ACERCA DE",
         "signup": "REGÍSTRATE",
         "help": "AYUDA",
-        "contactus": "CONTÁCTANOS",
-        "blog": "BLOG"
+        "blog": "BLOG",
+        "portal": "PORTAL DEL CLIENTE"
     },
     "footerOrdering": "Empezar es sencillo, todo está en línea y en cuestión de minutos podrás estar utilizando tu nuevo número virtual para estar más seguro.",
     "footerButtons": {
         "number": "CONSIQUE TU NÚMERO AHORA"
-    }
+    },
+    "footerFooter": {
+        "blogLogin": "Blog Admin Login",
+        "year": "© 2023ConXhub.",
+        "rights": "Todos los derechos reservados."
+    },
+
+    "aboutVipTitle": "Acerca de VIP Safety First",
+    "aboutVipHeader": {
+        "p1": "VIPSafetyFirst es una marca dedicada de conXhub, una plataforma de comunicación y colaboración basada en la nube. Nuestra plataforma ofrece una función principal que permite a los usuarios añadir números de teléfono virtuales a sus teléfonos móviles, permitiéndoles realizar y recibir llamadas desde esos números.",
+        "p2": "Me llamo Nicole y, como una de las responsables de marketing de conXhub, entiendo personalmente la importancia de la seguridad y la privacidad. He sufrido abusos y acoso en el pasado, y creo que disponer de un servicio como conXhub me habría dado tranquilidad y más control sobre mi información personal.",
+        "h4": "Te preocupa tu privacidad?",
+        "p3": "Tu número de teléfono es valioso para estafadores, vendedores, groupies y acosadores: utiliza una aplicación de seguridad y mantenlo a salvo. Controle todos los aspectos de su vida desde su teléfono móvil personal. Nuestro servicio VIP Safety First también puede grabar llamadas y ubicaciones para ayudar a detener las amenazas a su seguridad."
+    },
+
+    "aboutFeelSafeTitle": "Siéntete segura al compartir tu número de teléfono con otras personas",
+    "aboutFeelSafeDescr": "Fue esta constatación la que desencadenó la idea de VIPSafetyFirst. Como marca orientada exclusivamente a la seguridad de las mujeres, estamos orgullosos de ofrecer una solución que les da la posibilidad de protegerse en un mundo en el que su intimidad y su seguridad están a menudo en peligro. Nuestro servicio permite a las mujeres tomar el control de su información personal manteniendo la privacidad de su número de teléfono personal, lo que les permite sentirse seguras en todo momento.",
+    "aboutFeelSafeButton": "REGÍSTRESE PARA SU NÚMERO VIP",
+
+    "aboutAVipPhoneTitle": "Un número de teléfono VIP es la mejor solución para mantenerte segura",
+    "aboutAVipPhoneDescr": {
+        "p1": "En VIPSafetyFirst, nuestra misión es proporcionar a las mujeres las herramientas que necesitan para protegerse y proteger su privacidad en la era digital actual. Entendemos que las mujeres se enfrentan a desafíos únicos cuando se trata de seguridad y protección, y nuestro servicio está diseñado para ayudarlas a superar estos desafíos y sentirse seguras de su capacidad para protegerse.",
+        "p2": "Nos comprometemos a proporcionar un servicio y una asistencia de máxima calidad a todos nuestros clientes, y creemos que todo el mundo merece sentirse seguro y protegido. Con VIPSafetyFirst, puede estar seguro de que cuenta con un socio de confianza a su lado, que le ayudará a superar los retos del mundo digital actual."
+    },
+    "aboutAVipPhoneButton": "REGÍSTRESE PARA UNA PROTECCIÓN ADICIONAL",
+
+    "signupTitle": "Crea tu experiencia VIP",
+    "signupMobileText": "Empecemos verificando tu teléfono móvil",
+    "signupFields": {
+        "first": "Nombre",
+        "last": "Apellido",
+        "email": "Email",
+        "country": "País",
+        "number": "Su número"
+    },
+    "submitting": "Enviar",
+    "signupButton": "Verifica tu número de móvil",
+    "signupSMS": "Recibirás un código SMS para validar...",
+    "verifCode": "Código de verificación",
+    "verifButton": "Enviar",
+
+    "portalTitle": "Gestione su facturación y suscripciones:",
+    "portalDescription": {
+        "p1": "La gestión de facturación y suscripciones está impulsada por Stripe. Para acceder a ella, haga clic en el botón de abajo. Se abrirá el portal de Stripe, donde podrás introducir el email que has utilizado para darte de alta en tu suscripción.",
+        "p2": "Si el email está registrado en Stripe se enviará a ese email un enlace al portal de facturación y suscripción de Stripe."
+    },
+    "portalButton": "Acceder al portal del cliente",
+
+    "stripePaymentTitle": "Suscríbase a VIP Safety First",
+    "stripePlan": {
+        "per": "por",
+        "priceInterval": "mes",
+        "productName": "VIP Safety First",
+        "subtotal": "Subtotal",
+        "productDescr": "Número de móvil virtual VIP Safety FirstUK y llamadas / mensajes ilimitados"
+
+    },
+
+    "stripePaymentForm": "Forma de pago",
+    "stripeForm": {
+        "fname": "Nombre",
+        "lname": "Apellidos",
+        "email": "Correo electronico",
+        "card": "Introduzca su número de tarjeta"
+    },
+    "subscribing": "Suscribirse...",
+    "subscribeButton": "Suscribirse",
+    "paymentSuccess": "¡Pago efectuado! Suscripción activa",
+    "confirmDescr": "Al confirmar su suscripción, autoriza a VIP Safety First a cargar en su tarjeta este pago y los pagos futuros de acuerdo con sus condiciones. Siempre puede cancelar su suscripción.",
+    "powered": "Desarrollado por Stripe",
+
+    "confirmationTitle": "Su suscripción está confirmada",
+    "newNumber": "Tu nuevo número es: ",
+    "android": "Descargar aplicación Android",
+    "iOS": "Descargar aplicación para iPhone"
+
+
+
+
+
     
 }
