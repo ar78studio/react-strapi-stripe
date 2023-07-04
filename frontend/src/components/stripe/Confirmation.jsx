@@ -43,13 +43,13 @@ const Confirmation = () => {
 					<span className='bg-purple-600 p-4 rounded-lg mt-4 mb-10 text-4xl text-white'>{profileNumber ? profileNumber : 'Not available'}</span>
 
 					{/* <h4 className='text-center text-lg text-white font-semibold'>You can download an app for your Android Phone here:</h4> */}
-					<a className='text-md text-buttonColor text-lg font-semibold hover:text-white' href='https://play.google.com/store/apps/details?id=net.riptec.conxhub'>
+					<a className='text-md text-buttonColor text-lg font-semibold hover:text-white' target='_blank' href='https://play.google.com/store/apps/details?id=net.riptec.conxhub'>
 						{' '}
 						{/* Download Android APP */}
 						<Trans i18nKey='android'></Trans>
 					</a>
 					{/* <h4 className='text-center text-lg text-white font-semibold'>You can download an app for your iPhone here:</h4> */}
-					<a className='text-md text-buttonColor text-lg font-semibold hover:text-white' href='https://apps.apple.com/es/app/conxhub/id1444346672'>
+					<a className='text-md text-buttonColor text-lg font-semibold hover:text-white' target='_blank' href='https://apps.apple.com/es/app/conxhub/id1444346672'>
 						{/* Download iOS iPhone APP */}
 						<Trans i18nKey='iOS'></Trans>
 					</a>
