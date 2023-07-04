@@ -264,12 +264,16 @@ const PaymentForm = ({ clientData }) => {
 						</button>
 						<div>
 							<h5 className='text-xs text-center text-buttonColor lg:px-20'>
-								By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always
-								cancel your subscription.
+								{/* By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always */}
+								{/* cancel your subscription. */}
+								<Trans i18nKey='confirmDescr'></Trans>
 							</h5>
 						</div>
 						<div className='flex justify-center text-xl text-buttonColor'>
-							<h5 className='text-sm text-buttonColor'>Powered by Stripe</h5>
+							<h5 className='text-sm text-buttonColor'>
+								{/* Powered by Stripe */}
+								<Trans i18nKey='powered'></Trans>
+							</h5>
 						</div>
 					</Form>
 				)}
