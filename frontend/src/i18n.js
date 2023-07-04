@@ -17,13 +17,6 @@ i18next
 		interpolation: {
 			excapeValue: false,
 		},
-		// resources: {
-		// 	en: {
-		// 		translation: {
-		// 			key: 'Hello World!', // here we will place our translations...
-		// 		},
-		// 	},
-		// },
 	});
 
 console.log(i18next.t('key'));

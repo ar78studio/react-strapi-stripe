@@ -5,7 +5,7 @@ import { Navbar, Homepage, Product, About, SignUp, Help, Blog, BlogContent, Foot
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import BlogCategories from './components/blog/BlogCategories';
 
@@ -15,7 +15,7 @@ import { SubscriptionPlan } from './components/index';
 // Multilanguage support
 // Suspense allows us to wait for the translation files to be async used
 import { Suspense } from 'react';
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 // ============================================
 // FOR BLOGS - Uncomment for Production

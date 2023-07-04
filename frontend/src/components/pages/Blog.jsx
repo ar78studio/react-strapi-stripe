@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import ScrollToTop from '../ScrollToTop';
 import ReactPaginate from 'react-paginate';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 import '../pagination/pagination.css';
 
 const BLOGS = gql`
@@ -31,6 +34,8 @@ const BLOGS = gql`
 `;
 
 const Blog = () => {
+	const { t, i18n } = useTranslation();
+
 	const { loading, error, data } = useQuery(BLOGS);
 
 	// PAGINATION
@@ -77,7 +82,8 @@ const Blog = () => {
 						<p className='text-sm pb-2'>{blogs.attributes.blogContent.substring(0, 200)}...</p>
 
 						<Link className='underline hover:text-linkOnWhiteColor' to={`/BlogContent/${blogs.id}`}>
-							Read more...
+							{/* Read more... */}
+							<Trans i18nKey='readMore'></Trans>
 						</Link>
 					</div>
 				</div>
@@ -113,7 +119,10 @@ const Blog = () => {
 
 			<section className='pt-20 pb-60 w-full bg-purple-300 lg:p-[5rem] md:p-[3rem] p-[1.5rem] '>
 				<div className='w-full flex justify-center items-center mx-auto'>
-					<h2 className='text-buttonColor text-5xl pt-4 pb-20'>VIP Safety First Blog</h2>
+					<h2 className='text-buttonColor text-5xl pt-4 pb-20'>
+						{/* VIP Safety First Blog */}
+						<Trans i18nKey='blogTitle'></Trans>
+					</h2>
 				</div>
 
 				{/* DISPLAY BLOG POSTS  */}

@@ -149,7 +149,11 @@
     "confirmationTitle": "Your Subscription is Confirmed",
     "newNumber": "Your new number is: ",
     "android": "Download Android App",
-    "iOS": "Download iPhone App"
+    "iOS": "Download iPhone App",
+
+    "blogTitle": "VIP Safety First Blog",
+    "readMore": "Read more...",
+    "categories": "Categories:"
 
 
 }

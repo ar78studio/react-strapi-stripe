@@ -4,6 +4,9 @@ import { useQuery, gql } from '@apollo/client';
 import { motion } from 'framer-motion';
 import ReactPaginate from 'react-paginate';
 
+// Multilanguage support
+import { useTranslation, Trans } from 'react-i18next';
+
 import BlogsAside from './BlogsAside';
 // import BlogCategories from './BlogCategories';
 
@@ -39,6 +42,8 @@ const BLOG = gql`
 `;
 
 const BlogContent = () => {
+	const { t, i18n } = useTranslation();
+
 	const { id } = useParams();
 	const { loading, error, data } = useQuery(BLOG, {
 		variables: { id: id },
@@ -77,7 +82,9 @@ const BlogContent = () => {
 							<div className='pt-10'>
 								<p className='text-base pb-2 text-buttonColor'>{data.blog.data.attributes.blogContent}</p>
 								<p className='text-md text-purple-500 py-6 '>
-									Categories:
+									{/* Categories: */}
+									<Trans i18nKey='categories'></Trans>
+
 									{data.blog.data.attributes.categories.data.map((category) => (
 										<Link key={category.id} to={`/category/${category.id}`} className='ml-2'>
 											{category.attributes.name}
