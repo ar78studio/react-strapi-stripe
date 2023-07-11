@@ -12,11 +12,6 @@ import BlogCategories from './components/blog/BlogCategories';
 // Stripe
 import { SubscriptionPlan } from './components/index';
 
-// Multilanguage support
-// Suspense allows us to wait for the translation files to be async used
-import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
-
 // ============================================
 // FOR BLOGS - Uncomment for Production
 

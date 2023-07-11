@@ -19,6 +19,4 @@ i18next
 		},
 	});
 
-console.log(i18next.t('key'));
-
 export default i18next;

@@ -152,15 +152,39 @@ app.get('/get-price', async (request, response) => {
 });
 
 // GET OR CREATE AN INVOICE
-app.get('/get-invoice', async (request, response) => {
+// app.get('/get-invoice', async (request, response) => {
+// 	try {
+// 		if (request.method !== 'GET') return response.status(400);
+// 		const invoiceId = 'in_1NAgSdHfTo5S12kx8acehHUN';
+// 		const invoice = await stripe.invoices.retrieve(invoiceId);
+// 		response.json({ invoice });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve invoice details' });
+// 	}
+// });
+
+// RETRIEVE A COUPON
+// const coupon = await stripe.coupons.retrieve('promo_1NQrkwHfTo5S12kx4FC2A0gS');
+
+// VALIDATE COUPON
+app.post('/validate-coupon', async (req, res) => {
 	try {
-		if (request.method !== 'GET') return response.status(400);
-		const invoiceId = 'in_1NAgSdHfTo5S12kx8acehHUN';
-		const invoice = await stripe.invoices.retrieve(invoiceId);
-		response.json({ invoice });
+		// const { couponCode } = req.body;
+
+		// Retrieve the coupon from Stripe
+		// const coupon = await stripe.coupons.retrieve(couponCode);
+		const coupon = await stripe.coupons.retrieve('promo_1NQrkwHfTo5S12kx4FC2A0gS');
+
+		// Check if the coupon is valid
+		if (coupon.valid && !coupon.redeem_by && !coupon.times_redeemed) {
+			res.json({ isValid: true, discount: coupon.amount_off || coupon.percent_off });
+		} else {
+			res.json({ isValid: false });
+		}
 	} catch (error) {
 		console.error(error);
-		response.status(500).json({ error: 'Failed to retrieve invoice details' });
+		res.status(500).json({ error: 'Failed to validate coupon' });
 	}
 });
 

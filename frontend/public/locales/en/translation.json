@@ -137,13 +137,17 @@
         "fname": "First Name",
         "lname": "Last Name",
         "email": "Email",
-        "card": "Enter you card number"
+        "card": "Enter you card number",
+    "couponCode":  "Discount Code: "
+
     },
     "subscribing": "Subscribing",
     "subscribeButton": "Subscribe",
     "paymentSuccess": "Payment successful! Subscription is active",
     "confirmDescr": "By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always cancel your subscription.",
     "powered": "Powered by Stripe",
+    "discCode": "Do you have a discount code? ",
+    "enterCoupon": "Enter discount code...",
 
 
     "confirmationTitle": "Your Subscription is Confirmed",

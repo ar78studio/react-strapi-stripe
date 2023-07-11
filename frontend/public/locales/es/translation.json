@@ -138,13 +138,18 @@
         "fname": "Nombre",
         "lname": "Apellidos",
         "email": "Correo electronico",
-        "card": "Introduzca su número de tarjeta"
+        "card": "Introduzca su número de tarjeta",
+    "couponCode":  "Código de descuento:"
+
     },
     "subscribing": "Suscribirse...",
     "subscribeButton": "Suscribirse",
     "paymentSuccess": "¡Pago efectuado! Suscripción activa",
     "confirmDescr": "Al confirmar su suscripción, autoriza a VIP Safety First a cargar en su tarjeta este pago y los pagos futuros de acuerdo con sus condiciones. Siempre puede cancelar su suscripción.",
     "powered": "Desarrollado por Stripe",
+    "discCode": "¿Tiene un código de descuento?",
+    "enterCoupon": "Introduce el código...",
+
 
     "confirmationTitle": "Su suscripción está confirmada",
     "newNumber": "Tu nuevo número es: ",

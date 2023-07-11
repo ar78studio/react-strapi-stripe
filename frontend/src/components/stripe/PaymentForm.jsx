@@ -31,17 +31,18 @@ const PaymentForm = ({ clientData }) => {
 		email: location.state?.email || clientData.clientEmail || '',
 		countryCode: locatedError.state?.countryCode || clientData.countryCode || '',
 		phone: location.state?.phoneNumber || clientData.phoneNumber || '',
+		couponCode: '',
 	};
 
 	console.log(initialValues);
 
 	// Reset Formik form values in case of existing Customer
-	const resetInitialValues = {
-		firstName: '',
-		lastName: '',
-		email: '',
-		phone: '',
-	};
+	// const resetInitialValues = {
+	// 	firstName: '',
+	// 	lastName: '',
+	// 	email: '',
+	// 	phone: '',
+	// };
 
 	// console.log(initialValues);
 
@@ -58,8 +59,7 @@ const PaymentForm = ({ clientData }) => {
 	// CHECK IF CUSTOMER ALREADY EXISTS via email only
 	const checkExistingClient = async (formValues, resetForm) => {
 		try {
-			// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/check-existing-client`, {
-			const response = await fetch(`http://localhost:1447/check-existing-client`, {
+			const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/check-existing-client`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -109,8 +109,7 @@ const PaymentForm = ({ clientData }) => {
 				card: elements.getElement('card'),
 			});
 
-			// const response = await fetch(`${process.env.REACT_APP_API_URL}:1447/create-subscription`, {
-			const response = await fetch(`http://localhost:1447/create-subscription`, {
+			const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/create-subscription`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -121,6 +120,8 @@ const PaymentForm = ({ clientData }) => {
 					lastName: formValues.lastName,
 					email: formValues.email, // Using Formik values here
 					paymentMethod: paymentMethod.paymentMethod.id,
+					// add a coupon
+					couponCode: formValues.couponCode,
 				}),
 			});
 			if (!response.ok) return alert('Payment unsuccessful!');
@@ -170,7 +171,7 @@ const PaymentForm = ({ clientData }) => {
 			};
 			console.log(dataCreateCustomer);
 
-			const responseCustomerCreated = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createCustomer', dataCreateCustomer);
+			const responseCustomerCreated = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/createCustomer`, dataCreateCustomer);
 			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
 
 			// console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
@@ -249,7 +250,6 @@ const PaymentForm = ({ clientData }) => {
 								<ErrorMessage name='email' />
 							</div>
 						</div>
-
 						<div>
 							<label className='text-buttonColor' htmlFor='cardElement'>
 								{/* Enter Your Card Number: */}
@@ -259,6 +259,15 @@ const PaymentForm = ({ clientData }) => {
 							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
+						{/* couponCode INPUT */}
+						{/* <div className='flex flex-col'>
+							<label className='text-buttonColor' htmlFor='couponCode'> */}
+						{/* couponCode: */}
+						{/* <Trans i18nKey='stripeForm.couponCode'></Trans>
+							</label>
+							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='couponCode' name='couponCode' type='text' />
+							<ErrorMessage name='couponCode' />
+						</div> */}
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? <Trans i18nKey='subscribing'></Trans> : <Trans i18nKey='subscribeButton'></Trans>}
 						</button>

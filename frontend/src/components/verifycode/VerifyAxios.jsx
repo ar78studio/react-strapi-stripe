@@ -92,6 +92,8 @@ const VerifyAxios = () => {
 		clientEmail: '',
 		countryCode: '',
 		phoneNumber: '',
+		// get couponCode from the cookie, in case of users coming from a discounted links
+		// couponCode: '',
 	});
 
 	// Create a new state variable to store the selected country code.
@@ -120,7 +122,8 @@ const VerifyAxios = () => {
 		console.log('This is postParams value:', dataCreateLead.postParams);
 
 		try {
-			const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
+			// const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
+			const responseLead = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/createLead`, dataCreateLead);
 
 			console.log('Create Lead response:', responseLead.data);
 		} catch (error) {
@@ -154,7 +157,7 @@ const VerifyAxios = () => {
 			await createLead(values);
 
 			// SIM CODE VERIFICATION ENDPOINT
-			const responseCode = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/requestSimCode', dataRequestPin);
+			const responseCode = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/requestSimCode`, dataRequestPin);
 
 			setSubmitting(false);
 
@@ -207,7 +210,7 @@ const VerifyAxios = () => {
 			};
 			// console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
 
-			const response = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/verifySimCode', data);
+			const response = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/verifySimCode`, data);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
 			// console.log('Server response is:', response.status);
