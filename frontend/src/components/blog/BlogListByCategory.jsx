@@ -40,8 +40,7 @@ const BlogListByCategory = ({ categoryName }) => {
 					<li key={blog.id}>
 						<h3>{blog.attributes.title}</h3>
 						<p>{blog.attributes.description}</p>
-						{/* <img src={`${process.env.REACT_APP_API_URL}:1337${blog.attributes.coverImage.data.attributes.formats}`} alt='Cover' /> */}
-						<img src={`http://localhost:1337${blog.attributes.coverImage.data.attributes.formats}`} alt='Cover' />
+						<img src={`${import.meta.env.VITE_STRAPI_API_URL}${blog.attributes.coverImage.data.attributes.formats}`} alt='Cover' />
 					</li>
 				))}
 			</ul>

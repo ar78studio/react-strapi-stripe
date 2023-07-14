@@ -75,11 +75,15 @@ const BlogContent = () => {
 			<main className='flex flex-wrap bg-purple-50'>
 				<section className='w-full lg:max-w-[70%]'>
 					<div className='bg-purple-50 p-6 lg:pl-10 w-full flex flex-col justify-center items-center pt-20'>
-						<div className='flex flex-col justify-center items-center'>
+						<div className='flex flex-col justify-center items-center px-10'>
 							<h4 className='text-3xl lg:text-5xl text-center text-buttonColor pb-10'>{data.blog.data.attributes.title}</h4>
-							<img className='max-w-screen-md object-cover rounded-lg' src={`http://localhost:1337${data.blog.data.attributes.coverImage.data.attributes.formats}`} alt='Image' />
+							<img
+								className='max-w-screen-md object-cover rounded-lg'
+								src={`${import.meta.env.VITE_STRAPI_API_URL}${data.blog.data.attributes.coverImage.data.attributes.formats}`}
+								alt='Image'
+							/>
 
-							<div className='pt-10'>
+							<div className='pt-10 px-10'>
 								<p className='text-base pb-2 text-buttonColor'>{data.blog.data.attributes.blogContent}</p>
 								<p className='text-md text-purple-500 py-6 '>
 									{/* Categories: */}

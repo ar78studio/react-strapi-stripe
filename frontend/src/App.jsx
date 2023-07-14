@@ -16,7 +16,7 @@ import { SubscriptionPlan } from './components/index';
 // FOR BLOGS - Uncomment for Production
 
 // const httpLink = createHttpLink({
-// 	uri: 'http://localhost:1337/graphql',
+//uri: `${import.meta.env.VITE_STRAPI_API_URL}/graphql`,
 // });
 
 // const authLink = setContext((_, { headers }) => {
@@ -44,7 +44,7 @@ import { SubscriptionPlan } from './components/index';
 // FOR BLOGS - APOLLO CLIENT - FOR LOCAL DEVELOPMENT
 
 const client = new ApolloClient({
-	uri: 'http://localhost:1337/graphql',
+	uri: `${import.meta.env.VITE_STRAPI_API_URL}/graphql`,
 	cache: new InMemoryCache(),
 });
 

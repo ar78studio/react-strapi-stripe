@@ -136,6 +136,9 @@ const Footer = () => {
 				</div>
 				<div className='flex flex-col lg:flex-row'>
 					<span className='text-white text-center font-medium lg:mb-0'>
+						{/* Powered by conXhub  */}
+						<Trans i18nKey='footerFooter.poweredByConxhub'></Trans>
+
 						{/* © 2023 VipSafetyFirst. */}
 						<Trans i18nKey='footerFooter.year'></Trans>
 					</span>
