@@ -20,7 +20,8 @@ const nameRule = /^[A-Za-z\s]{0,50}$/;
 const PaymentForm = ({ clientData }) => {
 	const { t, i18n } = useTranslation();
 
-	const [subscriptionId, setSubscriptionId] = useState(null);
+	// Recoil State for discount codes
+	const [discountCode, setDiscountCode] = useRecoilState(discountCodeState);
 
 	const handleDiscountCode = (event) => {
 		// You'd likely want some sort of validation here, possibly involving a server call.
@@ -141,9 +142,7 @@ const PaymentForm = ({ clientData }) => {
 
 			if (!response.ok) return alert('Payment unsuccessful!');
 
-			const data = await response.json();
-			// assuming data contains a field subscriptionId
-			setSubscriptionId(data.subscriptionId);
+			// const data = await response.json();
 
 			// const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
@@ -172,9 +171,9 @@ const PaymentForm = ({ clientData }) => {
 	useEffect(() => {
 		if (profileNumber) {
 			// console.log('Navigating with profileNumber: ', profileNumber);
-			navigate('/signup/subscribe/confirmation', { state: { profileNumber, subscriptionId } });
+			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		}
-	}, [profileNumber, navigate, subscriptionId]);
+	}, [profileNumber, navigate]);
 
 	// AUTHORIZATION FOR RIPTEC SERVER
 	const bauth = {

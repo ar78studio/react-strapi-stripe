@@ -49,43 +49,20 @@ app.post('/check-existing-client', async (req, res) => {
 	}
 });
 
-// DISCOUNT COUPON IDS AND CODES MAP
-const couponMap = {
-	'25OFF': 'rsHiD6x4',
-	'50OFF': 'gs8QqpMY',
-	'75OFF': 'g2pvlh1y',
-	'100OFF': '6z32meC6',
-	'100OFFALL': 'mtZEKOTU',
-	// ... add more coupons here
-};
-
 // CREATE SUBSCRIPTION
 app.post('/create-subscription', async (request, response) => {
 	try {
 		if (request.method != 'POST') return response.status(400);
+		const { firstName, lastName, email, paymentMethod } = request.body;
 
-		console.log(request.body);
-		const { firstName, lastName, email, paymentMethod, couponCode } = request.body;
-
-		// Check if provided coupon code exists in our map
-		let stripeCouponId;
-		if (couponCode) {
-			const upperCouponCode = couponCode.toUpperCase();
-			if (!couponMap[upperCouponCode]) {
-				return response.status(400).send({ error: { message: 'Invalid coupon code' } });
-			} else {
-				stripeCouponId = couponMap[upperCouponCode];
-				console.log('Stripe Coupon ID: ' + stripeCouponId);
-			}
-		}
-
-		console.log(`Received coupon code: ${couponCode}`); // Debug line
+		// Log the received firstName and lastName
+		// console.log(`Received firstName: ${firstName}, lastName: ${lastName}`);
 
 		// Create a customer
 		const customer = await stripe.customers.create({
 			// firstName: firstName,
 			// lastName: lastName,
-			name: `${firstName} ${lastName}`.trim(),
+			name: `${firstName} ${lastName}`,
 			email: email,
 			payment_method: paymentMethod,
 			invoice_settings: { default_payment_method: paymentMethod },
@@ -103,20 +80,18 @@ app.post('/create-subscription', async (request, response) => {
 					price: 'price_1NFdh8HfTo5S12kx2IIvOn4t',
 				},
 			],
-			coupon: stripeCouponId || undefined,
-			// coupon: '50OFF',
-
-			// coupon: couponCode || undefined,
-			// THE BELLOW HARD CODED COUPON WORKS
-			// coupon: 'gs8QqpMY',
 			payment_settings: {
+				// From video
 				payment_method_types: ['card'],
 				save_default_payment_method: 'on_subscription',
+				// AUTO PAYMENT METHODS FROM THE PAYMENT ELEMENT TO TRY
+				// automatic_payment_methods: {
+				// 	enabled: true,
+				// },
 			},
 			// expand lets us have the client secret
 			expand: ['latest_invoice.payment_intent'],
 		});
-
 		// Send back the client secret
 		response.json({
 			message: 'Subscription successful!',
@@ -127,6 +102,19 @@ app.post('/create-subscription', async (request, response) => {
 		return response.status(400).send({ error: { message: error.message } });
 	}
 });
+
+// GET SUBSCRIPTION PLAN DETAILS
+// app.get('/get-subscription', async (request, response) => {
+// 	try {
+// 		if (request.method != 'GET') return response.status(400);
+// 		const subId = 'sub_1NAVm3HfTo5S12kxuFje0bbx'; // Replace with your actual plan ID
+// 		const subscription = await stripe.subscriptions.retrieve(subId);
+// 		response.json({ subscription });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve subscription details' });
+// 	}
+// });
 
 // GET PRODUCT DETAILS
 app.get('/get-product', async (request, response) => {
@@ -159,44 +147,40 @@ app.get('/get-price', async (request, response) => {
 	}
 });
 
+// GET OR CREATE AN INVOICE
+// app.get('/get-invoice', async (request, response) => {
+// 	try {
+// 		if (request.method !== 'GET') return response.status(400);
+// 		const invoiceId = 'in_1NAgSdHfTo5S12kx8acehHUN';
+// 		const invoice = await stripe.invoices.retrieve(invoiceId);
+// 		response.json({ invoice });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve invoice details' });
+// 	}
+// });
+
+// RETRIEVE A COUPON
+// const coupon = await stripe.coupons.retrieve('promo_1NQrkwHfTo5S12kx4FC2A0gS');
+
 // VALIDATE COUPON
 app.post('/validate-coupon', async (req, res) => {
 	try {
-		const { couponCode } = req.body;
-
-		// Check if provided coupon code exists in our map
-		if (couponCode && !couponMap[couponCode]) {
-			return res.status(400).send({ error: { message: 'Invalid coupon code' } });
-		}
-
-		const stripeCouponId = couponMap[couponCode];
+		// const { couponCode } = req.body;
 
 		// Retrieve the coupon from Stripe
-		const couponFromStripe = await stripe.coupons.retrieve(stripeCouponId);
+		// const coupon = await stripe.coupons.retrieve(couponCode);
+		const coupon = await stripe.coupons.retrieve('promo_1NQrkwHfTo5S12kx4FC2A0gS');
 
 		// Check if the coupon is valid
-		if (couponFromStripe.valid && !couponFromStripe.redeem_by && !couponFromStripe.times_redeemed) {
-			res.json({ isValid: true, discount: coupon.amount_off || couponFromStripe.percent_off, couponFromStripe });
+		if (coupon.valid && !coupon.redeem_by && !coupon.times_redeemed) {
+			res.json({ isValid: true, discount: coupon.amount_off || coupon.percent_off });
 		} else {
-			res.json({ isValid: false, couponFromStripe });
+			res.json({ isValid: false });
 		}
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Failed to validate coupon' });
-	}
-});
-
-// GET DISCOUNTED SUBSCRIPTION INFO
-app.get('/subscription/:id', async (request, response) => {
-	try {
-		console.log('Subscription ID:', request.params.id);
-
-		const subscriptionId = request.params.id;
-		const subscription = await stripe.subscriptions.retrieve(subscriptionId, { expand: ['latest_invoice'] });
-		response.json(subscription);
-	} catch (error) {
-		console.error('Error retrieving subscription:', error.message);
-		response.status(500).json({ error: 'Failed to retrieve subscription info' });
 	}
 });
 

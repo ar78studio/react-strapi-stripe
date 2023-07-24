@@ -37,8 +37,8 @@ const SubscriptionPlan = () => {
 	// useEffect(() => {
 	// const fetchSubscription = async () => {
 	// 	try {
-	// 		// const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/get-subscription`, {
-	// 		const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/get-subscription`, {
+	// 		// const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-subscription`, {
+	// 		const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-subscription`, {
 	// 			method: 'GET',
 	// 			headers: {
 	// 				'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const SubscriptionPlan = () => {
 
 	const fetchProduct = async () => {
 		try {
-			const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/get-product`, {
+			const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-product`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const SubscriptionPlan = () => {
 	// FETCH PRICE
 	const fetchPrice = async () => {
 		try {
-			const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/get-price`, {
+			const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-price`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -95,11 +95,11 @@ const SubscriptionPlan = () => {
 	};
 
 	// STRIPE COUPON
-	const handleCouponApply = async () => {
+	const handleCouponApply = async (couponCode) => {
 		if (couponCode) {
 			try {
 				// Validate the coupon code and get the new total with discount applied
-				const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/validate-coupon`, {
+				const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/validate-coupon`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -111,8 +111,10 @@ const SubscriptionPlan = () => {
 
 				if (response.ok) {
 					const data = await response.json();
-					// Update the price state here with the new total
-					setPrice(data.newPrice);
+					setPrice((prevPrice) => ({
+						...prevPrice,
+						unit_amount: data.newPrice,
+					}));
 				} else {
 					console.log('Coupon code is not valid.');
 				}
@@ -126,8 +128,10 @@ const SubscriptionPlan = () => {
 		// fetchSubscription();
 		fetchProduct();
 		fetchPrice();
-		handleCouponApply();
-	}, []);
+		if (couponCode) {
+			handleCouponApply(couponCode);
+		}
+	}, [couponCode]);
 
 	return (
 		<>
@@ -252,8 +256,21 @@ const SubscriptionPlan = () => {
 									<Trans i18nKey='discCode'></Trans>
 								</label>
 								<div>
-									<input id='discCode' className='bg-purple-200 h-10 w-[200px] w-full rounded-md p-2 mr-4' type='text' placeholder={t('enterCoupon')} />
-									<button className='bg-buttonColor text-white px-4 py-2 my-4 rounded' onClick={handleCouponApply}>
+									<input
+										id='discCode'
+										className='bg-purple-200 h-10 w-[200px] w-full rounded-md p-2 mr-4'
+										type='text'
+										placeholder={t('enterCoupon')}
+										value={couponCode}
+										onChange={(e) => setCouponCode(e.target.value)}
+									/>
+									<button
+										className='bg-buttonColor text-white px-4 py-2 my-4 rounded'
+										onClick={(e) => {
+											e.preventDefault();
+											handleCouponApply(couponCode);
+										}}
+									>
 										Apply
 									</button>
 								</div>
@@ -307,7 +324,7 @@ const SubscriptionPlan = () => {
 
 				<section id='stripePayment' className='w-full p-4 lg:w-1/2 lg:p-10 pt-10 shadow-xl'>
 					<Elements stripe={stripePromise}>
-						<PaymentForm product={product} clientData={clientData} />
+						<PaymentForm product={product} clientData={clientData} couponCode={couponCode} />
 					</Elements>
 				</section>
 			</div>

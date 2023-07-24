@@ -49,14 +49,11 @@ app.post('/check-existing-client', async (req, res) => {
 	}
 });
 
-// DISCOUNT COUPON IDS AND CODES MAP
+// COUPON IDS AND CODES MAP
 const couponMap = {
-	'25OFF': 'rsHiD6x4',
 	'50OFF': 'gs8QqpMY',
 	'75OFF': 'g2pvlh1y',
-	'100OFF': '6z32meC6',
-	'100OFFALL': 'mtZEKOTU',
-	// ... add more coupons here
+	'100OFF': '6z32meC6', // ... add more coupons here
 };
 
 // CREATE SUBSCRIPTION
@@ -81,11 +78,20 @@ app.post('/create-subscription', async (request, response) => {
 
 		console.log(`Received coupon code: ${couponCode}`); // Debug line
 
+		// const stripeCouponId = couponMap[couponCode];
+
+		// if (!stripeCouponId) {
+		// 	return response.status(400).send({ error: { message: 'Invalid coupon code' } });
+		// }
+
+		// Log the received firstName and lastName
+		// console.log(`Received firstName: ${firstName}, lastName: ${lastName}`);
+
 		// Create a customer
 		const customer = await stripe.customers.create({
 			// firstName: firstName,
 			// lastName: lastName,
-			name: `${firstName} ${lastName}`.trim(),
+			name: `${firstName} ${lastName}`,
 			email: email,
 			payment_method: paymentMethod,
 			invoice_settings: { default_payment_method: paymentMethod },
@@ -103,7 +109,7 @@ app.post('/create-subscription', async (request, response) => {
 					price: 'price_1NFdh8HfTo5S12kx2IIvOn4t',
 				},
 			],
-			coupon: stripeCouponId || undefined,
+			coupon: stripeCouponId,
 			// coupon: '50OFF',
 
 			// coupon: couponCode || undefined,
@@ -183,20 +189,6 @@ app.post('/validate-coupon', async (req, res) => {
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Failed to validate coupon' });
-	}
-});
-
-// GET DISCOUNTED SUBSCRIPTION INFO
-app.get('/subscription/:id', async (request, response) => {
-	try {
-		console.log('Subscription ID:', request.params.id);
-
-		const subscriptionId = request.params.id;
-		const subscription = await stripe.subscriptions.retrieve(subscriptionId, { expand: ['latest_invoice'] });
-		response.json(subscription);
-	} catch (error) {
-		console.error('Error retrieving subscription:', error.message);
-		response.status(500).json({ error: 'Failed to retrieve subscription info' });
 	}
 });
 

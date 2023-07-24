@@ -5,10 +5,14 @@ import './index.css';
 // language support
 import './i18n';
 
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<Suspense fallback={<div>Loading...</div>}>
-			<App />
+			<RecoilRoot>
+				<App />
+			</RecoilRoot>
 		</Suspense>
 	</React.StrictMode>
 );

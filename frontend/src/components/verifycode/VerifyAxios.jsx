@@ -102,6 +102,16 @@ const VerifyAxios = () => {
 	// Add a new state variable for country code
 	// const [countryOption, setCountryOptions] = useState('34');
 
+	// AUTHORIZATION FOR RIPTEC SERVER
+	const bauth = {
+		auth: {
+			// username: 'mobile_api_client',
+			username: `${import.meta.env.VITE_RIPTEC_API_USERNAME}`,
+			// password: 'aeb70f59-fa5e-4efc-b1d5-487368ad0607',
+			password: `${import.meta.env.VITE_RIPTEC_API_PASSWORD}`,
+		},
+	};
+
 	// GET URL PARAMS AND UTMS
 	const createLead = async (values) => {
 		const dataCreateLead = {
@@ -118,12 +128,12 @@ const VerifyAxios = () => {
 			cookies: cookies,
 			...linkParams,
 		};
-		console.log(linkParams);
-		console.log('This is postParams value:', dataCreateLead.postParams);
+		// console.log(linkParams);
+		// console.log('This is postParams value:', dataCreateLead.postParams);
 
 		try {
 			// const responseLead = await axios.post('http://api-m-dev.riptec.host:8082/anton.o/api1/1.2.0/createLead', dataCreateLead);
-			const responseLead = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/createLead`, dataCreateLead);
+			const responseLead = await axios.post(`${import.meta.env.VITE_RIPTEC_API_URL}/anton.o/api1/1.2.0/createLead`, dataCreateLead, bauth);
 
 			console.log('Create Lead response:', responseLead.data);
 		} catch (error) {
@@ -150,14 +160,16 @@ const VerifyAxios = () => {
 				countryCode: selectedCountry.code,
 			};
 
-			console.log('This is dataRequestPin:', dataRequestPin.countryCode);
+			// console.log('This is dataRequestPin:', dataRequestPin.countryCode);
 
 			// RECEIVE CREATE LEAD
 			// CREATE LEAD - ADD USER TO THE CONXHUB PORTAL
 			await createLead(values);
 
+			// const responseCode = await axios.post('https://api-m-dev.riptec.host:8443/anton.o/api1/1.2.0/requestSimCode', dataRequestPin, bauth);
+
 			// SIM CODE VERIFICATION ENDPOINT
-			const responseCode = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/requestSimCode`, dataRequestPin);
+			const responseCode = await axios.post(`${import.meta.env.VITE_RIPTEC_API_URL}/anton.o/api1/1.2.0/requestSimCode`, dataRequestPin, bauth);
 
 			setSubmitting(false);
 
@@ -210,7 +222,7 @@ const VerifyAxios = () => {
 			};
 			// console.log(`These are Values from CodeSubmit function: ${JSON.stringify(clientData)}`);
 
-			const response = await axios.post(`${import.meta.env.VITE_RIPTEC_HOST}/anton.o/api1/1.2.0/verifySimCode`, data);
+			const response = await axios.post(`${import.meta.env.VITE_RIPTEC_API_URL}/anton.o/api1/1.2.0/verifySimCode`, data, bauth);
 
 			// console.log('This is the PIN number: ', value.verificationCode);
 			// console.log('Server response is:', response.status);

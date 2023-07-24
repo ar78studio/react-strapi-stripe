@@ -7,10 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { locatedError } from 'graphql';
 
-// Recoil State manager
-import { useRecoilState } from 'recoil';
-import { discountCodeState } from '../recoilState/state';
-
 // Multilanguage support
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -20,14 +16,6 @@ const nameRule = /^[A-Za-z\s]{0,50}$/;
 const PaymentForm = ({ clientData }) => {
 	const { t, i18n } = useTranslation();
 
-	const [subscriptionId, setSubscriptionId] = useState(null);
-
-	const handleDiscountCode = (event) => {
-		// You'd likely want some sort of validation here, possibly involving a server call.
-		setDiscountCode(event.target.value);
-	};
-
-	// Location for transfering data from VerifyAxios
 	const location = useLocation();
 	// console.log(clientData);
 	const [name, setName] = useState('');
@@ -141,9 +129,7 @@ const PaymentForm = ({ clientData }) => {
 
 			if (!response.ok) return alert('Payment unsuccessful!');
 
-			const data = await response.json();
-			// assuming data contains a field subscriptionId
-			setSubscriptionId(data.subscriptionId);
+			// const data = await response.json();
 
 			// const confirm = await stripe.confirmCardPayment(data.clientSecret);
 			if (confirm.error) {
@@ -172,9 +158,9 @@ const PaymentForm = ({ clientData }) => {
 	useEffect(() => {
 		if (profileNumber) {
 			// console.log('Navigating with profileNumber: ', profileNumber);
-			navigate('/signup/subscribe/confirmation', { state: { profileNumber, subscriptionId } });
+			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
 		}
-	}, [profileNumber, navigate, subscriptionId]);
+	}, [profileNumber, navigate]);
 
 	// AUTHORIZATION FOR RIPTEC SERVER
 	const bauth = {
@@ -277,7 +263,6 @@ const PaymentForm = ({ clientData }) => {
 								<ErrorMessage name='email' />
 							</div>
 						</div>
-						{/* Card Element Input  */}
 						<div>
 							<label className='text-buttonColor' htmlFor='cardElement'>
 								{/* Enter Your Card Number: */}
@@ -288,12 +273,12 @@ const PaymentForm = ({ clientData }) => {
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
 						{/* couponCode INPUT */}
-						<div className='flex flex-col justify-center items-center'>
+						<div className='flex flex-col'>
 							<label className='text-buttonColor' htmlFor='couponCode'>
 								{/* couponCode: */}
 								<Trans i18nKey='stripeForm.couponCode'></Trans>
 							</label>
-							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-[300px] rounded-md p-2' id='couponCode' name='couponCode' type='text' />
+							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='couponCode' name='couponCode' type='text' />
 							<ErrorMessage name='couponCode' />
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
