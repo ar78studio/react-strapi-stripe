@@ -49,15 +49,8 @@ app.post('/check-existing-client', async (req, res) => {
 	}
 });
 
-// DISCOUNT COUPON IDS AND CODES MAP
-const couponMap = {
-	'25OFF': 'rsHiD6x4',
-	'50OFF': 'gs8QqpMY',
-	'75OFF': 'g2pvlh1y',
-	'100OFF': '6z32meC6',
-	'100OFFALL': 'mtZEKOTU',
-	// ... add more coupons here
-};
+// DISCOUNT COUPONS (PULLED FROM STRIPE WITH THE /GET-COUPONS END POINT BELOW)
+const couponMap = {};
 
 // CREATE SUBSCRIPTION
 app.post('/create-subscription', async (request, response) => {
@@ -104,11 +97,7 @@ app.post('/create-subscription', async (request, response) => {
 				},
 			],
 			coupon: stripeCouponId || undefined,
-			// coupon: '50OFF',
 
-			// coupon: couponCode || undefined,
-			// THE BELLOW HARD CODED COUPON WORKS
-			// coupon: 'gs8QqpMY',
 			payment_settings: {
 				payment_method_types: ['card'],
 				save_default_payment_method: 'on_subscription',
@@ -159,6 +148,35 @@ app.get('/get-price', async (request, response) => {
 	}
 });
 
+// Fetch active coupons from Stripe and populate couponMap
+
+app.get('/get-coupons', async (req, res) => {
+	try {
+		if (req.method !== 'GET') return res.status(400);
+
+		const promotionCodes = await stripe.promotionCodes.list({
+			active: true,
+			limit: 50, // adjust limit as per your needs
+		});
+
+		// Clear the existing map
+		Object.keys(couponMap).forEach((key) => delete couponMap[key]);
+
+		// Populate couponMap with the active coupon codes
+		promotionCodes.data.forEach((code) => {
+			// Use the coupon code as the key and the id as the value
+			couponMap[code.code] = code.coupon.id;
+		});
+
+		const activeCoupons = Object.keys(couponMap);
+		console.log(`List of active coupons: ${activeCoupons}`);
+		res.json(activeCoupons);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error: 'Error retrieving coupons' });
+	}
+});
+
 // VALIDATE COUPON
 app.post('/validate-coupon', async (req, res) => {
 	try {
@@ -169,10 +187,15 @@ app.post('/validate-coupon', async (req, res) => {
 			return res.status(400).send({ error: { message: 'Invalid coupon code' } });
 		}
 
-		const stripeCouponId = couponMap[couponCode];
+		const stripePromotionCodeId = couponMap[couponCode];
+		// const stripeCouponId = couponMap[couponCode];
 
-		// Retrieve the coupon from Stripe
-		const couponFromStripe = await stripe.coupons.retrieve(stripeCouponId);
+		// Retrieve the promotion code from Stripe
+		const promotionCodeFromStripe = await stripe.promotionCodes.retrieve(stripePromotionCodeId);
+
+		// Retrieve the coupon associated with the promotion code
+		const couponFromStripe = await stripe.coupons.retrieve(promotionCodeFromStripe.coupon);
+		// const couponFromStripe = await stripe.coupons.retrieve(stripeCouponId);
 
 		// Check if the coupon is valid
 		if (couponFromStripe.valid && !couponFromStripe.redeem_by && !couponFromStripe.times_redeemed) {

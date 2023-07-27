@@ -7,10 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { locatedError } from 'graphql';
 
-// Recoil State manager
-import { useRecoilState } from 'recoil';
-import { discountCodeState } from '../recoilState/state';
-
 // Multilanguage support
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -21,6 +17,7 @@ const PaymentForm = ({ clientData }) => {
 	const { t, i18n } = useTranslation();
 
 	const [subscriptionId, setSubscriptionId] = useState(null);
+	const [couponCodes, setCouponCodes] = useState();
 
 	const handleDiscountCode = (event) => {
 		// You'd likely want some sort of validation here, possibly involving a server call.
@@ -58,6 +55,16 @@ const PaymentForm = ({ clientData }) => {
 
 	// console.log(initialValues);
 
+	// First fetch the coupon codes when the component is loaded
+	useEffect(() => {
+		const fetchCoupons = async () => {
+			const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-coupons`);
+			const data = await response.json();
+			setCouponCodes(data);
+		};
+		fetchCoupons();
+	}, []);
+
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
 		name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule),
@@ -77,7 +84,6 @@ const PaymentForm = ({ clientData }) => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					// email: clientData.clientEmail,
 					email: formValues.email,
 				}),
 			});
@@ -287,7 +293,7 @@ const PaymentForm = ({ clientData }) => {
 							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
-						{/* couponCode INPUT */}
+						{/* DISCOUNT CODE */}
 						<div className='flex flex-col justify-center items-center'>
 							<label className='text-buttonColor' htmlFor='couponCode'>
 								{/* couponCode: */}
