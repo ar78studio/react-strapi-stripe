@@ -20,13 +20,11 @@ const PaymentForm = ({ clientData }) => {
 	const [couponCodes, setCouponCodes] = useState();
 
 	const handleDiscountCode = (event) => {
-		// You'd likely want some sort of validation here, possibly involving a server call.
 		setDiscountCode(event.target.value);
 	};
 
 	// Location for transfering data from VerifyAxios
 	const location = useLocation();
-	// console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -42,18 +40,6 @@ const PaymentForm = ({ clientData }) => {
 		phone: location.state?.phoneNumber || clientData.phoneNumber || '',
 		couponCode: '',
 	};
-
-	// console.log(initialValues);
-
-	// Reset Formik form values in case of existing Customer
-	// const resetInitialValues = {
-	// 	firstName: '',
-	// 	lastName: '',
-	// 	email: '',
-	// 	phone: '',
-	// };
-
-	// console.log(initialValues);
 
 	// First fetch the coupon codes when the component is loaded
 	useEffect(() => {
@@ -148,7 +134,6 @@ const PaymentForm = ({ clientData }) => {
 			if (!response.ok) return alert('Payment unsuccessful!');
 
 			const data = await response.json();
-			// assuming data contains a field subscriptionId
 			setSubscriptionId(data.subscriptionId);
 
 			// const confirm = await stripe.confirmCardPayment(data.clientSecret);
@@ -161,17 +146,12 @@ const PaymentForm = ({ clientData }) => {
 			if (isExistingClient) {
 				await createRiptecCustomer();
 			}
-
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			// navigate('/signup/subscribe/confirmation');
 		} catch (error) {
 			console.error(error);
 			alert('Payment failed, ' + error.message);
-			// resetForm({ values: resetInitialValues }); // Reset the form in case of an error.
 		}
 	};
 
-	// SAVING THE profileNumber received from Riptec backend into the state
 	// REDIRECT TO STRIPE CONFIRMATION PAGE
 	const [profileNumber, setProfileNumber] = useState('');
 
@@ -185,9 +165,7 @@ const PaymentForm = ({ clientData }) => {
 	// AUTHORIZATION FOR RIPTEC SERVER
 	const bauth = {
 		auth: {
-			// username: 'mobile_api_client',
 			username: `${import.meta.env.VITE_RIPTEC_API_USERNAME}`,
-			// password: 'aeb70f59-fa5e-4efc-b1d5-487368ad0607',
 			password: `${import.meta.env.VITE_RIPTEC_API_PASSWORD}`,
 		},
 	};
@@ -205,9 +183,7 @@ const PaymentForm = ({ clientData }) => {
 			console.log(dataCreateCustomer);
 
 			const responseCustomerCreated = await axios.post(`${import.meta.env.VITE_RIPTEC_API_URL}/anton.o/api1/1.2.0/createCustomer`, dataCreateCustomer, bauth);
-			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
 
-			// console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
 			if (responseCustomerCreated.status !== 200) {
 				throw new Error(` Error with User Creation: ${responseCustomerCreated.status}`);
 			}
@@ -235,12 +211,7 @@ const PaymentForm = ({ clientData }) => {
 				<Trans i18nKey='stripePaymentForm'></Trans>
 			</h1>
 
-			<Formik
-				initialValues={initialValues}
-				validationSchema={validationSchema}
-				// onSubmit={createSubscription} // original
-				onSubmit={(formValues, { resetForm }) => createSubscription(formValues, resetForm)}
-			>
+			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={(formValues, { resetForm }) => createSubscription(formValues, resetForm)}>
 				{({ isSubmitting }) => (
 					<Form id='stripeCustomer' className='flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
@@ -250,7 +221,6 @@ const PaymentForm = ({ clientData }) => {
 									{/* First Name: */}
 									<Trans i18nKey='stripeForm.fname'></Trans>
 								</label>
-								{/* <MdPermIdentity size={30} /> */}
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
 								<ErrorMessage name='firstName' />
 							</div>
@@ -271,15 +241,7 @@ const PaymentForm = ({ clientData }) => {
 
 									{''}
 								</label>
-								<Field
-									autoComplete='off'
-									className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2'
-									id='email'
-									name='email'
-									type='email'
-									// value={email}
-									// onChange={(e) => setEmail(e.target.value)}
-								/>
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
 								<ErrorMessage name='email' />
 							</div>
 						</div>
@@ -290,7 +252,6 @@ const PaymentForm = ({ clientData }) => {
 								<Trans i18nKey='stripeForm.card'></Trans>
 								{''}
 							</label>
-							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
 						{/* DISCOUNT CODE */}
@@ -301,14 +262,19 @@ const PaymentForm = ({ clientData }) => {
 							</label>
 							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-[300px] rounded-md p-2' id='couponCode' name='couponCode' type='text' />
 							<ErrorMessage name='couponCode' />
+							<div className='flex flex-col text-center text-buttonColor pt-4'>
+								{/* If the discount code is valid you will get a confirmation upon Subscribing below */}
+								<p>
+									<Trans i18nKey='stripeForm.discountConfirmation'></Trans>
+								</p>
+							</div>
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? <Trans i18nKey='subscribing'></Trans> : <Trans i18nKey='subscribeButton'></Trans>}
 						</button>
 						<div>
 							<h5 className='text-xs text-center text-buttonColor lg:px-20'>
-								{/* By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always */}
-								{/* cancel your subscription. */}
+								{/* By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always cancel your subscription. */}
 								<Trans i18nKey='confirmDescr'></Trans>
 							</h5>
 						</div>

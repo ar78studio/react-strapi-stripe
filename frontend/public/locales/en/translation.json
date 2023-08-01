@@ -139,7 +139,8 @@
         "lname": "Last Name",
         "email": "Email",
         "card": "Enter you card number",
-    "couponCode":  "Discount Code: "
+    "couponCode":  "Do you have a Discount Code?: ",
+    "discountConfirmation": "If the code is valid you will get a confirmation upon Subscribing."
 
     },
     "subscribing": "Subscribing",

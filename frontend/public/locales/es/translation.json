@@ -140,7 +140,8 @@
         "lname": "Apellidos",
         "email": "Correo electronico",
         "card": "Introduzca su número de tarjeta",
-    "couponCode":  "Código de descuento:"
+    "couponCode":  "Código de descuento:",
+    "discountConfirmation": "Si el código es válido, recibirá una confirmación al suscribirse."
 
     },
     "subscribing": "Suscribirse...",

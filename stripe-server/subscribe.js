@@ -130,6 +130,32 @@ app.get('/get-product', async (request, response) => {
 	}
 });
 
+// RETRIEVE A LIST OF ALL PRODUCTS
+// GET ALL PRODUCTS
+// app.get('/get-products', async (request, response) => {
+// 	try {
+// 		if (request.method !== 'GET') return response.status(400);
+// 		const products = await stripe.products.list();
+// 		response.json({ products });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve product details' });
+// 	}
+// });
+
+// RETRIEVE A LIST OF ALL PRICES
+// GET ALL PRICES
+// app.get('/get-prices', async (request, response) => {
+// 	try {
+// 		if (request.method !== 'GET') return response.status(400);
+// 		const prices = await stripe.prices.list();
+// 		response.json({ prices });
+// 	} catch (error) {
+// 		console.error(error);
+// 		response.status(500).json({ error: 'Failed to retrieve price details' });
+// 	}
+// });
+
 // GET PRICE DETAILS
 app.get('/get-price', async (request, response) => {
 	try {
@@ -145,6 +171,19 @@ app.get('/get-price', async (request, response) => {
 	} catch (error) {
 		console.error(error);
 		response.status(500).json({ error: 'Failed to retrieve price details' });
+	}
+});
+
+// GET UPCOMING INVOICE
+app.get('/upcoming-invoice', async (request, response) => {
+	try {
+		if (request.method !== 'GET') return response.status(400);
+		const customerId = 'cus_OMxc4mM60r21F7';
+		const invoice = await stripe.invoices.retrieveUpcoming(customerId);
+		response.json({ invoice });
+	} catch (error) {
+		console.log(error);
+		response.status(500).json({ error: 'Failed to retrieve upcoming invoice' });
 	}
 });
 
