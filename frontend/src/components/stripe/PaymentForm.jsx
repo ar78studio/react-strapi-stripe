@@ -107,6 +107,12 @@ const PaymentForm = ({ clientData }) => {
 				return;
 			}
 
+			// CHECKING IF COUPON CODE IS VALID
+			if (formValues.couponCode && !couponCodes.includes(formValues.couponCode)) {
+				alert('The entered coupon code is invalid.');
+				return;
+			}
+
 			// CREATE STRIPE PAYMENT METHOD
 			const paymentMethod = await stripe.createPaymentMethod({
 				type: 'card',
