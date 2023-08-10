@@ -107,12 +107,6 @@ const PaymentForm = ({ clientData }) => {
 				return;
 			}
 
-			// CHECKING IF COUPON CODE IS VALID
-			if (formValues.couponCode && !couponCodes.includes(formValues.couponCode)) {
-				alert('The entered coupon code is invalid.');
-				return;
-			}
-
 			// CREATE STRIPE PAYMENT METHOD
 			const paymentMethod = await stripe.createPaymentMethod({
 				type: 'card',
@@ -137,7 +131,7 @@ const PaymentForm = ({ clientData }) => {
 				}),
 			});
 
-			if (!response.ok) return alert('Payment unsuccessful!');
+			if (!response.ok) return alert('Payment unsuccessful! Coupon is invalid!');
 
 			const data = await response.json();
 			setSubscriptionId(data.subscriptionId);

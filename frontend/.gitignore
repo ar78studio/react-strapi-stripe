@@ -27,3 +27,7 @@ dist-ssr
 /src/components/test
 .env
 .env.local
+
+/src/components/stripe/PaymentForm-dev
+/src/components/stripe/SubscriptionPlan-dev
+frontend/src/components/stripe/SubscriptionPlan-dev.jsx

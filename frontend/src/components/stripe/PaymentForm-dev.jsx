@@ -16,8 +16,13 @@ const nameRule = /^[A-Za-z\s]{0,50}$/;
 const PaymentForm = ({ clientData }) => {
 	const { t, i18n } = useTranslation();
 
+	const [subscriptionId, setSubscriptionId] = useState(null);
+	const [couponCodes, setCouponCodes] = useState();
+
+	const [status, setStatus] = useState();
+
+	// Location for transfering data from VerifyAxios
 	const location = useLocation();
-	// console.log(clientData);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
@@ -34,17 +39,15 @@ const PaymentForm = ({ clientData }) => {
 		couponCode: '',
 	};
 
-	// console.log(initialValues);
-
-	// Reset Formik form values in case of existing Customer
-	// const resetInitialValues = {
-	// 	firstName: '',
-	// 	lastName: '',
-	// 	email: '',
-	// 	phone: '',
-	// };
-
-	// console.log(initialValues);
+	// First fetch the coupon codes when the component is loaded
+	useEffect(() => {
+		const fetchCoupons = async () => {
+			const response = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/get-coupons`);
+			const data = await response.json();
+			setCouponCodes(data);
+		};
+		fetchCoupons();
+	}, []);
 
 	const validationSchema = Yup.object({
 		// name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').matches(nameRule).required('Name is required'),
@@ -65,7 +68,6 @@ const PaymentForm = ({ clientData }) => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					// email: clientData.clientEmail,
 					email: formValues.email,
 				}),
 			});
@@ -94,12 +96,38 @@ const PaymentForm = ({ clientData }) => {
 	};
 
 	// CREATE NEW CUSTOMER SUBSCRIPTION
-	const createSubscription = async (formValues, resetForm) => {
+	const createSubscription = async (formValues, formikBag, resetForm) => {
 		try {
 			// CHECKING IF CUSTOMER IS ALREADY SIBSCRIBED and reset the form
 			const isExistingClient = await checkExistingClient(formValues, resetForm);
 
 			if (!isExistingClient) {
+				setStatus({ subscriptionError: 'Client does not exist' });
+				return;
+			}
+
+			// CHECKING IF COUPON CODE IS VALID
+			// if (formValues.couponCode && !couponCodes.includes(formValues.couponCode)) {
+			// 	alert('The entered coupon code is invalid.');
+			// 	return;
+			// }
+
+			// VALIDATE COUPON CODE
+			const validateCoupon = await fetch(`${import.meta.env.VITE_STRIPE_SERVER}/validate-coupon`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					couponCode: formValues.couponCode,
+				}),
+			});
+
+			if (!validateCoupon.ok) {
+				setStatus({ subscriptionError: 'Invalid coupon code!' });
+				formikBag.setFieldValue('couponCode', ''); // reset the coupon code
+				formikBag.setSubmitting(false);
+				console.log(validateCoupon.ok);
 				return;
 			}
 
@@ -127,13 +155,26 @@ const PaymentForm = ({ clientData }) => {
 				}),
 			});
 
-			if (!response.ok) return alert('Payment unsuccessful!');
+			// if (!response.ok) return alert('Payment unsuccessful!');
 
-			// const data = await response.json();
+			if (!response.ok) {
+				setStatus({ subscriptionError: 'Payment unsuccessful!' });
+				setSubmitting(false);
+				return;
+			}
+
+			const data = await response.json();
+			setSubscriptionId(data.subscriptionId);
 
 			// const confirm = await stripe.confirmCardPayment(data.clientSecret);
+			// if (confirm.error) {
+			// 	return alert('Payment unsuccessful!');
+			// }
+			// alert('Payment successful! Subscription is active');
 			if (confirm.error) {
-				return alert('Payment unsuccessful!');
+				setStatus({ subscriptionError: 'Payment unsuccessful!' });
+				setSubmitting(false);
+				return;
 			}
 			alert('Payment successful! Subscription is active');
 
@@ -141,33 +182,27 @@ const PaymentForm = ({ clientData }) => {
 			if (isExistingClient) {
 				await createRiptecCustomer();
 			}
-
-			// REDIRECT TO STRIPE CONFIRMATION PAGE
-			// navigate('/signup/subscribe/confirmation');
 		} catch (error) {
 			console.error(error);
-			alert('Payment failed, ' + error.message);
-			// resetForm({ values: resetInitialValues }); // Reset the form in case of an error.
+			// alert('Payment failed, ' + error.message);
+			setStatus({ subscriptionError: 'Payment failed, ' + error.message });
 		}
 	};
 
-	// SAVING THE profileNumber received from Riptec backend into the state
 	// REDIRECT TO STRIPE CONFIRMATION PAGE
 	const [profileNumber, setProfileNumber] = useState('');
 
 	useEffect(() => {
 		if (profileNumber) {
 			// console.log('Navigating with profileNumber: ', profileNumber);
-			navigate('/signup/subscribe/confirmation', { state: { profileNumber } });
+			navigate('/signup/subscribe/confirmation', { state: { profileNumber, subscriptionId } });
 		}
-	}, [profileNumber, navigate]);
+	}, [profileNumber, navigate, subscriptionId]);
 
 	// AUTHORIZATION FOR RIPTEC SERVER
 	const bauth = {
 		auth: {
-			// username: 'mobile_api_client',
 			username: `${import.meta.env.VITE_RIPTEC_API_USERNAME}`,
-			// password: 'aeb70f59-fa5e-4efc-b1d5-487368ad0607',
 			password: `${import.meta.env.VITE_RIPTEC_API_PASSWORD}`,
 		},
 	};
@@ -185,9 +220,7 @@ const PaymentForm = ({ clientData }) => {
 			console.log(dataCreateCustomer);
 
 			const responseCustomerCreated = await axios.post(`${import.meta.env.VITE_RIPTEC_API_URL}/anton.o/api1/1.2.0/createCustomer`, dataCreateCustomer, bauth);
-			// Use status or data field from the response to check for errors, as axios doesn't throw an error for a 4xx or 5xx status.
 
-			// console.log('responseCustomerCreated is: ', responseCustomerCreated.data);
 			if (responseCustomerCreated.status !== 200) {
 				throw new Error(` Error with User Creation: ${responseCustomerCreated.status}`);
 			}
@@ -215,13 +248,10 @@ const PaymentForm = ({ clientData }) => {
 				<Trans i18nKey='stripePaymentForm'></Trans>
 			</h1>
 
-			<Formik
-				initialValues={initialValues}
-				validationSchema={validationSchema}
-				// onSubmit={createSubscription} // original
-				onSubmit={(formValues, { resetForm }) => createSubscription(formValues, resetForm)}
-			>
-				{({ isSubmitting }) => (
+			{/* <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={(formValues, { resetForm }) => createSubscription(formValues, resetForm)}>
+				{({ isSubmitting }) => ( */}
+			<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={(formValues, formikBag) => createSubscription(formValues, formikBag)}>
+				{({ isSubmitting, status }) => (
 					<Form id='stripeCustomer' className='flex flex-col max-w-full gap-4 '>
 						<div className='flex flex-col gap-6'>
 							{/* FIRST NAME  */}
@@ -230,7 +260,6 @@ const PaymentForm = ({ clientData }) => {
 									{/* First Name: */}
 									<Trans i18nKey='stripeForm.fname'></Trans>
 								</label>
-								{/* <MdPermIdentity size={30} /> */}
 								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='firstName' name='firstName' type='text' />
 								<ErrorMessage name='firstName' />
 							</div>
@@ -251,43 +280,42 @@ const PaymentForm = ({ clientData }) => {
 
 									{''}
 								</label>
-								<Field
-									autoComplete='off'
-									className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2'
-									id='email'
-									name='email'
-									type='email'
-									// value={email}
-									// onChange={(e) => setEmail(e.target.value)}
-								/>
+								<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='email' name='email' type='email' />
 								<ErrorMessage name='email' />
 							</div>
 						</div>
+						{/* Card Element Input  */}
 						<div>
 							<label className='text-buttonColor' htmlFor='cardElement'>
 								{/* Enter Your Card Number: */}
 								<Trans i18nKey='stripeForm.card'></Trans>
 								{''}
 							</label>
-							{/* <PaymentElement className='bg-purple-200 p-2 rounded-md' id='cardElement' /> */}
 							<CardElement id='cardElement' className='bg-purple-200 p-2 h-10 rounded-md' options={{ hidePostalCode: true }} />
 						</div>
-						{/* couponCode INPUT */}
-						<div className='flex flex-col'>
+						{/* DISCOUNT CODE */}
+						<div className='flex flex-col justify-center items-center'>
 							<label className='text-buttonColor' htmlFor='couponCode'>
 								{/* couponCode: */}
 								<Trans i18nKey='stripeForm.couponCode'></Trans>
 							</label>
-							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-full rounded-md p-2' id='couponCode' name='couponCode' type='text' />
+							<Field autoComplete='off' className='bg-purple-200 h-10 w-60 min-w-[300px] rounded-md p-2' id='couponCode' name='couponCode' type='text' />
 							<ErrorMessage name='couponCode' />
+							{/* DISPLAY AN ERROR MESSAGE IN A DIV  */}
+							{status && status.subscriptionError && <div className='text-buttonColor h-6'>{status.subscriptionError}</div>}
+							<div className='flex flex-col text-center text-buttonColor pt-4'>
+								{/* If the discount code is valid you will get a confirmation upon Subscribing below */}
+								<p>
+									<Trans i18nKey='stripeForm.discountConfirmation'></Trans>
+								</p>
+							</div>
 						</div>
 						<button className='bg-purple-500 hover:bg-purple-400 text-white font-semibold h-10 rounded-md mt-4' type='submit' disabled={isSubmitting}>
 							{isSubmitting ? <Trans i18nKey='subscribing'></Trans> : <Trans i18nKey='subscribeButton'></Trans>}
 						</button>
 						<div>
 							<h5 className='text-xs text-center text-buttonColor lg:px-20'>
-								{/* By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always */}
-								{/* cancel your subscription. */}
+								{/* By confirming your subscription, you allow VIP Safety First to charge your card for this payment and future payments in accordance with their terms. You can always cancel your subscription. */}
 								<Trans i18nKey='confirmDescr'></Trans>
 							</h5>
 						</div>

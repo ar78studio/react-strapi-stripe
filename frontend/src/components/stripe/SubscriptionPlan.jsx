@@ -27,7 +27,7 @@ const SubscriptionPlan = () => {
 
 	// STRIPE COUPON CODE
 	const [couponCode, setCouponCode] = useState('');
-	const [discountedPrice, setDiscountedPrice] = useState(null);
+	const [originalPrice, setOriginalPrice] = useState(null);
 
 	// transfering form data from VerifyAxios
 	// creating a variable to then use it in PaymentForm component props(embeded all the way down at the end of code). dataToStripeForm is received here from VerifyAxios.jsx
